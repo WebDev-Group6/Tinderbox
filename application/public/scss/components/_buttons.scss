@@ -1,0 +1,54 @@
+.backbutton {
+  height: 59px;
+  float: left;
+  background-color: #ffd962;
+  border: none;
+  width: 50%;
+  font-family: "eveleth-regular"; 
+}
+
+.pagebuttons {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto; 
+}
+
+.next {
+  background-color: #ffd962;
+  float: right;
+  width: 35%;
+  height: 34px;
+  border: none;
+  font-family: "eveleth-regular";
+  color: #043540;
+  margin-bottom: 15px; 
+}
+
+.back {
+  background-color: #ffd962;
+  float: left;
+  width: 35%;
+  height: 34px;
+  border: none;
+  font-family: "eveleth-regular";
+  color: #043540;
+  margin-bottom: 15px; 
+}
+
+.message-button {
+  width: 100%;
+  margin: 15px 0;
+  height: 50px;
+  border: none;
+  font-family: "eveleth-Regular"; 
+}
+
+#group-button {
+  background-color: #ffd962; 
+}
+
+#personal-button {
+  background-color: #8bc7b9; 
+}
+
+
