@@ -1,24 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Festival Map</title>
-
-
-</head>
-<body>
-<header>
-	<div class="container-fluid">
-		<a href="menu.html"><div id="logo" class="col-xs-2"><img src="images/tinderbox_logowhite_small.svg" alt="logo"></div></a>
-		<a href="profile.html"><div id="user" class="glyphicon glyphicon-user"></div></a>
-	</div>
-</header>
-
 	<div class="headline container-fluid">
 		<div class="row">
 			<div class="col-xs-4 nopadding">
@@ -50,25 +29,3 @@
 <div class="map">
 	<center> <img src="images/map.PNG" width="100%" height="100%" max-width="400" max-height="400"> </center>
 </div>
-
-<footer>
-  <div class="footer">
-    <div class="social-media">
-      <span>Follow us</span>
-      <div class="social-media-icons">
-        <i class="fa fa-facebook-official" aria-hidden="true"></i>
-        <i class="fa fa-instagram" aria-hidden="true"></i>
-        <i class="fa fa-twitter" aria-hidden="true"></i>
-        <i class="fa fa-spotify" aria-hidden="true"></i>
-      </div>
-    </div>
-    <div class="tuborg">
-      <img src="images/tuborg.svg">
-    </div>
-  </div>
-</footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="js/scripts.js"></script>
-
-</body>
-</html>

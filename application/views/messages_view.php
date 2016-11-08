@@ -1,23 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Messages</title>
-</head>
-<body>
-<header>
-	<div class="container-fluid">
-		<a href="menu.html"><div id="logo" class="col-xs-2"><img src="images/tinderbox_logowhite_small.svg" alt="logo"></div></a>
-		<a href="profile.html"><div id="user" class="glyphicon glyphicon-user"></div></a>
-	</div>
-</header>
-
 	<div class="headline container-fluid">
 		<div class="row">
 			<div class="col-xs-4 nopadding">

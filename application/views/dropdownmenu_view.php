@@ -1,22 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<title>Dropdown menu</title>
-</head>
-<body>
-<header>
-	<div class="container-fluid">
-		<div id="logo" class="col-xs-2"><img src="images/tinderbox_logowhite_small.svg" alt="logo"></div>
-		<div id="user" class="glyphicon glyphicon-user"></div>
-	</div>
-</header>
-
 	<div class="headline container-fluid">
 		<div class="row">
 			<h1>Headline</h1>
@@ -55,24 +36,3 @@ window.onclick = function(event) {
   }
 }
 </script>
-
-<footer>
-	<div class="footer">
-		<div class="social-media">
-			<span>Follow us</span>
-			<div class="social-media-icons">
-				<i class="fa fa-facebook-official" aria-hidden="true"></i>
-				<i class="fa fa-instagram" aria-hidden="true"></i>
-				<i class="fa fa-twitter" aria-hidden="true"></i>
-				<i class="fa fa-spotify" aria-hidden="true"></i>
-			</div>
-		</div>
-		<div class="tuborg">
-			<img src="images/tuborg.svg">
-		</div>
-	</div>
-</footer>
-
-
-</body>
-</html>
