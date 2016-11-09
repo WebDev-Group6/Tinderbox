@@ -24,5 +24,4 @@ class Messages extends CI_Controller {
 		$this->load->view('groupmessage_view');
 		$this->load->view('footer_view');
 	}
-
 }
