@@ -1,9 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Registration2 extends CI_Controller {
-
-public function index()
+public function registration2()
 	{
 		$this->load->helper('url');
 		$this->load->view('header_view');
