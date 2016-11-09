@@ -1,6 +1,9 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-public function information()
+class Information extends CI_Controller {
+
+public function index()
 	{
 		$this->load->helper('url');
 		$this->load->view('header_view');
