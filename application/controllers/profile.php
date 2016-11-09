@@ -1,9 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Profile extends CI_Controller {
-
-public function index()
+public function profile()
 	{
 		$this->load->helper('url');
 		$this->load->view('header_view');

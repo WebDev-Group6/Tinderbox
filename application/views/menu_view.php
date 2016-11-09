@@ -15,7 +15,7 @@
 				<button id="back-link" class="backbutton">Back</button>
 			</div>
 			<div class="col-xs-8 nopadding headline">
-				<h1>Map</h1>
+				<h1>Tinderbox Volunteer</h1>
 			</div>
 		</div>
 		<div class="row">
@@ -25,7 +25,20 @@
 		</div>
 	</div>
 
-<center><h2>Picture of the map</h2></center>
-<div class="map">
-	<center> <img src="images/map.PNG" width="100%" height="100%" max-width="400" max-height="400"> </center>
+<a href="information.html"><button class="menu-button" id="button-information">Information</button></a>
+<a href="schedule.html"><button class="menu-button" id="button-schedule">Schedule</button></a>
+<a href="qr.html"><button class="menu-button" id="button-qrcode">QR code</button></a>
+<a href="map.html"><button class="menu-button" id="button-map">Map</button></a>
+<a href="security.html"><button class="menu-button" id="button-security">Security</button></a>
+<div class="newsfeed container">
+	<h1>News</h1>
+	<div class="news">
+		<img src="images/concert.jpg">
+		<div class="gradient-background">
+			<h4>
+				Festival schedule ready
+			</h4>
+			<p>Schedule is ready on Tinderbox.dk and volunteers can now see their schedule in...</p>
+		</div>
+	</div>
 </div>
