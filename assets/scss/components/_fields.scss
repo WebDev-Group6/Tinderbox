@@ -1,0 +1,16 @@
+.textbox {
+	background-color: $primary-color-teal;
+	color: $primary-color-beige;
+	padding: 5px 15px 10px;
+  margin-bottom: 15px;
+  .dropdown-headline {
+    cursor: pointer;
+    h3 {
+    	font-size: 20px;
+    }
+  }
+  .dropdown-text {
+    display: none;
+    font-size: 16px;
+  }
+}

@@ -1,4 +1,4 @@
 # Ignore docs files
-application/public/.sass-cache
-application/public/.sass-cache/*
+application/assets/.sass-cache
+application/assets/.sass-cache/*
 application/config/database.php

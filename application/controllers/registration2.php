@@ -5,8 +5,11 @@ class Registration2 extends CI_Controller {
 
 public function index()
 	{
-		$this->load->helper('url');
-		$this->load->view('header_view');
+		$data['title'] = 'Tinderbox Volunteer Registration';
+		$this->load->helper(
+			array('url', 'html')
+		);
+		$this->load->view('header_view', $data);
 		$this->load->view('registration2_view');
 		$this->load->view('footer_view');
 	}

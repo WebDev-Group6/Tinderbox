@@ -1,6 +1,6 @@
 	<div class="headline container-fluid">
 		<h1>Registration</h1>
-		<div class="underline"><img src="images/tinderbox_single_line.svg"></div>
+		<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
 	</div>
 	<div class="register-text container">
 		<h3>You are about to register as a volunteer for</h3>
