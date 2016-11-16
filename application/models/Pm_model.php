@@ -101,21 +101,6 @@ class Pm_model extends CI_Model {
 		$this->table2->initialize($dateformat, $enforce_field_types);
 	}
 
-	/**
-	 * @brief Get messages
-	 *
-	 * Get messages to or from the logged in user and return CI results
-	 * array. Get messages of the given type, see below. Order results
-	 * by date created, descending.
-	 *
-	 * @param type integer: message type to get. Use one of the following:
-	 * MSG_NONDELETED: received by user, not deleted (default);
-	 * MSG_DELETED: received or sent by user, deleted;
-	 * MSG_UNREAD: received by user, not deleted, not read;
-	 * MSG_SENT: sent by user, not deleted;
-	 * type < 0: get ALL messages, deleted or not, sent to or by this user
-	 * @return array
-	 */
 	public function get_messages($type = MSG_NONDELETED)
 	{
 		// Lets use abbreviations
@@ -164,15 +149,6 @@ class Pm_model extends CI_Model {
 		return $this->table1->get_data();
 	}
 
-	/**
-	 * @brief Get message
-	 *
-	 * Get a specific message by message id to or from the logged in user
-	 * and return CI results array.
-	 *
-	 * @param msg_id integer: message id of the message to get
-	 * @return array
-	 */
 	public function get_message($msg_id)
 	{
 		// Lets use abbreviations
@@ -192,17 +168,6 @@ class Pm_model extends CI_Model {
 		return $this->table1->get_data();
 	}
 
-	/**
-	 * @brief Get recipients
-	 *
-	 * Get user ids of all recipients of a specific message given by msg
-	 * id. Do that for any message, not just the ones authored by the
-	 * logged in user.
-	 * Returns CI result array with recipient ids or empty array.
-	 *
-	 * @param msg_id integer: message id of the message to get recipients for
-	 * @return array
-	 */
 	public function get_recipients($msg_id)
 	{
 		// Lets use abbreviations
@@ -216,17 +181,6 @@ class Pm_model extends CI_Model {
 		return $this->table2->get_data();
 	}
 
-	/**
-	 * @brief Get author
-	 *
-	 * Get user id of author of a specific message given by msg
-	 * id. Do that for any message, not just the ones authored by the
-	 * logged in user.
-	 * Returns user id directly if msg found or -1 otherwise.
-	 *
-	 * @param msg_id integer: message id of the message to get author for
-	 * @return int
-	 */
 	public function get_author($msg_id)
 	{
 		$message = $this->get_message($msg_id);
@@ -241,17 +195,6 @@ class Pm_model extends CI_Model {
 		return $author;
 	}
 
-	/**
-	 * @brief Flag read
-	 *
-	 * Flag a message (by id) as read. If optional 2nd param is set
-	 * FALSE, the sender will not get to know that msg was read.
-	 * Returns TRUE if successful, FALSE otherwise.
-	 *
-	 * @param msg_id integer: db message id of the message to flag as read
-	 * @param allow_notify bool: boolean indicating whether author may be notified if requested
-	 * @return bool
-	 */
 	function flag_read($msg_id, $allow_notify = TRUE)
 	{
 		// Lets use abbreviations
@@ -267,26 +210,6 @@ class Pm_model extends CI_Model {
 		return $this->table2->update_data();
 	}
 
-	/**
-	 * @brief Flag message deleted
-	 *
-	 * Flag a message (by id) as deleted.
-	 * Note: depending on whether the user was recipient or author the
-	 * message will be flaged deleted in table2 or table1, i.e. it will
-	 * be determined automatically if the msg is to be deleted from
-	 * sent-folder or inbox of the user.
-	 * Optionally through 2nd param a costum value can be supplied to
-	 * update the "deleted" field to, while the default is 1. This also
-	 * can be used to restore the msg instead of deleting it, by e.g.
-	 * passing NULL.
-	 * NOTE: The "DDATE" will be set to "NOW" regardeless of the "status"
-	 * 		 value passed.
-	 * Returns TRUE if successful, FALSE otherwise.
-	 *
-	 * @param msg_id integer: db message id of the message to flag as deleted
-	 * @param status integer: optional value to update "deleted" field to, default 1
-	 * @return bool
-	 */
 	function flag_deleted($msg_id, $status = 1)
 	{
 		$this->db->limit(1, 0);
@@ -308,39 +231,11 @@ class Pm_model extends CI_Model {
 		}
 	}
 
-	/**
-	 * @brief Flag message undeleted
-	 *
-	 * Flag a message (by id) as NOT deleted.
-	 * Note: This method is just using the {@link flag_deleted} method
-	 * with "NULL" as 2nd param. This will make the DDATE be the
-	 * "restored date".
-	 * Returns TRUE if successful, FALSE otherwise.
-	 *
-	 * @param msg_id integer: db message id of the message to flag as deleted
-	 * @return bool
-	 */
 	function flag_undeleted($msg_id)
 	{
 		return $this->flag_deleted($msg_id, NULL);
 	}
 
-	/**
-	 * @brief Send message
-	 *
-	 * Add a new personal message to table1 and recipients to table2.
-	 * Note: sending messages to oneself is not allowed and this should
-	 * stay this way, since it would cause problems with deleting &
-	 * restoring messages.
-	 * Returns TRUE if successful, returns FALSE otherwise.
-	 *
-	 * @param recipients integer: array of one or more user ids of the recipients
-	 * (can be array or single var) of the message to add.
-	 * @param subject string: subject of the message
-	 * @param body string: message text
-	 * @param notify bool: notify flag, whether to notify sender upon read, default TRUE
-	 * @return bool
-	 */
 	function send_message($recipients, $subject, $body, $notify = TRUE)
 	{
 		// Check notify
