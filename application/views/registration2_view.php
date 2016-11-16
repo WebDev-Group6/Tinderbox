@@ -1,7 +1,7 @@
 	<div class="headline container-fluid">
 		<div class="row">
 			<h1>Registration</h1>
-			<div class="underline"><img src="images/tinderbox_single_line.svg"></div>
+			<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
 		</div>
 	</div>
 	<div class="register-input container">

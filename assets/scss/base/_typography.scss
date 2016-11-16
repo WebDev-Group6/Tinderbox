@@ -10,10 +10,20 @@
 @font-face {
   font-family: "font-awesome";
   src: url(../fonts/fontawesome-webfont.ttf); }
-h1 {
-  font-family: "eveleth-regular";
-  text-align: center; }
+h1, h2 {
+  font-family: "eveleth-regular"; }
 
-h2, h3, h4, h5 {
+h3, h4, h5 {
   font-family: "eveleth-thin";
   line-height: 1.6; }
+
+a {
+  color: $secondary-color-azur;
+  &:visited {
+    color: $secondary-color-azur;
+  }
+  &:visited {
+    color: $secondary-color-azur;
+  }
+
+}

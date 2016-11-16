@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col-xs-offset-1 col-xs-11 nopadding">
-        <img class="underline" src="<?php echo base_url('/assets/img/tinderbox_single_line.svg'); ?>">
+        <?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
       </div>
     </div>
 	</div>
