@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<title>Information</title>
-</head>
-<body>
-<header>
-	<div class="container-fluid">
-		<div id="logo" class="col-xs-2"><a href="menu.html"><img src="images/tinderbox_logowhite_small.svg" alt="logo"></a></div>
-		<a href="profile.html"><div id="user" class="glyphicon glyphicon-user"></div></a>
-	</div>
-</header>
-
 	<div class="headline container-fluid">
 		<div class="row">
 			<div class="col-xs-4 nopadding">
-				<div class="dropdown">
-			  		<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>
-			  		<div id="myDropdown" class="dropdown-content">
-			    		<a href="schedule.html">SCHEDULE</a>
-			    		<a href="messages.html">MESSAGES</a>
-			    		<a href="qr.html">QR CODES</a>
-			    		<a href="information.html">INFO</a>
-			    		<a href="map.html">SITE MAP</a>
-			    		<a href="security.html" class="call">CALL SECURITY</a>
-			  		</div>
-				</div>
 				<button id="back-link" class="backbutton">Back</button>
 			</div>
 			<div class="col-xs-8 nopadding headline">
@@ -38,7 +9,7 @@
 		</div>
 		<div class="row">
 			<div class="col-xs-offset-1 col-xs-11 nopadding">
-				<img class="underline" src="images/tinderbox_single_line.svg">
+				<img class="underline" src="<?php echo base_url('/assets/img/tinderbox_single_line.svg'); ?>">
 			</div>
 		</div>
 	</div>
@@ -203,39 +174,3 @@
 			<p>Accommodation (Facebook): <a href=http://facebook.com/events/508759709291144/>www.facebook.com/events/508759709291144</a></p>
 		</div>
 	</div>
-
-
-<footer>
-	<div class="footer">
-		<div class="social-media">
-			<span>Follow us</span>
-			<div class="social-media-icons">
-				<i class="fa fa-facebook-official" aria-hidden="true"></i>
-				<i class="fa fa-instagram" aria-hidden="true"></i>
-				<i class="fa fa-twitter" aria-hidden="true"></i>
-				<i class="fa fa-spotify" aria-hidden="true"></i>
-			</div>
-		</div>
-		<div class="tuborg">
-			<img src="images/tuborg.svg">
-		</div>
-	</div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="js/scripts.js"></script>
-
-<script type="text/javascript">
-$( document ).ready(function() {
-	$("#toc").append('<h2>Table of contents</h2><ul></ul>');
-	$("h2").each(function(i) {
-	    var current = $(this);
-	    current.attr("id", "title" + i);
-	    $("#toc ul").append("<li><a id='link" + i + "' href='#title" +
-	        i + "' title='" + current.attr("tagName") + "'>" + 
-	        current.html() + "</a></li>");
-	});
-});
-</script>
-</body>
-</html>
