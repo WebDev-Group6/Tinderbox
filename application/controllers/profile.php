@@ -5,8 +5,11 @@ class Profile extends CI_Controller {
 
 public function index()
 	{
-		$this->load->helper('url');
-		$this->load->view('header_view');
+		$data['title'] = 'Your Profile';
+		$this->load->helper(
+			array('url', 'html')
+		);
+		$this->load->view('header_view', $data);
 		$this->load->view('profile_view');
 		$this->load->view('footer_view');
 	}
