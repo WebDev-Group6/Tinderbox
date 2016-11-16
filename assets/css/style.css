@@ -46,11 +46,20 @@ body {
   margin-bottom: 15px; }
   .textbox .dropdown-headline {
     cursor: pointer; }
-    .textbox .dropdown-headline h3 {
-      font-size: 20px; }
+    .textbox .dropdown-headline span {
+      width: 100%; }
+      .textbox .dropdown-headline span h2 {
+        font-size: 20px; }
+    .textbox .dropdown-headline .fa-angle-down:before {
+      float: right;
+      font-size: 30px;
+      margin-top: 12px;
+      margin-bottom: 10px; }
   .textbox .dropdown-text {
     display: none;
     font-size: 16px; }
+    .textbox .dropdown-text h3 {
+      font-size: 18px; }
 
 .backbutton {
   height: 59px;
@@ -310,8 +319,6 @@ footer {
   background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #f18879);
   background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #f18879);
   background: linear-gradient(to right, rgba(255, 0, 0, 0), #f18879);
-  position: absolute;
-  bottom: 0;
   width: 100%;
   margin-bottom: 0; }
 
@@ -332,40 +339,6 @@ footer {
     font-size: 16px;
     line-height: 1.2; }
 
-#menu-item-1 {
-  background-color: #f18879; }
-#menu-item-2 {
-  background-color: #8bc7b9; }
-#menu-item-3 {
-  background-color: #ffd962; }
-#menu-item-4 {
-  background-color: #043540; }
-  #menu-item-4 a {
-    color: #fff9f4; }
-#menu-item-5 {
-  background-color: red; }
-
-.menu-item {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-  position: relative; }
-  .menu-item:before {
-    content: "";
-    display: block;
-    padding-top: 100%; }
-  .menu-item a {
-    color: #043540; }
-  .menu-item h3 {
-    font-size: 5vw;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    position: absolute; }
-
 a.button {
   -webkit-appearance: button; }
 
@@ -375,49 +348,55 @@ a.button {
 .menu-button {
   font-family: "eveleth-thin";
   line-height: 1.6;
-  height: 260px;
+  height: 80px;
   float: right;
-  width: 50%;
-  border: 2px;
+  width: 100%;
+  border: none;
   border-radius: 0px;
   cursor: pointer;
-  font-size: 5vw;
+  font-size: 20px;
   padding-top: 15px;
-  padding-bottom: 15px;
-  transition: all 0.3s; }
+  padding-bottom: 15px; }
 
 #button-schedule {
-  background-color: #043540;
+  background: #ffd962;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #ffd962);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #ffd962);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #ffd962);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #ffd962);
+  width: 100%;
+  margin-bottom: 0;
   color: white; }
 
 #button-information {
-  background-color: #8bc7b9;
-  color: black; }
+  background: #f18879;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #f18879);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #f18879);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #f18879);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #f18879);
+  width: 100%;
+  margin-bottom: 0;
+  color: #fff9f4; }
 
 #button-map {
-  background-color: #ffd962;
+  background: #ffd962;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #ffd962);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #ffd962);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #ffd962);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #ffd962);
+  width: 100%;
+  margin-bottom: 0;
   color: black; }
 
 #button-qrcode {
-  background-color: #043540;
-  color: white; }
-
-#button-security {
-  font-family: "eveleth-thin";
-  line-height: 1.6;
-  height: 160px;
-  float: left;
+  background: #8bc7b9;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #8bc7b9);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #8bc7b9);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #8bc7b9);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #8bc7b9);
   width: 100%;
-  border: 2px;
-  border-radius: 0px;
-  cursor: pointer;
-  background-color: #f18879;
-  color: black;
-  font-size: 5vw;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  transition: all 0.3s;
-  margin-bottom: 20px; }
+  margin-bottom: 0;
+  color: white; }
 
 .feedback-input {
   color: #8bc7b9;

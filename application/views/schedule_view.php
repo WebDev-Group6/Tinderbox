@@ -19,15 +19,30 @@
       <div class="col-xs-12">
         <div class="textbox">
           <div class="dropdown-headline">
-            <?php echo heading('Headline', 3); ?>
+            <span class="fa fa-angle-down"><?php echo heading('Team: ' . $team->team_name, 2); ?></span>
           </div>
           <div class="dropdown-text">
-            <p>Some text here</p>
+            <?php echo heading('Responsibility', 3) ?>
+            <p><?php echo $team->team_info; ?></p>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="textbox">
+          <div class="dropdown-headline">
+            <span class="fa fa-angle-down"><?php echo heading('Team: ' . $team->team_name, 2); ?></span>
+          </div>
+          <div class="dropdown-text">
+            <?php echo heading('Responsibility', 3) ?>
+            <p><?php echo $team->team_info; ?></p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
     <div id="form-div">
 <input type="submit" value="I have seen and accept my shifts" id="button-blue">

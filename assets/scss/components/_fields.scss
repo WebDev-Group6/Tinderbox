@@ -5,12 +5,25 @@
   margin-bottom: 15px;
   .dropdown-headline {
     cursor: pointer;
-    h3 {
-    	font-size: 20px;
+    span {
+      width: 100%;
+      h2 {
+        font-size: 20px;
+      }
+      
     }
+    .fa-angle-down:before {
+        float: right;
+        font-size: 30px;
+        margin-top: 12px;
+        margin-bottom: 10px;
+      } 
   }
   .dropdown-text {
     display: none;
     font-size: 16px;
+    h3 {
+      font-size: 18px;
+    }
   }
 }

@@ -15,6 +15,7 @@
 	</div>
 
 <a href="<?php echo base_url('information'); ?>"><button class="menu-button" id="button-information">Information</button></a>
+
 <a href="<?php echo base_url('schedule'); ?>"><button class="menu-button" id="button-schedule">Schedule</button></a>
 <a href="<?php echo base_url('qrcodes'); ?>"><button class="menu-button" id="button-qrcode">QR code</button></a>
 <a href="<?php echo base_url('map'); ?>"><button class="menu-button" id="button-map">Map</button></a>

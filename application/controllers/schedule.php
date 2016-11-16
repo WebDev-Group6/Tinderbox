@@ -15,6 +15,7 @@ class Schedule extends CI_Controller {
 		$this->load->helper(
 			array('url', 'html')
 		);
+
 		$this->load->view('header_view', $data);
 		$this->load->view('schedule_view', $this->data);
 		$this->load->view('footer_view');

@@ -1,7 +1,7 @@
 <?php
 
 class Schedule_model extends CI_Model {
-	
+
 	public function getTeam(){
 		$this->load->database();
 		$this->db->select('team_id,team_name,team_info');
@@ -9,6 +9,6 @@ class Schedule_model extends CI_Model {
 
   		$query = $this->db->get();
   		
-  		return $query->result();
+  		return $query->row();
 	}
 }
