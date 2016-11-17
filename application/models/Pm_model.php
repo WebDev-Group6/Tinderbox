@@ -1,79 +1,20 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * @brief     Pm Model
- * @details
- * The model works using two tables: table1 contains the messages, table2
- * the referencing between the messages and the recipients - by message
- * and user IDs.
- *
- * NOTE: All operations are performed for the current user, given by
- * user id. This id is gotten from the {@link User_model} which contains
- * a dummy method always returning the first user id found. Replace this
- * method with a more meaningful own method.
- *
- * The class can be initialized by calling {@link initialize} which will
- * allow changing dateformat and enforce_field_types vars. It makes use
- * of the {@link Table_model} class to read, write and update table data.
- *
- * Copyright (c) 2015
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included
- * in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- * @author    Balint Morvai
- * @version   0.9
- * @copyright MIT License
- */
+
 class Pm_model extends CI_Model {
-	/**
-	 * @var object: table_model object that manages table1 (messages)
-	 */
+
 	private $table1;
-	/**
-	 * @var object: table_model object that manages table2 (links)
-	 */
+
 	private $table2;
-	/**
-	 * @var object: global CI instance that contains e.g. the db object
-	 */
+
 	private $ci;
-	/**
-	 * @var int: user id of the logged in user from the db
-	 */
+
 	private $user_id = NULL;
-	/**
-	 * @var array|array|mixed: two dimensional associative array with message fields
-	 * (1st dimension int, 2nd dimension associative with field names as keys)
-	 * set upon call to {@link get_messages} or {@link get_message}.
-	 */
+
 	public $messages = array();
-	/**
-	 * @var array|array|integer two dimensional array with recipients (by userid)
-	 * of messsages - set upon call to {@link get_recipients}.
-	 */
+
 	public $recipients = array();
 
-	/**
-	 * @brief Pm_model constructor
-	 *
-	 * Pm_model constructor.
-	 *
-	 * @param dateformat string: format to display dates in
-	 * @param enforce_field_types bool: setting whether to enforce field types in PHP by cast
-	 * @return void
-	 */
+
 	public function __construct($dateformat = "Y.m.d - H:i:s", $enforce_field_types = TRUE)
 	{
 		parent::__construct();
@@ -85,15 +26,6 @@ class Pm_model extends CI_Model {
 		$this->user_id = $this->user_model->current_id();
 	}
 
-	/**
-	 * @brief initialize
-	 *
-	 * Initializes values for this class.
-	 *
-	 * @param dateformat string: format to display dates in
-	 * @param enforce_field_types bool: setting whether to enforce field types in PHP by cast
-	 * @return void
-	 */
 	public function initialize($dateformat = "d.m.Y - H:i", $enforce_field_types = TRUE)
 	{
 		// Define the date format & whether db field types are enforced in PHP by type cast
