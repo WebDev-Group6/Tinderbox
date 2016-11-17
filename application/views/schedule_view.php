@@ -42,7 +42,40 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="textbox">
+          <div class="dropdown-headline">
+            <span class="fa fa-angle-down"><?php echo heading('Meeting Place', 2); ?></span>
+          </div>
+          <div class="dropdown-text">
+            <a href="<?php echo base_url('map'); ?>">
+              <?php echo heading($team->team_place, 3, 'class="fa fa-map"') ?>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="textbox">
+          <div class="dropdown-headline">
+            <span class="fa fa-angle-down"><?php echo heading('Team Leader', 2); ?></span>
+          </div>
+          <div class="dropdown-text">
+            <div class="rounded-img">
+              <?php echo img('/assets/img/teamleader_round.png'); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
+
+  
 
     <div id="form-div">
 <input type="submit" value="I have seen and accept my shifts" id="button-blue">

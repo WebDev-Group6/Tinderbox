@@ -10,20 +10,32 @@
       h2 {
         font-size: 20px;
       }
-      
-    }
-    .fa-angle-down:before {
+      &:before {
         float: right;
         font-size: 30px;
         margin-top: 12px;
         margin-bottom: 10px;
       } 
+    }  
+    
   }
   .dropdown-text {
     display: none;
     font-size: 16px;
+    a {
+      color: $primary-color-beige;
+      &:focus {
+        color: $primary-color-beige;
+      }
+    }
     h3 {
       font-size: 18px;
+      font-family: "eveleth-thin";
+      width: 100%;
+      &:before {
+        font-family: "font-awesome";
+        float: right;
+      }
     }
   }
 }
