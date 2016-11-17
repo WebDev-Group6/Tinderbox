@@ -6,7 +6,7 @@
 	</div>
 <div id="form-main">
   	<div id="form-div">
-    	<form class="form" id="form1" action="menu.html">  
+    	<form method="post" class="form" id="form1" action="user">  
 			<p class="email">
 				<input name="email" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="E-mail" id="email" />
 			</p>
