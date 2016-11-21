@@ -6,7 +6,7 @@
 	</div>
 <div id="form-main">
   	<div id="form-div">
-    	<form class="form" id="form1" action="menu.html">  
+    	<form id="login_form" class="form" action="<?=site_url('user/login')?>">  
 			<p class="email">
 				<input name="email" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="E-mail" id="email" />
 			</p>
@@ -23,3 +23,50 @@
   		</div>
 	</div>
 </div>
+
+<script src="<?php echo base_url('assets/js/jquery.js'); ?>"></script>
+
+<script type="text/javascript">
+	$(function() {
+
+		$("#login_form").submit(function(evt) {
+			evt.preventDefault();
+			var url = $(this).attr('action');
+			var postData = $(this).serialize();
+
+			$.post(url, postData, function(o) {
+
+			}, 'json');
+
+			/*jQuery.ajax({
+				url: '',
+				contentType: 'application/json',
+				type: 'POST',
+				success: function(data, status, response)
+				{
+					
+				}
+			}); */
+
+			
+			// $.ajax({
+			// 	type: "post",
+			// 	url: "",
+			// 	dataType: "application/json",
+			// 	data: {
+			// 		email: Email,
+			// 		password: Password,
+			// 	},
+			// 	success: function(data) {
+
+			// 	},
+			// 	error: function(data) {
+
+			// 	}
+
+			
+			
+		});
+	});
+
+</script>

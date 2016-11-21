@@ -6,6 +6,7 @@ class Frontpage extends CI_Controller {
 
 	//This fucntion lets you check if there is a session running
 	//if there is not you are restricted, and we redirect u to the index/login page
+
 	public function __construct()
 	{
 		parent::__construct();

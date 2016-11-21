@@ -12,10 +12,21 @@ class User extends CI_Controller
 
 	public function login()
 	{
-		//$this->load->(library)->
+		
+		//$login = $this->input->post->('login');
+		//$password = $this->input->post->('password');
+
+		//$result = $this->users_model->get([
+		//	'login' => $login,
+		 	// 'password' => $password
+		 	// ]);
+
+		print_r($_POST);
+			die();
 			$this->session->set_userdata([
 				'id' => 1
 				]);
+				
 
 			$session = $this->session->all_userdata();
 			print_r($session);
