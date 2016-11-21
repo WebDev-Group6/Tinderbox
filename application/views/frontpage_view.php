@@ -26,7 +26,7 @@
 	<div class="row">
 		<a href="<?php echo base_url('map'); ?>">
 			<div class="col-xs-12 nopadding menu-button" id="button-map">
-				<span class="fa fa-map">Map</span>
+				<span class="fa fa-map">Festival Map</span>
 				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
 			</div>
 		</a>

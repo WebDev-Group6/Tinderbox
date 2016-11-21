@@ -15,7 +15,8 @@ h1, h2 {
 
 h3, h4, h5 {
   font-family: "eveleth-thin";
-  line-height: 1.6; }
+  line-height: 1.6;
+  font-size: 20px; }
 
 a {
   color: #8bc7b9; }
@@ -23,6 +24,10 @@ a {
     color: #8bc7b9; }
   a:visited {
     color: #8bc7b9; }
+
+strong {
+  font-family: "eveleth-thin";
+  color: #8bc7b9; }
 
 body {
   background: url(../img/background_festival.jpg);
@@ -63,12 +68,16 @@ body {
       .textbox .dropdown-text a:focus {
         color: #fff9f4; }
     .textbox .dropdown-text h3 {
-      font-size: 18px;
+      font-size: 20px;
       font-family: "eveleth-thin";
       width: 100%; }
       .textbox .dropdown-text h3:before {
         font-family: "font-awesome";
         float: right; }
+      .textbox .dropdown-text h3 i {
+        float: right;
+        font-size: 20px;
+        padding-top: 4px; }
 
 .backbutton {
   height: 59px;
