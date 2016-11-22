@@ -2,127 +2,50 @@
 	@include gradient-background($secondary-color-rosa);
 }
 
-.news {
-	position: relative;
-	margin-bottom: 25px;
-	margin-top: 15px; 
-	img {
-		width: 100%; 
-	}
-	h4 {
-		font-family: "eveleth-regular";
-		bottom: 0;
-		color: #fff9f4;
-		padding-left: 10px; 
-	}
-	p {
-		color: #fff9f4;
-		padding-left: 10px;
-		font-size: 16px;
-		line-height: 1.2; 
-	}
-
-}
-#menu-item {
-  &-1 {
-    background-color: #f18879;
-  }
-  &-2 {
-    background-color: #8bc7b9;
-  }
-  &-3 {
-    background-color: #ffd962;
-  }
-  &-4 {
-    background-color: #043540; 
-    a {
-      color: #fff9f4;
-    }
-  }
-  &-5 {
-    background-color: red;
-  }
-}
-
-.menu-item {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  text-align: center;
-  position: relative;
-  &:before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-  } 
-  a {
-    color: #043540; 
-  }
-  h3 {
-    font-size: 5vw;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-    position: absolute; 
-  }
-}
 a.button {
   -webkit-appearance: button; }
 
-.newsfeed {
-  padding-top: 20px; 
-}
 .menu-button {
-  font-family: "eveleth-thin";
+  font-family: "eveleth-regular";
   line-height: 1.6;
-  height: 260px;
-  float: right;
-  width: 50%;
-  border: 2px;
+  text-align: right;
+  border: none;
   border-radius: 0px;
   cursor: pointer;
-  font-size: 5vw;
+  font-size: 22px;
   padding-top: 15px;
   padding-bottom: 15px;
-  transition: all 0.3s; 
+  color: $primary-color-teal;
+  span {
+    font-family: "eveleth-regular";
+    &:before {
+      font-family: "font-awesome";
+      float: right;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  }
+  img {
+    width: 80%;
+    float: right;
+  }
+  
 }
 
-#button-schedule {
-  background-color: #043540;
-  color: white;
-}
-
-#button-information {
-  background-color: #8bc7b9;
-  color: black;
-}
-
-#button-map {
-  background-color: #ffd962;
-  color: black;
-}
-
-#button-qrcode {
-  background-color: #043540;
-  color: white;
-}
-
-#button-security {
-  font-family: "eveleth-thin";
-  line-height: 1.6;
-  height: 160px;
-  float: left;
-  width: 100%;
-  border: 2px;
-  border-radius: 0px;
-  cursor: pointer;
-  background-color: #f18879;
-  color: black;
-  font-size: 5vw;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  transition: all 0.3s;
-  margin-bottom: 20px; 
+#button {
+  &-schedule {
+    @include gradient-background($secondary-color-yellow);
+  }
+  &-qrcode {
+    @include gradient-background($secondary-color-rosa);
+  }
+  &-map {
+    @include gradient-background($secondary-color-azur);
+  }
+  &-information {
+    @include gradient-background($secondary-color-yellow);
+  }
+  &-messages {
+    @include gradient-background($secondary-color-rosa);
+  }
 }
