@@ -15,7 +15,9 @@ h1, h2 {
 
 h3, h4, h5 {
   font-family: "eveleth-thin";
-  line-height: 1.6; }
+  line-height: 1.6; 
+  font-size: 20px;
+}
 
 a {
   color: $secondary-color-azur;
@@ -26,4 +28,9 @@ a {
     color: $secondary-color-azur;
   }
 
+}
+
+strong {
+  font-family: "eveleth-thin";
+  color: $secondary-color-azur;
 }

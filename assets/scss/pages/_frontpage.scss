@@ -2,64 +2,50 @@
 	@include gradient-background($secondary-color-rosa);
 }
 
-.news {
-	position: relative;
-	margin-bottom: 25px;
-	margin-top: 15px; 
-	img {
-		width: 100%; 
-	}
-	h4 {
-		font-family: "eveleth-regular";
-		bottom: 0;
-		color: #fff9f4;
-		padding-left: 10px; 
-	}
-	p {
-		color: #fff9f4;
-		padding-left: 10px;
-		font-size: 16px;
-		line-height: 1.2; 
-	}
-
-}
-
 a.button {
   -webkit-appearance: button; }
 
-.newsfeed {
-  padding-top: 20px; 
-}
 .menu-button {
-  font-family: "eveleth-thin";
+  font-family: "eveleth-regular";
   line-height: 1.6;
-  height: 80px;
-  float: right;
-  width: 100%;
+  text-align: right;
   border: none;
   border-radius: 0px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 22px;
   padding-top: 15px;
   padding-bottom: 15px;
+  color: $primary-color-teal;
+  span {
+    font-family: "eveleth-regular";
+    &:before {
+      font-family: "font-awesome";
+      float: right;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+  }
+  img {
+    width: 80%;
+    float: right;
+  }
+  
 }
 
-#button-schedule {
-  @include gradient-background($secondary-color-yellow);
-  color: white;
-}
-
-#button-information {
-  @include gradient-background($secondary-color-rosa);
-  color: $primary-color-beige;
-}
-
-#button-map {
-  @include gradient-background($secondary-color-yellow);
-  color: black;
-}
-
-#button-qrcode {
-  @include gradient-background($secondary-color-azur);
-  color: white;
+#button {
+  &-schedule {
+    @include gradient-background($secondary-color-yellow);
+  }
+  &-qrcode {
+    @include gradient-background($secondary-color-rosa);
+  }
+  &-map {
+    @include gradient-background($secondary-color-azur);
+  }
+  &-information {
+    @include gradient-background($secondary-color-yellow);
+  }
+  &-messages {
+    @include gradient-background($secondary-color-rosa);
+  }
 }
