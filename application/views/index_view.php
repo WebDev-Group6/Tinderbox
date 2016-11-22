@@ -1,7 +1,7 @@
 	<div class="headline container-fluid">
 		<div class="row">
 			<h1>LOGIN</h1>
-			<div class="underline"><img src="<?php echo base_url('/assets/img/tinderbox_single_line.svg'); ?>"></div>
+			<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
 		</div>
 	</div>
 <div id="form-main">

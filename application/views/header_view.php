@@ -3,17 +3,20 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/bootstrap/css/bootstrap.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/fonts/font-awesome/css/font-awesome.min.css'); ?>">
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url('/assets/css/style.css'); ?>">
+	<?php echo link_tag('assets/bootstrap/css/bootstrap.min.css'); ?>
+	<?php echo link_tag('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>
+	<?php echo link_tag('assets/css/style.css'); ?>
+	<title><?php echo $title; ?></title>
 </head>
 <body>
 <header>
 	<div class="container-fluid">
 		<div class="row">
-		<div id="logo" class="col-xs-2"><img src="<?php echo base_url('/assets/img/tuborg.svg'); ?>" alt="Tuborg logo"></div>
+		<div id="logo" class="col-xs-2">
+			<?php echo img('/assets/img/tuborg.svg'); ?>
+		</div>
 		<a id="logo" class="col-xs-8" href="<?php echo base_url('frontpage'); ?>">
-			<img src="<?php echo base_url('/assets/img/tinderbox_volunteer.svg') ?>">
+			<?php echo img('/assets/img/tinderbox_volunteer.svg'); ?>
 		</a>
 		<div class="col-xs-2 nopadding">
 				<div class="dropdown">
