@@ -73,7 +73,7 @@ class Users_model extends CI_Model
         $result = $this->db->query($query);
         $row = $result->row();
         if(password_verify($password, $row->password)) {
-            $token = bin2hex(openssl_random_pseudo_bytes(18));
+            $token = bin2hex(openssl_random_pseudo_bytes(50));
             $this->insert_token_user($row->id, $token);
             $res = [
                 'userid' => $row->id,
