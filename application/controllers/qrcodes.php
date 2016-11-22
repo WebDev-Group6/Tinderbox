@@ -14,3 +14,7 @@ public function index()
 		$this->load->view('footer_view');
 	}
 }
+
+
+//('127.0.0.1:3306', 'root', 'root', 'tinderbox', '5306');
+
