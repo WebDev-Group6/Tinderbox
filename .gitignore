@@ -2,21 +2,10 @@
 assets/.sass-cache
 assets/.sass-cache/*
 application/config/database.php
+application/config/config.php
 
 *.scssc
 
 *.map
-
-assets/.sass-cache/20264bba6582de1cb2cbd75a922f9988ab0fa595/_fields.scssc
-
-assets/.sass-cache/2c3df79850881cd2d3269f38e63c4c93a44feb3c/_mixins.scssc
-
-assets/.sass-cache/2c3df79850881cd2d3269f38e63c4c93a44feb3c/_mixins.scssc
-
-assets/.sass-cache/72641719635a63db07532d6470b7b7ce14b26cc6/_frontpage.scssc
-
-assets/.sass-cache/72641719635a63db07532d6470b7b7ce14b26cc6/_frontpage.scssc
-
-assets/.sass-cache/72641719635a63db07532d6470b7b7ce14b26cc6/_frontpage.scssc
 
 *.scssc
