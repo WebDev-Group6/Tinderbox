@@ -6,11 +6,10 @@ class Map extends CI_Controller {
 public function index()
 	{
 		$data['title'] = 'Tinderbox Map';
+		$data['headline'] = 'Festival Map';
 		$this->load->helper(
 			array('url', 'html')
 		);
-		$this->load->view('header_view', $data);
-		$this->load->view('map_view');
-		$this->load->view('footer_view');
+		$this->load->view('main_view', $data);
 	}
 }

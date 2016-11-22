@@ -11,6 +11,8 @@ class Schedule extends CI_Controller {
 	public function index(){
 
 		$data['title'] = 'Schedule';
+		$data['headline'] = 'Messages';
+
 		$this->data['team'] = $this
 		->Schedule_model
 		->getTeam($team_id = '1');
@@ -27,8 +29,7 @@ class Schedule extends CI_Controller {
 			array('url', 'html', 'date')
 		);
 
-		$this->load->view('header_view', $data);
+		$this->load->view('main_view', $data);
 		$this->load->view('schedule_view', $this->data);
-		$this->load->view('footer_view');
 	}
 }
