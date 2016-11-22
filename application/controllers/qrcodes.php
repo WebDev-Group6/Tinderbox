@@ -3,11 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Qrcodes extends CI_Controller {
 
-public function __construct() {
-    
-    return $this->q();
-    
-	}
 public function index()
 	{
 		$this->load->helper('url');
@@ -17,7 +12,6 @@ public function index()
 	}
 }
 
-	$q = $this->db->get('users');
-	print_r($q);
+
 //('127.0.0.1:3306', 'root', 'root', 'tinderbox', '5306');
 
