@@ -2,7 +2,16 @@
 assets/.sass-cache
 assets/.sass-cache/*
 application/config/database.php
+application/config/config.php
 
 *.scssc
 
 *.map
+
+*.scssc
+
+.htaccess
+
+application/config/config.php
+
+application/config/config.php

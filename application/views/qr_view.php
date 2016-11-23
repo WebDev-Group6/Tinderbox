@@ -14,10 +14,10 @@
 		</div>
 	</div>
 
-
+<form action = "qrcodes.php" method="post">
 	<div class="container">
 		<center>
 			<h3>Check-In:</h3>
-			<img src="<?php echo base_url('/assets/img/qr-codes.png'); ?>" class="qr-code">
+			<img src="https://api.qrserver.com/v1/create-qr-code/?data=b&amp;size=200x100" alt="" title="" />
 		</center>
 	</div>

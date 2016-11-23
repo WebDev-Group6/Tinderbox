@@ -1,21 +1,51 @@
-	<div class="headline container-fluid">
-		<div class="row">
-			<div class="col-xs-4 nopadding">
-				<button id="back-link" class="backbutton">Back</button>
-			</div>
-			<div class="col-xs-8 nopadding headline">
-				<h1>Tinderbox Volunteer</h1>
-			</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-4 nopadding">
+			<button id="back-link" class="backbutton">Back</button>
 		</div>
-		<div class="row">
-			<div class="col-xs-offset-1 col-xs-11 nopadding">
-				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
-			</div>
+		<div class="col-xs-8 headline">
+			<?php echo img('/assets/img/tinderbox_volunteer_logo.svg'); ?>
 		</div>
 	</div>
+	<div class="row">
+		<a href="<?php echo base_url('schedule'); ?>">
+			<div class="col-xs-12 nopadding menu-button" id="button-schedule">
+				<span class="fa fa-calendar-o">Schedule</span>
+				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
+			</div>
+		</a>
+	</div>
+	<div class="row">
+		<a href="<?php echo base_url('qrcodes'); ?>">
+			<div class="col-xs-12 nopadding menu-button" id="button-qrcode">
+				<span class="fa fa-qrcode">QR Codes</span>
+				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
+			</div>
+		</a>
+	</div>
+	<div class="row">
+		<a href="<?php echo base_url('map'); ?>">
+			<div class="col-xs-12 nopadding menu-button" id="button-map">
+				<span class="fa fa-map">Festival Map</span>
+				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
+			</div>
+		</a>
+	</div>
+	<div class="row">
+		<a href="<?php echo base_url('information'); ?>">
+			<div class="col-xs-12 nopadding menu-button" id="button-information">
+				<span class="fa fa-question-circle">Information</span>
+				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
+			</div>
+		</a>
+	</div>
+	<div class="row">
+		<a href="<?php echo base_url('messages'); ?>">
+			<div class="col-xs-12 nopadding menu-button" id="button-messages">
+				<span class="fa fa-comments">Messages</span>
+				<?php echo img('/assets/img/tinderbox_single_line.svg'); ?>
+			</div>
+		</a>
+	</div>
 
-<a href="<?php echo base_url('information'); ?>"><button class="menu-button" id="button-information">Information</button></a>
-
-<a href="<?php echo base_url('schedule'); ?>"><button class="menu-button" id="button-schedule">Schedule</button></a>
-<a href="<?php echo base_url('qrcodes'); ?>"><button class="menu-button" id="button-qrcode">QR code</button></a>
-<a href="<?php echo base_url('map'); ?>"><button class="menu-button" id="button-map">Map</button></a>
+</div>
