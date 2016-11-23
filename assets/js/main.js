@@ -1,19 +1,20 @@
 // NEEDS REVIEW ==========
-//jQuery(function() {
-	// if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
-	// 	loginPage();
-	// } else {
-	// 	frontPage();
-	// }
-	// frontPage();
-//});
+jQuery(function() {
+	if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
+		loginPage();
+	} else {
+		frontPage();
+	}
+});
 
 const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
-/*=============================
-=          Welcome            =
-=============================*/
+/*--------------------
+	*-* Welcome *-*
+----------------------*/
+
+
 function loginPage() {
 	storeCheck();
 	localStorage.removeItem('user');
@@ -24,20 +25,24 @@ function loginPage() {
             return false;
         }
     }
-	var html = 
+
+ 	jQuery.ajax({
+		url: URL,
+		ContentType: 'application/json',
+		type: 'GET',
+		success: function(data, status, response)
+		{
+			var htmldata = 
 	'<div id="form-div">'
-    	+'<form id="login_form" class="form" action="#">'
 			+'<p class="email">'
-				+'<input name="email" type="text" class="' + validate[required,custom[onlyLetter],length[0,100]] + 'feedback-input" placeholder="E-mail" id="email" />'
+				+'<input name="email" type="text" class="feedback-input" placeholder="E-mail" id="email" />'
 			+'</p>'
 			+'<p class="password">'
-				+'<input name="password" type="password" class="'+ validate[required,custom[password], length[8, 100]]+ 'feedback-input" id="password" placeholder="Password" />'
+				+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password" />'
 			+'</p>'
-			+'<div class="submit">'
-				+'<input type="submit" value="LOGIN" id="button-blue"/>'
-				+'<div class="ease"></div>'
-			+'</div>'
-		+'</form>'
+		+'<div class="submit">'
+			+'<button class="btn-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
+		+'</div>'
   		+'<div class="signup">'
     		+'<button id="signup">'
     			+'SIGN UP'
@@ -45,47 +50,10 @@ function loginPage() {
   		+'</div>'
 	+'</div>';
 
-	console.log(html);
-
-	jQuery('#main').html(html);
-
-	//COPY PASTE CODE HERE BELOW ==================	
-		'<div class="row">'
-			+'<div class="col s12">'
-				+'<div class="login-container">'
-					+'<div class="login-logo center">'
-						+'<img src="'+ RESS +'img/login-logo.png">'
-					+'</div>'
-					+'<div class="login-input">'
-						+'<div class="row">'
-							+'<div class="input-field col s12">'
-								+'<input id="email" name="email" type="email" class="" required>'
-								+'<label for="email">Email</label>'
-							+'</div>'
-						+'</div>'
-						+'<div class="row">'
-							+'<div class="input-field col s12">'
-								+'<input id="password" name="password" type="password" class="" required>'
-								+'<label for="password">Password</label>'
-								+'<div class="forgot-pw">'
-									+'<a href="#">Forgot Password?</a>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'</div class="row">'
-							+'<div class="col s12 center">'
-								+'<button class="btn waves-effect waves-dark btn-login-submit">'
-									+'Login'
-								+'</button>'
-							+'</div>'
-						+'</div>'
-					+'</div>'
-				+'</div>'
-			+'</div>'
-		+'</div>';
-
-	jQuery('#app').html(html);
-
+	jQuery('#main').html(htmldata);
+		}
+		
+	});
 }
 
 
@@ -101,7 +69,7 @@ function login() {
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
 		},
-		url: URL + 'api/login',
+		url: URL + 'user/login',
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
@@ -112,7 +80,7 @@ function login() {
 		}
 	}).done(function(data, status, response) {
 		store.set('user', {
-				userid: data.userid,
+				id: data.id,
 				firstname: data.firstname,
 				lastname: data.lastname,
 				email: data.email,
@@ -159,7 +127,7 @@ function frontPage() {
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("SecretToken", user.token);
 		},
-		url: URL + 'api/shifts/' + user.userid, //load token
+		url: URL + 'user/' + user.id, //load token
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
@@ -172,7 +140,7 @@ function frontPage() {
 		loadFrontPage(data);
 	});
 
-	function loadFrontPage(shifts) {
+	function loadFrontPage() {
 		var user = store.get('user');
 		console.log(shifts);
 		var header =
@@ -224,32 +192,32 @@ function frontPage() {
 				+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
 				+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
 		var sendHtml = header + html;
-		jQuery('#app').html(sendHtml); //overwrites the content from the view
+		jQuery('#main').html(sendHtml); //overwrites the content from the view
 	};
 };
 
 function map() {
 	var html;
 	var sendHtml = backNav('Map') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 };
 
 function chat() {
 	var html;
 	var sendHtml = backNav('Chat') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 }
 
 function information() {
 	var html;
 	var sendHtml = backNav('Information') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 }
 
 function faq() {
 	var html;
 	var sendHtml = backNav('Faq') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 }
 
 
@@ -263,20 +231,20 @@ function changeImage() {
 		'<h1>changeImage</h1>'
 		+'<button class="btn waves-effect btn-back">Back</button>';
 	var sendHtml = backNav('Change Image') + html;
-	jQuery('#app').html(sendhtml); //overwrites the content from the view
+	jQuery('#main').html(sendhtml); //overwrites the content from the view
 };
 
 function settings() {
 	var html;
 	var sendHtml = backNav('Settings') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 };
 
 function notification(event) {
 	var html =
 		'<h1>notification ' + event.data.title + '</h1>';
 	var sendHtml = backNav('Notification') + html;
-	jQuery('#app').html(sendHtml); //overwrites the content from the view
+	jQuery('#main').html(sendHtml); //overwrites the content from the view
 };
 
 
@@ -296,15 +264,15 @@ function responseHandling(data){
 /**================================================== *
  * ==========  Buttons  ========== *
  * ================================================== */
-jQuery('#app').on('click', '.btn-login-submit', login);
-jQuery('#app').on('click', '.btn-map', map);
-jQuery('#app').on('click', '.btn-chat', chat);
-jQuery('#app').on('click', '.btn-info', information);
-jQuery('#app').on('click', '.btn-faq', faq);
-jQuery('#app').on('click', '.btn-back', frontPage);
-jQuery('#app').on('click', '.btn-notification', {title: "notification"}, notification);
-jQuery('#app').on('click', '.btn-settings', settings);
-jQuery('#app').on('click', '.btn-logout', loginPage);
+jQuery('#main').on('click', '.btn-login-submit', login);
+jQuery('#main').on('click', '.btn-map', map);
+jQuery('#main').on('click', '.btn-chat', chat);
+jQuery('#main').on('click', '.btn-info', information);
+jQuery('#main').on('click', '.btn-faq', faq);
+jQuery('#main').on('click', '.btn-back', frontPage);
+jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
+jQuery('#main').on('click', '.btn-settings', settings);
+jQuery('#main').on('click', '.btn-logout', loginPage);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 

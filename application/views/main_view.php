@@ -53,7 +53,6 @@
 </div>
 <div class="container">
 	<div id="main">
-
 	</div>
 </div>
 
@@ -61,7 +60,8 @@
 	
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="<?php echo base_url('/assets/js/store.js'); ?>"></script>
 <script src="<?php echo base_url('/assets/js/scripts.js'); ?>"></script>
 <script src="<?php echo base_url('/assets/js/main.js'); ?>"></script>
 <script src="<?php echo base_url('/assets/js/information.js'); ?>"></script>
