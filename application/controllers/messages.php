@@ -28,13 +28,12 @@ class Messages extends CI_Controller
 
     public function index()
 	{
+        $data['title'] = 'Messages';
+        $data['headline'] = 'Messages';
 	    // original code
 	    $this->messages();
 		$this->load->helper('url');
-		$this->load->view('header_view');
-		$this->load->view('messages_view');
-		$this->load->view('footer_view');
-
+		$this->load->view('main_view', $data);
 	}
 
 	/*show a specific message by message id

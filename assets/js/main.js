@@ -1,19 +1,20 @@
-jQuery(function() {
-	if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
-		loginScreen();
-	} else {
-		mainMenu();
-	}
-	// mainMenu();
-});
+// NEEDS REVIEW ==========
+//jQuery(function() {
+	// if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
+	// 	loginPage();
+	// } else {
+	// 	frontPage();
+	// }
+	// frontPage();
+//});
 
-const URL = 'http://webtinderbox:8888/';
-const RESS = 'public/';
+const URL = 'http://localhost:8888/';
+const RESS = 'assets/';
 
 /*=============================
 =          Welcome            =
 =============================*/
-function loginScreen() {
+function loginPage() {
 	storeCheck();
 	localStorage.removeItem('user');
     function storeCheck() {
@@ -23,8 +24,32 @@ function loginScreen() {
             return false;
         }
     }
-
 	var html = 
+	'<div id="form-div">'
+    	+'<form id="login_form" class="form" action="#">'
+			+'<p class="email">'
+				+'<input name="email" type="text" class="' + validate[required,custom[onlyLetter],length[0,100]] + 'feedback-input" placeholder="E-mail" id="email" />'
+			+'</p>'
+			+'<p class="password">'
+				+'<input name="password" type="password" class="'+ validate[required,custom[password], length[8, 100]]+ 'feedback-input" id="password" placeholder="Password" />'
+			+'</p>'
+			+'<div class="submit">'
+				+'<input type="submit" value="LOGIN" id="button-blue"/>'
+				+'<div class="ease"></div>'
+			+'</div>'
+		+'</form>'
+  		+'<div class="signup">'
+    		+'<button id="signup">'
+    			+'SIGN UP'
+    		+'</button>'
+  		+'</div>'
+	+'</div>';
+
+	console.log(html);
+
+	jQuery('#main').html(html);
+
+	//COPY PASTE CODE HERE BELOW ==================	
 		'<div class="row">'
 			+'<div class="col s12">'
 				+'<div class="login-container">'
@@ -93,7 +118,7 @@ function login() {
 				email: data.email,
 				token: data.secretToken
 			});
-			mainMenu();
+			frontPage();
 	});
 };
 
@@ -123,10 +148,10 @@ function backNav(title) {
 
 
 /*=============================================
-=            Mainmenu                        =
+=            frontPage // Menu                =
 =============================================*/
 
-function mainMenu() {
+function frontPage() {
 	var user = store.get('user');
 	console.log("Main menu loaded!");
 
@@ -144,10 +169,10 @@ function mainMenu() {
 			responseHandling(err);
 		}
 	}).done(function(data) {
-		loadMainMenu(data);
+		loadFrontPage(data);
 	});
 
-	function loadMainMenu(shifts) {
+	function loadFrontPage(shifts) {
 		var user = store.get('user');
 		console.log(shifts);
 		var header =
@@ -193,7 +218,7 @@ function mainMenu() {
 		+'</header>';
 
 		var html =
-			'<h1>Mainmenu</h1>'
+			'<h1>Front Page</h1>'
 				+ '<button class="waves-effect waves-light btn btn-map">Map</button>'
 				+ '<button class="waves-effect waves-light btn btn-chat">Chat</button>'
 				+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
@@ -228,7 +253,7 @@ function faq() {
 }
 
 
-/*=====  End of Mainmenu  ======*/
+/*=====  End of FrontPage  ======*/
 
 /*==================================
 =            Burgermenu            =
@@ -276,9 +301,11 @@ jQuery('#app').on('click', '.btn-map', map);
 jQuery('#app').on('click', '.btn-chat', chat);
 jQuery('#app').on('click', '.btn-info', information);
 jQuery('#app').on('click', '.btn-faq', faq);
-jQuery('#app').on('click', '.btn-back', mainMenu);
+jQuery('#app').on('click', '.btn-back', frontPage);
 jQuery('#app').on('click', '.btn-notification', {title: "notification"}, notification);
 jQuery('#app').on('click', '.btn-settings', settings);
-jQuery('#app').on('click', '.btn-logout', loginScreen);
+jQuery('#app').on('click', '.btn-logout', loginPage);
+
+//'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 
 /* =======  End of Buttons  ======= */
