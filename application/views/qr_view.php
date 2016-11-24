@@ -18,6 +18,7 @@
 	<div class="container">
 		<center>
 			<h3>Check-In:</h3>
-			<img src="https://api.qrserver.com/v1/create-qr-code/?data=b&amp;size=200x100" alt="" title="" />
+
+			
 		</center>
 	</div>
