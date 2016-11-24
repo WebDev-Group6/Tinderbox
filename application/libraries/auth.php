@@ -1,5 +1,5 @@
 <?php
-class Secret_auth {
+class Auth {
     private $ci;
     public function __construct() {
         $this->ci =& get_instance();
@@ -39,9 +39,9 @@ class Secret_auth {
             $res_token = $userdata['email'] . ':' . $token;
             $encoded_token = base64_encode($res_token);
             $this->http_response(200, 'OK', [
-                'userid' => $userdata['userid'],
-                'firstname' => $userdata['firstname'],
-                'lastname' => $userdata['lastname'],
+                'id' => $userdata['id'],
+                'first_name' => $userdata['first_name'],
+                'last_name' => $userdata['last_name'],
                 'email' => $userdata['email'],
                 'secretToken' => $encoded_token
             ]);
@@ -124,6 +124,15 @@ class Secret_auth {
                         if(!preg_match('/^[0-9]+$/', $data) || empty($data)) {
                             $this->http_response(400, 'Bad Request', [
                                 'message' => 'You did not pass an integer'
+                            ]);
+                        } else {
+                            return true;
+                        }
+                        break;
+                    case 'tinyint':
+                        if(!preg_match('/^[0-1]+$/', $data) || empty($data)) {
+                            $this->http_response(400, 'Bad Request', [
+                                'message' => 'You did not pass an tiny integer'
                             ]);
                         } else {
                             return true;
