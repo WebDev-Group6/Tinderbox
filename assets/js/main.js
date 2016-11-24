@@ -8,7 +8,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost/tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------

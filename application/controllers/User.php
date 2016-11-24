@@ -68,7 +68,6 @@ class User extends CI_Controller {
 			$safe_colleague = $this->auth->super_escape('sanitize', 2, $post->colleague);
 			$safe_task = $this->auth->super_escape('sanitize', 2, $post->task);
 
-
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, [
 			'cost' => 10,
 			]);
