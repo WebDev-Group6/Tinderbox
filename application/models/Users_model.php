@@ -23,13 +23,21 @@ class Users_model extends CI_Model {
 
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (first_name, last_name, email, password)
+            (first_name, last_name, email, password, phone_number, address, city, country, nationality, speak_danish, colleague, task)
             VALUES
-            ("%s", "%s", "%s", "%s")'
+            ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
-            , $this->db->escape_like_str($args['password']));
+            , $this->db->escape_like_str($args['password'])
+            , $this->db->escape_like_str($args['phone_number'])
+            , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['city'])
+            , $this->db->escape_like_str($args['country'])
+            , $this->db->escape_like_str($args['nationality'])
+            , $this->db->escape_like_str($args['speak_danish'])
+            , $this->db->escape_like_str($args['colleague'])
+            , $this->db->escape_like_str($args['task']));
         $this->db->query($query);
         $id = $this->db->insert_id();
         if(is_int($id) && $id > 0) {
@@ -44,13 +52,30 @@ class Users_model extends CI_Model {
             first_name = "%s",
             last_name = "%s",
             email = "%s",
-            password = "%s"
+            password = "%s",
+            phone_number = "%s",
+            address = "%s",
+            city = "%s",
+            country = "%s",
+            nationality = "%s",
+            speak_danish = "%s",
+            colleague = "%s",
+            task = "%s",
             WHERE id = %d '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
             , $this->db->escape_like_str($args['password'])
-            , $this->db->escape_like_str($args['id']));
+            , $this->db->escape_like_str($args['phone_number'])
+            , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['city'])
+            , $this->db->escape_like_str($args['country'])
+            , $this->db->escape_like_str($args['nationality'])
+            , $this->db->escape_like_str($args['speak_danish'])
+            , $this->db->escape_like_str($args['colleague'])
+            , $this->db->escape_like_str($args['task'])
+            , $this->db->escape_like_str($args['id'])
+            );
         $result = $this->db->query($query);
         return $args['id'];
 

@@ -5,13 +5,14 @@ jQuery(function() {
 	} else {
 		frontPage();
 	}
+
 });
 
 const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
 /*--------------------
-	*-* Welcome *-*
+	*-* Index Page *-*
 ----------------------*/
 
 
@@ -32,27 +33,28 @@ function loginPage() {
 		type: 'GET',
 		success: function(data, status, response)
 		{
-			var htmldata = 
-	'<div id="form-div">'
-			+'<p class="email">'
-				+'<input name="email" type="text" class="feedback-input" placeholder="E-mail" id="email" />'
-			+'</p>'
-			+'<p class="password">'
-				+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password" />'
-			+'</p>'
-		+'<div class="submit">'
-			+'<button class="btn-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
-		+'</div>'
-  		+'<div class="signup">'
-    		+'<button id="signup">'
-    			+'SIGN UP'
-    		+'</button>'
-  		+'</div>'
-	+'</div>';
+		var htmldata = 
+		'<div class="container">'
+			+'<div id="form-div">'
+				+'<p class="email">'
+					+'<input name="email" type="text" class="feedback-input" placeholder="E-mail" id="email" />'
+				+'</p>'
+				+'<p class="password">'
+					+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password" />'
+				+'</p>'
+				+'<div class="submit">'
+					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
+				+'</div>'
+	  			+'<div class="signup">'
+	    			+'<button id="signup">'
+	    				+'SIGN UP'
+	    			+'</button>'
+	  			+'</div>'
+			+'</div>'
+		+'</div>';
 
-	jQuery('#main').html(htmldata);
+		jQuery('#main').html(htmldata);
 		}
-		
 	});
 }
 
@@ -81,8 +83,8 @@ function login() {
 	}).done(function(data, status, response) {
 		store.set('user', {
 				id: data.id,
-				firstname: data.firstname,
-				lastname: data.lastname,
+				first_name: data.first_name,
+				last_name: data.last_name,
 				email: data.email,
 				token: data.secretToken
 			});
@@ -111,7 +113,6 @@ function backNav(title) {
 	return html;
 }
 
-
 /*=====  End of Back Navigation  ======*/
 
 
@@ -127,7 +128,7 @@ function frontPage() {
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("SecretToken", user.token);
 		},
-		url: URL + 'user/' + user.id, //load token
+		url: URL + 'user/shifts/' + user.id, //load token
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
@@ -140,78 +141,129 @@ function frontPage() {
 		loadFrontPage(data);
 	});
 
-	function loadFrontPage() {
+	function loadFrontPage(shifts) {
 		var user = store.get('user');
-		console.log(shifts);
-		var header =
-		'<input type="checkbox" id="sidebarToggler">'
-		+'<header class="z-depth-2">'
-			+'<div class="logo">'
-				+'<img src="'+ RESS +'img/logo.png">'
-			+'</div>'
-			+'<label class="toggle-sidebar" for="sidebarToggler">'
-				+'<img src="'+ RESS +'img/menu.png" alt="" style="padding-top: 15px;">'
-			+'</label>'
+		//console.log(shifts);
 
-			+'<div class="sidebar z-depth-2">'
-				+'<label class="toggle-close" for="sidebarToggler">✕</label>'
-				+'<div class="sidebar-wrapper">'
-					+'<div class="sidebar-profile">'
-						+'<img src="'+ RESS +'img/user.jpg" alt="">'
-						+'<h2>'
-							+ user.firstname
-						+'</h2>'
-						+'<p>'
-							+ user.email
-						+'</p>'
-					+'</div>'
-					+'<div class="sidebar-links">'
-						+'<ul>'
-							+'<li class="btn-notification">'
-								+'<img src="'+ RESS +'img/alarm.svg">Noticication'
-							+'</li>'
-							+'<li class="btn-settings">'
-								+'<img src="'+ RESS +'img/settings.svg">Settings'
-							+'</li>'
-							+'<li class="btn-logout">'
-								+'<img src="'+ RESS +'img/exit.svg">Logout'
-							+'</li>'
-						+'</ul>'
-					+'</div>'
-					+'<div class="sidebar-copy">'
-						+'<p>Tinderbox &copy; 2017<br>Version: Bravo Two Zero</p>'
-					+'</div>'
-				+'</div>'
-			+'</div>'
-		+'</header>';
+		var header =
+			'<div class="dropdown">'
+		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
+		  		+'<div id="myDropdown" class="dropdown-content">'
+		    		+'<a class="fa fa-calendar-o link-schedule">SCHEDULE</a>'
+		    		+'<a class="fa fa-qrcode" href="<?php echo base_url(qrcodes); ?>">QR CODES</a>'
+		    		+'<a class="fa fa-map" href="<?php echo base_url(map); ?>">FESTIVAL MAP</a>'
+		    		+'<a class="fa fa-lightbulb-o" href="<?php echo base_url(information); ?>">INFORMATION</a>'
+		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
+		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
+		    		//<!-- Logout has no link or function yet -->
+		    		+'<a class="fa fa-sign-out" href="">Logout</a>'
+		  		+'</div>'
+			+'</div>';
 
 		var html =
-			'<h1>Front Page</h1>'
-				+ '<button class="waves-effect waves-light btn btn-map">Map</button>'
-				+ '<button class="waves-effect waves-light btn btn-chat">Chat</button>'
-				+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
-				+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
-		var sendHtml = header + html;
-		jQuery('#main').html(sendHtml); //overwrites the content from the view
+			'<div class="container-fluid">'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-schedule" id="button-schedule">'
+						+'<span class="fa fa-calendar-o">Schedule</span>'
+						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-qrcode" id="button-qrcode">'
+						+'<span class="fa fa-qrcode">QR Codes</span>'
+						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-map" id="button-map">'
+						+'<span class="fa fa-map">Festival Map</span>'
+						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-info" id="button-information">'
+						+'<span class="fa fa-question-circle">Information</span>'
+						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-messages" id="button-messages">'
+						+'<span class="fa fa-comments">Messages</span>'
+						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'</div>'
+				+'</div>'
+			+'</div>';
+
+		// '<input type="checkbox" id="sidebarToggler">'
+		// +'<header class="z-depth-2">'
+		// 	+'<div class="logo">'
+		// 		+'<img src="'+ RESS +'img/logo.png">'
+		// 	+'</div>'
+		// 	+'<label class="toggle-sidebar" for="sidebarToggler">'
+		// 		+'<img src="'+ RESS +'img/menu.png" alt="" style="padding-top: 15px;">'
+		// 	+'</label>'
+
+		// 	+'<div class="sidebar z-depth-2">'
+		// 		+'<label class="toggle-close" for="sidebarToggler">✕</label>'
+		// 		+'<div class="sidebar-wrapper">'
+		// 			+'<div class="sidebar-profile">'
+		// 				+'<img src="'+ RESS +'img/user.jpg" alt="">'
+		// 				+'<h2>'
+		// 					+ user.first_name
+		// 				+'</h2>'
+		// 				+'<p>'
+		// 					+ user.email
+		// 				+'</p>'
+		// 			+'</div>'
+		// 			+'<div class="sidebar-links">'
+		// 				+'<ul>'
+		// 					+'<li class="btn-notification">'
+		// 						+'<img src="'+ RESS +'img/alarm.svg">Noticication'
+		// 					+'</li>'
+		// 					+'<li class="btn-settings">'
+		// 						+'<img src="'+ RESS +'img/settings.svg">Settings'
+		// 					+'</li>'
+		// 					+'<li class="btn-logout">'
+		// 						+'<img src="'+ RESS +'img/exit.svg">Logout'
+		// 					+'</li>'
+		// 				+'</ul>'
+		// 			+'</div>'
+		// 			+'<div class="sidebar-copy">'
+		// 				+'<p>Tinderbox &copy; 2017<br>Version: Bravo Two Zero</p>'
+		// 			+'</div>'
+		// 		+'</div>'
+		// 	+'</div>'
+		// +'</header>';
+
+		// var html =
+		// 	'<h1>Front Page</h1>'
+		// 		+ '<button class="waves-effect waves-light btn btn-map">Map</button>'
+		// 		+ '<button class="waves-effect waves-light btn btn-chat">Chat</button>'
+		// 		+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
+		// 		+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
+		
+		jQuery('#dropdown').html(header);
+		jQuery('#main').html(html); //overwrites the content from the view
 	};
 };
 
 function map() {
-	var html;
-	var sendHtml = backNav('Map') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
+	var html = 
+	'<h1>Festival Map</h1>';
+	jQuery('#main').html(html); //overwrites the content from the view
 };
 
-function chat() {
-	var html;
-	var sendHtml = backNav('Chat') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
+function messages() {
+	var html =
+	'<h1>Messages</h1>';
+
+	jQuery('#main').html(html); //overwrites the content from the view
 }
 
 function information() {
-	var html;
-	var sendHtml = backNav('Information') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
+	var html =
+	'<h1>Information</h1>';
+	jQuery('#main').html(html); //overwrites the content from the view
 }
 
 function faq() {
@@ -220,6 +272,17 @@ function faq() {
 	jQuery('#main').html(sendHtml); //overwrites the content from the view
 }
 
+function schedule() {
+	var html = 
+	'<h1>SCHEDULE</h1>';
+	jQuery('#main').html(html);
+}
+
+function qrcode() {
+	var html = 
+	'<h1>QRCODE</h1>';
+	jQuery('#main').html(html);
+}
 
 /*=====  End of FrontPage  ======*/
 
@@ -264,10 +327,12 @@ function responseHandling(data){
 /**================================================== *
  * ==========  Buttons  ========== *
  * ================================================== */
-jQuery('#main').on('click', '.btn-login-submit', login);
-jQuery('#main').on('click', '.btn-map', map);
-jQuery('#main').on('click', '.btn-chat', chat);
-jQuery('#main').on('click', '.btn-info', information);
+jQuery('#main').on('click', '.link-login-submit', login);
+jQuery('#main').on('click', '.link-map', map);
+jQuery('#main').on('click', '.link-schedule', schedule);
+jQuery('#main').on('click', '.link-qrcode', qrcode);
+jQuery('#main').on('click', '.link-messages', messages);
+jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.btn-faq', faq);
 jQuery('#main').on('click', '.btn-back', frontPage);
 jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);

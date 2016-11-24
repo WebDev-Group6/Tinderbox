@@ -33,7 +33,7 @@ class User extends CI_Controller {
 
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
-		$args_check = array('first_name', 'last_name', 'email', 'password');
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'phone_number', 'address', 'city', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
 
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -45,12 +45,28 @@ class User extends CI_Controller {
 			$this->auth->super_escape('validate', 'string', $post->last_name);
 			$this->auth->super_escape('validate', 'email', $post->email);
 			$this->auth->super_escape('validate', 'password', $post->password);
+			$this->auth->super_escape('validate', 'int', $post->phone_number);
+			$this->auth->super_escape('validate', 'string', $post->address);
+			$this->auth->super_escape('validate', 'string', $post->city);
+			$this->auth->super_escape('validate', 'string', $post->country);
+			$this->auth->super_escape('validate', 'string', $post->nationality);
+			$this->auth->super_escape('validate', 'tinyint', $post->speak_danish);
+			$this->auth->super_escape('validate', 'string', $post->colleague);
+			$this->auth->super_escape('validate', 'string', $post->task);
 
 			// Sanitize
 			$safe_first_name = $this->auth->super_escape('sanitize', 2, $post->first_name);
 			$safe_last_name = $this->auth->super_escape('sanitize', 2, $post->last_name);
 			$safe_email = $this->auth->super_escape('sanitize', 2, $post->email);
 			$safe_password = $this->auth->super_escape('sanitize', 2, $post->password);
+			$safe_phone_number = $this->auth->super_escape('sanitize', 2, $post->phone_number);
+			$safe_address = $this->auth->super_escape('sanitize', 2, $post->address);
+			$safe_city = $this->auth->super_escape('sanitize', 2, $post->city);
+			$safe_country = $this->auth->super_escape('sanitize', 2, $post->country);
+			$safe_nationality = $this->auth->super_escape('sanitize', 2, $post->nationality);
+			$safe_speak_danish = $this->auth->super_escape('sanitize', 2, $post->speak_danish);
+			$safe_colleague = $this->auth->super_escape('sanitize', 2, $post->colleague);
+			$safe_task = $this->auth->super_escape('sanitize', 2, $post->task);
 
 
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, [
@@ -61,7 +77,15 @@ class User extends CI_Controller {
 				'first_name' => $safe_first_name,
 				'last_name' => $safe_last_name,
 				'email' => $safe_email,
-				'password' => $safe_password
+				'password' => $safe_password,
+				'phone_number' => $safe_phone_number,
+				'address' => $safe_address,
+				'city' => $safe_city,
+				'country' => $safe_country,
+				'nationality' => $safe_nationality,
+				'speak_danish' => $safe_speak_danish,
+				'colleague' => $safe_colleague,
+				'task' => $safe_task
 			]);
 			if($res) {
 				$this->auth->http_response(201, 'Created', [
