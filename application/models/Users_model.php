@@ -2,7 +2,7 @@
 class Users_model extends CI_Model {
     
     public function get_all_users() {
-        $result = $this->db->query('SELECT id, firstname, lastname, email
+        $result = $this->db->query('SELECT id, firstname, lastname, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
             FROM users
             ORDER BY created DESC');
         return $result->result();
@@ -10,7 +10,7 @@ class Users_model extends CI_Model {
 
     public function get_user($id = null) {
         $query = sprintf('SELECT
-        id, firstname, lastname, email
+        id, firstname, lastname, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
         FROM users
         WHERE id = "%s" '
         , $this->db->escape_like_str($id));
@@ -23,15 +23,18 @@ class Users_model extends CI_Model {
 
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (first_name, last_name, email, password, phone_number, address, city, country, nationality, speak_danish, colleague, task)
+            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task)
             VALUES
-            ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
+            ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
             , $this->db->escape_like_str($args['password'])
+            , $this->db->escape_like_str($args['gender'])
+            , $this->db->escape_like_str($args['dateofbirth'])
             , $this->db->escape_like_str($args['phone_number'])
             , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['zipcode'])
             , $this->db->escape_like_str($args['city'])
             , $this->db->escape_like_str($args['country'])
             , $this->db->escape_like_str($args['nationality'])
@@ -53,8 +56,11 @@ class Users_model extends CI_Model {
             last_name = "%s",
             email = "%s",
             password = "%s",
+            gender = "%s",
+            dateofbirth = "%s",
             phone_number = "%s",
             address = "%s",
+            zipcode = "%s",
             city = "%s",
             country = "%s",
             nationality = "%s",
@@ -66,8 +72,11 @@ class Users_model extends CI_Model {
             , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
             , $this->db->escape_like_str($args['password'])
+            , $this->db->escape_like_str($args['gender'])
+            , $this->db->escape_like_str($args['dateofbirth'])
             , $this->db->escape_like_str($args['phone_number'])
             , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['zipcode'])
             , $this->db->escape_like_str($args['city'])
             , $this->db->escape_like_str($args['country'])
             , $this->db->escape_like_str($args['nationality'])
