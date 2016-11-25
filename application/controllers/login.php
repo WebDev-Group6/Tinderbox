@@ -24,7 +24,6 @@ class Login extends CI_Controller
 	// 	print_r($q->result());
 	// }
 
-
  }
 
 
