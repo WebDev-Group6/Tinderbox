@@ -466,7 +466,7 @@ a.button {
   border: #fbfbfb solid 2px;
   border-radius: 12px; }
 
-#signup {
+.signup {
   font-family: 'eveleth-regular', Arial, Helvetica, sans-serif;
   float: left;
   width: 100%;
