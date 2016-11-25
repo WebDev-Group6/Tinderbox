@@ -126,7 +126,7 @@ function registrationPage() {
 					+'<img src="images/picture.svg">'
 					+'<p>Upload image</p>'
 				+'</div>'
-				+'<input id="phonenumber" type="number" name="phonenumber" placeholder="Phonenumber">'
+				+'<input id="phonenumber" type="text" name="phonenumber" placeholder="Phonenumber">'
 				+'<input id="address" type="text" name="address" placeholder="Address">'
 				+'<select id="country" name="country" placeholder="Country">'
 					+'<option value="Denmark">Country</option>'
@@ -134,8 +134,8 @@ function registrationPage() {
 					+'<option value="germany">Germany</option>'
 					+'<option value="Norway">Norway</option>'
 				+'</select>'
-				+'<input id="zipcode" type="number" name="zipcode" placeholder="Zip code">'
-				+'<input input="city" type="text" name="city" placeholder="City">'
+				+'<input id="zipcode" type="text" name="zipcode" placeholder="Zip code">'
+				+'<input id="city" input="city" type="text" name="city" placeholder="City">'
 				+'<select id="speak_danish" name="speak_danish">'
 					+'<option value="danish" disabled selected>Speak and understand Danish</option>'
 					+'<option value="1">Yes</option>'
@@ -159,8 +159,7 @@ function registrationPage() {
 	*-* Registration *-*
 -------------------------*/
 
-function register(e) {
-	e.preventDefault();
+function register() {
 	
 	var emailVal = jQuery('#email').val();
 	var passwordVal = jQuery('#password').val();
@@ -168,10 +167,10 @@ function register(e) {
 	var last_nameVal = jQuery('#last_name').val();
 	var genderVal = jQuery('#gender').val();
 	var dateofbirthVal = jQuery('#dateofbirth').val();
-	var phone_numberVal = jQuery('#phone_number').val();
+	var phone_numberVal = jQuery('#phonenumber').val();
 	var addressVal = jQuery('#address').val();
-	var cityVal = jQuery('#zipcode').val();
-	var zipcodeVal = jQuery('#city').val();
+	var cityVal = jQuery('#city').val();
+	var zipcodeVal = jQuery('#zipcode').val();
 	var countryVal = jQuery('#country').val();
 	var nationalityVal = jQuery('#nationality').val();
 	var speak_danishVal = jQuery('#speak_danish').val();
@@ -198,7 +197,7 @@ function register(e) {
 	// 	};
 
 	var sendData = {
-			"email": emailVal,
+			"email": jQuery('#email').val(),
 			"password": passwordVal,
 			"first_name": first_nameVal,
 			"last_name": last_nameVal,
@@ -221,16 +220,14 @@ function register(e) {
 		type: 'POST',
 		data: JSON.stringify(sendData),
 		success: function(data, status, response) {
-			console.log('Success');
+			alert('Your Profile has been created, you can login now.');
+			loginPage();
 		},
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
-			responseHandling(err);
-			console.log(sendData);
 		}
 	});
-		//console.log(sendData);
-	
+		//console.log(sendData);	
 }
 
 /*=====================================
@@ -279,7 +276,6 @@ function frontPage() {
 		},
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
-			responseHandling(err);
 		}
 	}).done(function(data) {
 		loadFrontPage(data);
@@ -478,7 +474,7 @@ function responseHandling(data){
  * ================================================== */
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
-jQuery('#main').on('click', 'link-register-user', register);
+jQuery('#main').on('click', '.link-register-user', register);
 //jQuery('#main').on('click', '.link-register-user', function(e){
 	//e.preventDefault();
 	//register;
