@@ -15,7 +15,6 @@ const RESS = 'assets/';
 	*-* Index Page *-*
 ----------------------*/
 
-
 function loginPage() {
 	storeCheck();
 	localStorage.removeItem('user');
@@ -45,8 +44,8 @@ function loginPage() {
 				+'<div class="submit">'
 					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
 				+'</div>'
-	  			+'<div class="signup">'
-	    			+'<button id="signup">'
+	  			+'<div id="signup">'
+	    			+'<button class="signup">'
 	    				+'SIGN UP'
 	    			+'</button>'
 	  			+'</div>'
@@ -58,10 +57,9 @@ function loginPage() {
 	});
 }
 
-
-/*=============================
-=            Login            =
-=============================*/
+/*--------------------
+	*-* Login *-*
+----------------------*/
 
 function login() {
 	var email = jQuery('#email').val();
@@ -93,26 +91,123 @@ function login() {
 };
 
 
-/*=====  End of Login  ======*/
+/*----  End of Login  ----*/
 
+/*-----------------------------
+	*-* Registration Page *-*
+------------------------------*/
+
+function registrationPage() {	
+	var html =
+		'<div class="register-text container">'
+			+'<h3>You are about to register as a volunteer for</h3>'
+			+'<img src="' + RESS +'img/tinderbox_date.svg">'
+		+'</div>'
+		+'<div class="register-input container">'
+			+'<form>'
+				+'<input type="email" name="email" placeholder="Email">'
+				+'<input type="password" name="password" placeholder="Password">'
+				+'<input type="text" name="firstname" placeholder="First Name">'
+				+'<input type="text" name="lastname" placeholder="Last Name">'
+				+'<select name="gender" placeholder="Gender">'
+					+'<option value="gender" label>Gender</option>'
+					+'<option value="female">Female</option>'
+					+'<option value="male">Male</option>'
+				+'</select>'
+				+'<label for="dateofbirth">Date of Birth</label>'
+				+'<input placeholder="Date of Birth" type="date" name="dateofbirth" >'
+				+'<select name="nationality">'
+					+'<option value="nationality" label>Nationality</option>'
+					+'<option value="Danish">Danish</option>'
+					+'<option value="German">German</option>'
+					+'<option value="norwegian">Norwegian</option>'
+				+'</select>'
+			+'<div class="upload-image">'
+				+'<img src="images/picture.svg">'
+				+'<p>Upload image</p>'
+			+'</div>'
+			+'<input type="number" name="phonenumber" placeholder="Phonenumber">'
+			+'<input type="text" name="address" placeholder="Address">'
+			+'<select name="country" placeholder="Country">'
+				+'<option value="Denmark" label>Denmark</option>'
+				+'<option value="germany">Germany</option>'
+				+'<option value="Norway">Norway</option>'
+			+'</select>'
+			+'<input type="number" name="zipcode" placeholder="Zip code">'
+			+'<input type="text" name="city" placeholder="City">'
+			+'<select name="danish">'
+				+'<option value="danish" label>Speak and understand Danish</option>'
+				+'<option value="Yes">Yes</option>'
+				+'<option value="No">No</option>'
+			+'</select>'
+			+'<select name="workingperiod">'
+				+'<option value="Denmark" label>Preferred working period</option>'
+				+'<option value="before">Before Festival</option>'
+				+'<option value="during">During Festival</option>'
+				+'<option value="after">After Festival</option>'
+			+'</select>'
+			+'<select name="worktasks">'
+				+'<option value="tasks" label>Preferred work tasks</option>'
+				+'<option value="fences">Building Fences</option>'
+				+'<option value="bartender">Bartender</option>'
+				+'<option value="it-work">IT Work</option>'
+			+'</select>'
+			+'<input type="text" name="workpartner" placeholder="I like to work with (name)">'
+			+'<div class="submit"><a href="registration1.html">Register</a></div>'
+		+'</form>'
+	+'</div>';
+	jQuery('#main').html(html);
+}
+
+/*-------------------------
+	*-* Registration *-*
+-------------------------*/
+
+function register() {
+	var email = jQuery('#email').val();
+	var password = jQuery('#password').val();
+	var first_name = jQuery('#first_name').val();
+	var last_name = jQuery('#last_name').val();
+	var phone_number = jQuery('#phone_number').val();
+	var address = jQuery('#address').val();
+	var city = jQuery('#city').val();
+	var country = jQuery('#country').val();
+	var nationality = jQuery('#nationality').val();
+	var speak_danish = jQuery('#speak_danish').val();
+	var colleague = jQuery('#colleague').val();
+	var task = jQuery('#task').val();
+
+	jQuery.ajax({
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader()
+		}
+	});
+}
 
 /*=====================================
 =            Back Navigation            =
 =====================================*/
-function backNav(title) {
+function headline(pagetitle) {
 	var html =
-		'<header class="z-depth-2">'
-			+'<div class="arrow-back btn-back">'
-				+'<img src="'+ RESS +'img/back-arrow.svg">'
-			+'</div>'
-			+'<div class="nav-header-text">'
-				+'<h4>'+ title +'</h4>'
-			+'</div>'
-		+'</header>'
+		'<h1>' + pagetitle + '</h1>'
+		// '<header class="z-depth-2">'
+		// 	+'<div class="arrow-back btn-back">'
+		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
+		// 	+'</div>'
+		// 	+'<div class="nav-header-text">'
+		// 		+'<h4>'+ title +'</h4>'
+		// 	+'</div>'
+		// +'</header>'
 
 	return html;
 }
 
+function back() {
+	var html =
+	'<button id="back-link" class="backbutton">Back</button>'
+
+	return html;
+}
 /*=====  End of Back Navigation  ======*/
 
 
@@ -144,6 +239,7 @@ function frontPage() {
 	function loadFrontPage(shifts) {
 		var user = store.get('user');
 		//console.log(shifts);
+
 
 		var header =
 			'<div class="dropdown">'
@@ -242,6 +338,7 @@ function frontPage() {
 		// 		+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
 		// 		+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
 		
+		jQuery('#pagetitle').html(headline('Front'));
 		jQuery('#dropdown').html(header);
 		jQuery('#main').html(html); //overwrites the content from the view
 	};
@@ -263,6 +360,10 @@ function messages() {
 function information() {
 	var html =
 	'<h1>Information</h1>';
+
+	
+	jQuery('#pagetitle').html(headline('Information'));
+	jQuery('#back-link').html(back());
 	jQuery('#main').html(html); //overwrites the content from the view
 }
 
@@ -323,18 +424,18 @@ function responseHandling(data){
 
 /* =======  End of Custom Functions  ======= */
 
-
 /**================================================== *
  * ==========  Buttons  ========== *
  * ================================================== */
 jQuery('#main').on('click', '.link-login-submit', login);
+jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.btn-faq', faq);
-jQuery('#main').on('click', '.btn-back', frontPage);
+jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
 jQuery('#main').on('click', '.btn-settings', settings);
 jQuery('#main').on('click', '.btn-logout', loginPage);

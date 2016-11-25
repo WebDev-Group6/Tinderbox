@@ -22,14 +22,10 @@
 		</div>
 	</div>
 </header>
-<div class="headline container-fluid">
+<div id="headline" class="headline container-fluid">
 	<div class="row">
-		<div class="col-xs-4 nopadding">
-			<button id="back-link" class="backbutton">Back</button>
-		</div>
-		<div class="col-xs-8 nopadding headline">
-			<?php echo heading($headline, 1); ?>
-		</div>
+		<div id="back-link" class="col-xs-4 nopadding"></div>
+		<div id="pagetitle" class="col-xs-8 nopadding"></div>
 	</div>
 	<div class="row">
 		<div class="col-xs-offset-1 col-xs-11 nopadding">

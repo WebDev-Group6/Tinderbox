@@ -27,11 +27,11 @@ window.onclick = function(event) {
   }
 };
 
-jQuery(document).ready(function() {
-  jQuery('#back-link').click(function() {
-     history.go(-1) 
-   });
-});
+// jQuery(document).ready(function() {
+//   jQuery('#back-link').click(function() {
+//      history.go(-1) 
+//    });
+// });
 
 $('.dropdown-headline').on('click', function() {
   $parent_box = $(this).closest('.textbox');
