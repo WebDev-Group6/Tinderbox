@@ -128,7 +128,13 @@ function registrationPage() {
 			+'</div>'
 			+'<input type="number" name="phonenumber" placeholder="Phonenumber">'
 			+'<input type="text" name="address" placeholder="Address">'
-			+'<select name="country" placeholder="Country">'
+
+			+ '<select name="country" class="countries" id="countryId" placeholder="Country">'
+			+ '<option value="">Country</option>'
+			+ '</select>'
+			+ '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>'
+			+ '<script src="http://lab.iamrohit.in/js/location.js"></script>'
+
 				+'<option value="Denmark" label>Denmark</option>'
 				+'<option value="germany">Germany</option>'
 				+'<option value="Norway">Norway</option>'
