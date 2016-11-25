@@ -37,7 +37,8 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'phone_number', 'address', 'city', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
+
 
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -50,9 +51,12 @@ class User extends CI_Controller {
 			$this->auth->super_escape('validate', 'string', $post->last_name);
 			$this->auth->super_escape('validate', 'email', $post->email);
 			$this->auth->super_escape('validate', 'password', $post->password);
+			$this->auth->super_escape('validate', 'tinyint', $post->gender);
+			$this->auth->super_escape('validate', 'string', $post->dateofbirth);
 			$this->auth->super_escape('validate', 'int', $post->phone_number);
 			$this->auth->super_escape('validate', 'string', $post->address);
 			$this->auth->super_escape('validate', 'string', $post->city);
+			$this->auth->super_escape('validate', 'int', $post->zipcode);
 			$this->auth->super_escape('validate', 'string', $post->country);
 			$this->auth->super_escape('validate', 'string', $post->nationality);
 			$this->auth->super_escape('validate', 'tinyint', $post->speak_danish);
@@ -64,8 +68,11 @@ class User extends CI_Controller {
 			$safe_last_name = $this->auth->super_escape('sanitize', 2, $post->last_name);
 			$safe_email = $this->auth->super_escape('sanitize', 2, $post->email);
 			$safe_password = $this->auth->super_escape('sanitize', 2, $post->password);
+			$safe_gender = $this->auth->super_escape('sanitize', 2, $post->gender);
+			$safe_dateofbirth = $this->auth->super_escape('sanitize', 2, $post->dateofbirth);
 			$safe_phone_number = $this->auth->super_escape('sanitize', 2, $post->phone_number);
 			$safe_address = $this->auth->super_escape('sanitize', 2, $post->address);
+			$safe_zipcode = $this->auth->super_escape('sanitize', 2, $post->zipcode);
 			$safe_city = $this->auth->super_escape('sanitize', 2, $post->city);
 			$safe_country = $this->auth->super_escape('sanitize', 2, $post->country);
 			$safe_nationality = $this->auth->super_escape('sanitize', 2, $post->nationality);
@@ -85,8 +92,11 @@ class User extends CI_Controller {
 				'last_name' => $safe_last_name,
 				'email' => $safe_email,
 				'password' => $safe_password,
+				'gender' => $safe_gender,
+				'dateofbirth' => $safe_dateofbirth,
 				'phone_number' => $safe_phone_number,
 				'address' => $safe_address,
+				'zipcode' => $safe_zipcode,
 				'city' => $safe_city,
 				'country' => $safe_country,
 				'nationality' => $safe_nationality,
@@ -115,7 +125,7 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password');
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
 
 
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
@@ -128,12 +138,34 @@ class User extends CI_Controller {
 			$this->auth->super_escape('validate', 'string', $post->lastname);
 			$this->auth->super_escape('validate', 'email', $post->email);
 			$this->auth->super_escape('validate', 'password', $post->password);
+			$this->auth->super_escape('validate', 'tinyint', $post->gender);
+			$this->auth->super_escape('validate', 'string', $post->dateofbirth);
+			$this->auth->super_escape('validate', 'int', $post->phone_number);
+			$this->auth->super_escape('validate', 'string', $post->address);
+			$this->auth->super_escape('validate', 'string', $post->city);
+			$this->auth->super_escape('validate', 'int', $post->zipcode);
+			$this->auth->super_escape('validate', 'string', $post->country);
+			$this->auth->super_escape('validate', 'string', $post->nationality);
+			$this->auth->super_escape('validate', 'tinyint', $post->speak_danish);
+			$this->auth->super_escape('validate', 'string', $post->colleague);
+			$this->auth->super_escape('validate', 'string', $post->task);
 
 			// Sanitize
 			$safe_firstname = $this->auth->super_escape('sanitize', 2, $post->firstname);
 			$safe_lastname = $this->auth->super_escape('sanitize', 2, $post->lastname);
 			$safe_email = $this->auth->super_escape('sanitize', 2, $post->email);
 			$safe_password = $this->auth->super_escape('sanitize', 2, $post->password);
+			$safe_gender = $this->auth->super_escape('sanitize', 2, $post->gender);
+			$safe_dateofbirth = $this->auth->super_escape('sanitize', 2, $post->dateofbirth);
+			$safe_phone_number = $this->auth->super_escape('sanitize', 2, $post->phone_number);
+			$safe_address = $this->auth->super_escape('sanitize', 2, $post->address);
+			$safe_zipcode = $this->auth->super_escape('sanitize', 2, $post->zipcode);
+			$safe_city = $this->auth->super_escape('sanitize', 2, $post->city);
+			$safe_country = $this->auth->super_escape('sanitize', 2, $post->country);
+			$safe_nationality = $this->auth->super_escape('sanitize', 2, $post->nationality);
+			$safe_speak_danish = $this->auth->super_escape('sanitize', 2, $post->speak_danish);
+			$safe_colleague = $this->auth->super_escape('sanitize', 2, $post->colleague);
+			$safe_task = $this->auth->super_escape('sanitize', 2, $post->task);
 
 
 			$options = [
@@ -147,7 +179,18 @@ class User extends CI_Controller {
 				'firstname' => $safe_firstname,
 				'lastname' => $safe_lastname,
 				'email' => $safe_email,
-				'password' => $safe_password
+				'password' => $safe_password,
+				'gender' => $safe_gender,
+				'dateofbirth' => $safe_dateofbirth,
+				'phone_number' => $safe_phone_number,
+				'address' => $safe_address,
+				'zipcode' => $safe_zipcode,
+				'city' => $safe_city,
+				'country' => $safe_country,
+				'nationality' => $safe_nationality,
+				'speak_danish' => $safe_speak_danish,
+				'colleague' => $safe_colleague,
+				'task' => $safe_task
 			];
 
 			$res = $this->users_model->update_user($send_args);

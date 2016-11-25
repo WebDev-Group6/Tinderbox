@@ -97,68 +97,61 @@ function login() {
 	*-* Registration Page *-*
 ------------------------------*/
 
-function registrationPage() {	
+function registrationPage() {
 	var html =
 		'<div class="register-text container">'
 			+'<h3>You are about to register as a volunteer for</h3>'
 			+'<img src="' + RESS +'img/tinderbox_date.svg">'
 		+'</div>'
 		+'<div class="register-input container">'
-			+'<form>'
-				+'<input type="email" name="email" placeholder="Email">'
-				+'<input type="password" name="password" placeholder="Password">'
-				+'<input type="text" name="firstname" placeholder="First Name">'
-				+'<input type="text" name="lastname" placeholder="Last Name">'
-				+'<select name="gender" placeholder="Gender">'
-					+'<option value="gender" label>Gender</option>'
-					+'<option value="female">Female</option>'
-					+'<option value="male">Male</option>'
+			+'<div>'
+				+'<input id="email" type="email" name="email" placeholder="Email">'
+				+'<input id="password" type="password" name="password" placeholder="Password">'
+				+'<input id="first_name" type="text" name="first_name" placeholder="First Name">'
+				+'<input id="last_name" type="text" name="last_name" placeholder="Last Name">'
+				+'<select id="gender" name="gender" placeholder="Gender">'
+					+'<option value="" disabled selected>Gender</option>'
+					+'<option value="1">Female</option>'
+					+'<option value="0">Male</option>'
 				+'</select>'
 				+'<label for="dateofbirth">Date of Birth</label>'
-				+'<input placeholder="Date of Birth" type="date" name="dateofbirth" >'
-				+'<select name="nationality">'
-					+'<option value="nationality" label>Nationality</option>'
+				+'<input id="dateofbirth" placeholder="Date of Birth" type="date" name="dateofbirth" >'
+				+'<select id="nationality" name="nationality" >'
+					+'<option value="nationality" disabled selected>Nationality</option>'
 					+'<option value="Danish">Danish</option>'
 					+'<option value="German">German</option>'
 					+'<option value="norwegian">Norwegian</option>'
 				+'</select>'
-			+'<div class="upload-image">'
-				+'<img src="images/picture.svg">'
-				+'<p>Upload image</p>'
+				+'<div class="upload-image">'
+					+'<img src="images/picture.svg">'
+					+'<p>Upload image</p>'
+				+'</div>'
+				+'<input id="phonenumber" type="number" name="phonenumber" placeholder="Phonenumber">'
+				+'<input id="address" type="text" name="address" placeholder="Address">'
+				+'<select id="country" name="country" placeholder="Country">'
+					+'<option value="Denmark">Country</option>'
+					+'<option value="Denmark">Denmark</option>'
+					+'<option value="germany">Germany</option>'
+					+'<option value="Norway">Norway</option>'
+				+'</select>'
+				+'<input id="zipcode" type="number" name="zipcode" placeholder="Zip code">'
+				+'<input input="city" type="text" name="city" placeholder="City">'
+				+'<select id="speak_danish" name="speak_danish">'
+					+'<option value="danish" disabled selected>Speak and understand Danish</option>'
+					+'<option value="1">Yes</option>'
+					+'<option value="0">No</option>'
+				+'</select>'
+				+'<select id="task" name="task">'
+					+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+					+'<option value="fences">Building Fences</option>'
+					+'<option value="bartender">Bartender</option>'
+					+'<option value="it-work">IT Work</option>'
+				+'</select>'
+				+'<input id="colleague" type="text" name="colleague" placeholder="I like to work with (name)">'
+				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'
 			+'</div>'
-			+'<input type="number" name="phonenumber" placeholder="Phonenumber">'
-			+'<input type="text" name="address" placeholder="Address">'
+		+'</div>';
 
-			+ '<select name="country" class="countries" id="countryId" placeholder="Country">'
-			+ '<option value="Country">Country</option>'
-			+ '</select>'
-			+ '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>'
-			+ '<script src="http://lab.iamrohit.in/js/location.js"></script>'
-
-			+'</select>'
-			+'<input type="number" name="zipcode" placeholder="Zip code">'
-			+'<input type="text" name="city" placeholder="City">'
-			+'<select name="danish">'
-				+'<option value="danish" label>Speak and understand Danish</option>'
-				+'<option value="Yes">Yes</option>'
-				+'<option value="No">No</option>'
-			+'</select>'
-			+'<select name="workingperiod">'
-				+'<option value="Denmark" label>Preferred working period</option>'
-				+'<option value="before">Before Festival</option>'
-				+'<option value="during">During Festival</option>'
-				+'<option value="after">After Festival</option>'
-			+'</select>'
-			+'<select name="worktasks">'
-				+'<option value="tasks" label>Preferred work tasks</option>'
-				+'<option value="fences">Building Fences</option>'
-				+'<option value="bartender">Bartender</option>'
-				+'<option value="it-work">IT Work</option>'
-			+'</select>'
-			+'<input type="text" name="workpartner" placeholder="I like to work with (name)">'
-			+'<div class="submit"><a href="registration1.html">Register</a></div>'
-		+'</form>'
-	+'</div>';
 	jQuery('#main').html(html);
 }
 
@@ -166,25 +159,78 @@ function registrationPage() {
 	*-* Registration *-*
 -------------------------*/
 
-function register() {
-	var email = jQuery('#email').val();
-	var password = jQuery('#password').val();
-	var first_name = jQuery('#first_name').val();
-	var last_name = jQuery('#last_name').val();
-	var phone_number = jQuery('#phone_number').val();
-	var address = jQuery('#address').val();
-	var city = jQuery('#city').val();
-	var country = jQuery('#country').val();
-	var nationality = jQuery('#nationality').val();
-	var speak_danish = jQuery('#speak_danish').val();
-	var colleague = jQuery('#colleague').val();
-	var task = jQuery('#task').val();
+function register(e) {
+	e.preventDefault();
+	
+	var emailVal = jQuery('#email').val();
+	var passwordVal = jQuery('#password').val();
+	var first_nameVal = jQuery('#first_name').val();
+	var last_nameVal = jQuery('#last_name').val();
+	var genderVal = jQuery('#gender').val();
+	var dateofbirthVal = jQuery('#dateofbirth').val();
+	var phone_numberVal = jQuery('#phone_number').val();
+	var addressVal = jQuery('#address').val();
+	var cityVal = jQuery('#zipcode').val();
+	var zipcodeVal = jQuery('#city').val();
+	var countryVal = jQuery('#country').val();
+	var nationalityVal = jQuery('#nationality').val();
+	var speak_danishVal = jQuery('#speak_danish').val();
+	var colleagueVal = jQuery('#colleague').val();
+	var taskVal = jQuery('#task').val();
 
+
+	// var data = {
+	// 		email: jQuery('#email').val(),
+	// 		password: jQuery('#password').val(),
+	// 		first_name: jQuery('#first_name').val(),
+	// 		last_name: jQuery('#last_name').val(), 
+	// 		gender: jQuery('#gender').val(),
+	// 		dateofbirth: jQuery('#dateofbirth').val(),
+	// 		phone_number: jQuery('#phone_number').val(), 
+	// 		address: jQuery('#address').val(), 
+	// 		city: jQuery('#zipcode').val(),
+	// 		zipcode: jQuery('#city').val(), 
+	// 		country: jQuery('#country').val(), 
+	// 		nationality: jQuery('#nationality').val(),
+	// 		speak_danish: jQuery('#speak_danish').val(),
+	// 		colleague: jQuery('#colleague').val(), 
+	// 		task: jQuery('#task').val()
+	// 	};
+
+	var sendData = {
+			"email": emailVal,
+			"password": passwordVal,
+			"first_name": first_nameVal,
+			"last_name": last_nameVal,
+			"gender": genderVal,
+			"dateofbirth": dateofbirthVal,
+			"phone_number": phone_numberVal,
+			"address": addressVal,
+			"city": cityVal,
+			"zipcode": zipcodeVal,
+			"country": countryVal,
+			"nationality": nationalityVal,
+			"speak_danish": speak_danishVal,
+			"colleague": colleagueVal,
+			"task": taskVal
+	};
+// Check BeforeSend ---------
 	jQuery.ajax({
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader()
+		url: URL + 'user/add_user',
+		contentType: 'application/json',
+		type: 'POST',
+		data: JSON.stringify(sendData),
+		success: function(data, status, response) {
+			console.log('Success');
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+			responseHandling(err);
+			console.log(sendData);
 		}
 	});
+		//console.log(sendData);
+	
 }
 
 /*=====================================
@@ -432,6 +478,11 @@ function responseHandling(data){
  * ================================================== */
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
+jQuery('#main').on('click', 'link-register-user', register);
+//jQuery('#main').on('click', '.link-register-user', function(e){
+	//e.preventDefault();
+	//register;
+	//});
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
