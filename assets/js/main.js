@@ -44,8 +44,8 @@ function loginPage() {
 				+'<div class="submit">'
 					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
 				+'</div>'
-	  			+'<div class="signup">'
-	    			+'<button id="signup">'
+	  			+'<div id="signup">'
+	    			+'<button class="signup">'
 	    				+'SIGN UP'
 	    			+'</button>'
 	  			+'</div>'
@@ -97,26 +97,66 @@ function login() {
 	*-* Registration Page *-*
 ------------------------------*/
 
-funtion registrationPage() {
-	storeCheck();
-	localStorage.removeItem('user');
-    function storeCheck() {
-		// Use something else than alert()
-        if (!store.enabled) {
-            alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
-            return false;
-        }
-    }
-
-    jQuery.ajax({
-    	url: URL + 'user/add_user',
-		ContentType: 'application/json',
-		type: 'POST',
-		success: function(data, status, response)
-		{
-			
-		}
-    });
+function registrationPage() {	
+	var html =
+		'<div class="register-text container">'
+			+'<h3>You are about to register as a volunteer for</h3>'
+			+'<img src="' + RESS +'img/tinderbox_date.svg">'
+		+'</div>'
+		+'<div class="register-input container">'
+			+'<form>'
+				+'<input type="email" name="email" placeholder="Email">'
+				+'<input type="password" name="password" placeholder="Password">'
+				+'<input type="text" name="firstname" placeholder="First Name">'
+				+'<input type="text" name="lastname" placeholder="Last Name">'
+				+'<select name="gender" placeholder="Gender">'
+					+'<option value="gender" label>Gender</option>'
+					+'<option value="female">Female</option>'
+					+'<option value="male">Male</option>'
+				+'</select>'
+				+'<label for="dateofbirth">Date of Birth</label>'
+				+'<input placeholder="Date of Birth" type="date" name="dateofbirth" >'
+				+'<select name="nationality">'
+					+'<option value="nationality" label>Nationality</option>'
+					+'<option value="Danish">Danish</option>'
+					+'<option value="German">German</option>'
+					+'<option value="norwegian">Norwegian</option>'
+				+'</select>'
+			+'<div class="upload-image">'
+				+'<img src="images/picture.svg">'
+				+'<p>Upload image</p>'
+			+'</div>'
+			+'<input type="number" name="phonenumber" placeholder="Phonenumber">'
+			+'<input type="text" name="address" placeholder="Address">'
+			+'<select name="country" placeholder="Country">'
+				+'<option value="Denmark" label>Denmark</option>'
+				+'<option value="germany">Germany</option>'
+				+'<option value="Norway">Norway</option>'
+			+'</select>'
+			+'<input type="number" name="zipcode" placeholder="Zip code">'
+			+'<input type="text" name="city" placeholder="City">'
+			+'<select name="danish">'
+				+'<option value="danish" label>Speak and understand Danish</option>'
+				+'<option value="Yes">Yes</option>'
+				+'<option value="No">No</option>'
+			+'</select>'
+			+'<select name="workingperiod">'
+				+'<option value="Denmark" label>Preferred working period</option>'
+				+'<option value="before">Before Festival</option>'
+				+'<option value="during">During Festival</option>'
+				+'<option value="after">After Festival</option>'
+			+'</select>'
+			+'<select name="worktasks">'
+				+'<option value="tasks" label>Preferred work tasks</option>'
+				+'<option value="fences">Building Fences</option>'
+				+'<option value="bartender">Bartender</option>'
+				+'<option value="it-work">IT Work</option>'
+			+'</select>'
+			+'<input type="text" name="workpartner" placeholder="I like to work with (name)">'
+			+'<div class="submit"><a href="registration1.html">Register</a></div>'
+		+'</form>'
+	+'</div>';
+	jQuery('#main').html(html);
 }
 
 /*-------------------------
@@ -384,11 +424,11 @@ function responseHandling(data){
 
 /* =======  End of Custom Functions  ======= */
 
-
 /**================================================== *
  * ==========  Buttons  ========== *
  * ================================================== */
 jQuery('#main').on('click', '.link-login-submit', login);
+jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
