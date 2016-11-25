@@ -15,7 +15,6 @@ const RESS = 'assets/';
 	*-* Index Page *-*
 ----------------------*/
 
-
 function loginPage() {
 	storeCheck();
 	localStorage.removeItem('user');
@@ -58,10 +57,9 @@ function loginPage() {
 	});
 }
 
-
-/*=============================
-=            Login            =
-=============================*/
+/*--------------------
+	*-* Login *-*
+----------------------*/
 
 function login() {
 	var email = jQuery('#email').val();
@@ -93,26 +91,83 @@ function login() {
 };
 
 
-/*=====  End of Login  ======*/
+/*----  End of Login  ----*/
 
+/*-----------------------------
+	*-* Registration Page *-*
+------------------------------*/
+
+funtion registrationPage() {
+	storeCheck();
+	localStorage.removeItem('user');
+    function storeCheck() {
+		// Use something else than alert()
+        if (!store.enabled) {
+            alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
+            return false;
+        }
+    }
+
+    jQuery.ajax({
+    	url: URL + 'user/add_user',
+		ContentType: 'application/json',
+		type: 'POST',
+		success: function(data, status, response)
+		{
+			
+		}
+    });
+}
+
+/*-------------------------
+	*-* Registration *-*
+-------------------------*/
+
+function register() {
+	var email = jQuery('#email').val();
+	var password = jQuery('#password').val();
+	var first_name = jQuery('#first_name').val();
+	var last_name = jQuery('#last_name').val();
+	var phone_number = jQuery('#phone_number').val();
+	var address = jQuery('#address').val();
+	var city = jQuery('#city').val();
+	var country = jQuery('#country').val();
+	var nationality = jQuery('#nationality').val();
+	var speak_danish = jQuery('#speak_danish').val();
+	var colleague = jQuery('#colleague').val();
+	var task = jQuery('#task').val();
+
+	jQuery.ajax({
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader()
+		}
+	});
+}
 
 /*=====================================
 =            Back Navigation            =
 =====================================*/
-function backNav(title) {
+function headline(pagetitle) {
 	var html =
-		'<header class="z-depth-2">'
-			+'<div class="arrow-back btn-back">'
-				+'<img src="'+ RESS +'img/back-arrow.svg">'
-			+'</div>'
-			+'<div class="nav-header-text">'
-				+'<h4>'+ title +'</h4>'
-			+'</div>'
-		+'</header>'
+		'<h1>' + pagetitle + '</h1>'
+		// '<header class="z-depth-2">'
+		// 	+'<div class="arrow-back btn-back">'
+		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
+		// 	+'</div>'
+		// 	+'<div class="nav-header-text">'
+		// 		+'<h4>'+ title +'</h4>'
+		// 	+'</div>'
+		// +'</header>'
 
 	return html;
 }
 
+function back() {
+	var html =
+	'<button id="back-link" class="backbutton">Back</button>'
+
+	return html;
+}
 /*=====  End of Back Navigation  ======*/
 
 
@@ -144,6 +199,7 @@ function frontPage() {
 	function loadFrontPage(shifts) {
 		var user = store.get('user');
 		//console.log(shifts);
+
 
 		var header =
 			'<div class="dropdown">'
@@ -242,6 +298,7 @@ function frontPage() {
 		// 		+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
 		// 		+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
 		
+		jQuery('#pagetitle').html(headline('Front'));
 		jQuery('#dropdown').html(header);
 		jQuery('#main').html(html); //overwrites the content from the view
 	};
@@ -263,6 +320,10 @@ function messages() {
 function information() {
 	var html =
 	'<h1>Information</h1>';
+
+	
+	jQuery('#pagetitle').html(headline('Information'));
+	jQuery('#back-link').html(back());
 	jQuery('#main').html(html); //overwrites the content from the view
 }
 
@@ -334,7 +395,7 @@ jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.btn-faq', faq);
-jQuery('#main').on('click', '.btn-back', frontPage);
+jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
 jQuery('#main').on('click', '.btn-settings', settings);
 jQuery('#main').on('click', '.btn-logout', loginPage);
