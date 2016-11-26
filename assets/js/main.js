@@ -240,6 +240,8 @@ function frontPage() {
 	function loadFrontPage(shifts) {
 		var user = store.get('user');
 		//console.log(shifts);
+		var logo =
+		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
 
 		var header =
 			'<div class="dropdown">'
@@ -292,6 +294,7 @@ function frontPage() {
 		
 		jQuery('#pagetitle').html(headline('Front'));
 		jQuery('#dropdown').html(header);
+		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
 	};
 };
@@ -311,7 +314,8 @@ function frontPage() {
 function map() {
 	var html = 
 		'<div class="container">'
-			+'<div class="col-xs-12 map">'
+			+ '<div class="col-xs-12 map">'
+				+ '<h2>Overview of Festival Area</h2>'
 				+'<img src="' + RESS + 'img/map.png">'
 			+'</div>'
 		+'</div>';
@@ -376,7 +380,6 @@ function information() {
 		}
 	})
 
-	
 	jQuery('#pagetitle').html(headline('Information'));
 	jQuery('#back-link').html(back());
 	 //overwrites the content from the view
@@ -404,14 +407,6 @@ function qrcode() {
 function headline(pagetitle) {
 	var html =
 		'<h1>' + pagetitle + '</h1>'
-		// '<header class="z-depth-2">'
-		// 	+'<div class="arrow-back btn-back">'
-		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
-		// 	+'</div>'
-		// 	+'<div class="nav-header-text">'
-		// 		+'<h4>'+ title +'</h4>'
-		// 	+'</div>'
-		// +'</header>'
 
 	return html;
 }
@@ -441,13 +436,12 @@ function responseHandling(data){
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-register-user', register);
-jQuery('#main').on('click', '.tinderbox-logo', frontPage);
+jQuery('#logo-tinderbox').on('click', '.tinderbox-logo', frontPage);
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
-jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '#btn-logout', loginPage);
 

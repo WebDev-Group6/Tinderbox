@@ -132,7 +132,7 @@ button {
 .dropbtn {
   background-color: #043540;
   color: white;
-  padding: 11px 16px;
+  padding: 10px 16px;
   font-size: 20px;
   border: none;
   cursor: pointer; }
@@ -266,10 +266,10 @@ header {
   top: 0;
   z-index: 999; }
 
-#logo {
+.logo-header {
   float: left;
   height: 50px; }
-  #logo img {
+  .logo-header img {
     height: 30px;
     width: 100%;
     margin-top: 10px;
@@ -292,7 +292,7 @@ header {
     margin-top: 20px;
     text-align: right;
     padding-right: 15px;
-    font-size: 24px;
+    font-size: 26px;
     color: #043540; }
   .headline img {
     padding-top: 15px;
@@ -524,6 +524,8 @@ a.button {
   max-height: 400px;
   max-width: 400px; }
 
+.map h2 {
+  text-align: center; }
 .map img {
   max-width: 100%;
   margin-bottom: 30px; }
