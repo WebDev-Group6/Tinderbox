@@ -18,7 +18,8 @@
 	<div class="container">
 		<center>
 			<h3>Check-In:</h3>
-
-			
+			<?php if(is_array($qr)) {
+				print_r($qr[0] -> user_qr);
+			} ?>
 		</center>
 	</div>
