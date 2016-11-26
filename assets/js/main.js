@@ -219,7 +219,7 @@ function register() {
 
 function frontPage() {
 	var user = store.get('user');
-	console.log("Main menu loaded!");
+	//console.log("Main menu loaded!");
 
 	jQuery.ajax({
 		beforeSend: function(xhr) {
@@ -340,12 +340,36 @@ function information() {
 		type: 'GET',
 		data: JSON.stringify(),
 		success: function(data, status, response) {
-			console.log(data);
-
-			var title = data.info_title;
+			var title = '';
+			for(var i in data) {
+				title += 
+				'<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ data[i].info_title 
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ data[i].info_content
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>';
+			}
 			var html = 
-			'<h1>' + title + '</h1>';
+				''
+				+'<div class="container">' 
+					+ title
+				+ '</div>';
+
 			jQuery('#main').html(html);
+			jQuery('.dropdown-headline').on('click', function() {
+  				$parent_box = $(this).closest('.textbox');
+  				$parent_box.siblings().find('.dropdown-text').slideUp();
+  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+			});
 		},
 		error: function(xhr, status, error) {
 			console.log('error');
@@ -402,7 +426,6 @@ function back() {
 
 	return html;
 }
-
 /**================================================== *
  * ==========  Custom Functions  ========== *
  * ================================================== */

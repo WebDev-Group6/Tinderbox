@@ -19,7 +19,8 @@ h3, h4, h5 {
   font-size: 20px; }
 
 a {
-  color: #8bc7b9; }
+  color: #8bc7b9;
+  font-family: "eveleth-thin"; }
   a:visited {
     color: #8bc7b9; }
   a:visited {
@@ -38,6 +39,7 @@ body {
   overflow-x: hidden;
   font-family: "brown", "arial", sans-serif;
   font-size: 14px;
+  line-height: 1.5;
   color: #043540;
   padding-top: 50px; }
 
@@ -47,26 +49,26 @@ body {
 .textbox {
   background-color: #043540;
   color: #fff9f4;
-  padding: 5px 15px 10px;
+  padding: 10px 15px 10px 15px;
   margin-bottom: 15px; }
   .textbox .dropdown-headline {
-    cursor: pointer; }
-    .textbox .dropdown-headline span {
-      width: 100%; }
-      .textbox .dropdown-headline span h2 {
-        font-size: 20px; }
-      .textbox .dropdown-headline span:before {
-        float: right;
-        font-size: 30px;
-        margin-top: 12px;
-        margin-bottom: 10px; }
+    width: 100%;
+    position: relative; }
+    .textbox .dropdown-headline h3 {
+      font-size: 20px;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-right: 22px; }
+    .textbox .dropdown-headline:before {
+      right: 0;
+      font-size: 30px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%); }
   .textbox .dropdown-text {
     display: none;
-    font-size: 16px; }
-    .textbox .dropdown-text a {
-      color: #fff9f4; }
-      .textbox .dropdown-text a:focus {
-        color: #fff9f4; }
+    font-size: 16px;
+    margin-top: 10px; }
     .textbox .dropdown-text h3 {
       font-size: 20px;
       font-family: "eveleth-thin";
@@ -237,23 +239,24 @@ input:hover, input:focus {
     padding-right: 3%; } }
 table {
   font-family: "eveleth-regular";
-  font-size: 8px;
+  font-size: 10px;
   border-collapse: collapse;
-  width: 90%; }
+  width: 100%; }
 
 td {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 12px; }
+  padding: 8px; }
 
 th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 12px;
+  padding: 8px;
   font-size: 10px; }
 
 tr:nth-child(even) {
-  background-color: #dddddd; }
+  background-color: #dddddd;
+  color: #043540; }
 
 header {
   width: 100%;

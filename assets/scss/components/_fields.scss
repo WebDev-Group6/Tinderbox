@@ -1,33 +1,30 @@
 .textbox {
 	background-color: $primary-color-teal;
 	color: $primary-color-beige;
-	padding: 5px 15px 10px;
+	padding: 10px 15px 10px 15px;
   margin-bottom: 15px;
   .dropdown-headline {
-    cursor: pointer;
-    span {
-      width: 100%;
-      h2 {
+    width: 100%;
+    position: relative;
+      h3 {
         font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-right: 22px;
       }
       &:before {
-        float: right;
+        right: 0;
         font-size: 30px;
-        margin-top: 12px;
-        margin-bottom: 10px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
       } 
-    }  
     
   }
   .dropdown-text {
     display: none;
     font-size: 16px;
-    a {
-      color: $primary-color-beige;
-      &:focus {
-        color: $primary-color-beige;
-      }
-    }
+    margin-top: 10px;
     h3 {
       font-size: 20px;
       font-family: "eveleth-thin";

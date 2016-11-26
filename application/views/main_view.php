@@ -44,7 +44,6 @@
 <script src="<?php echo base_url('assets/js/store.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/scripts.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/information.js'); ?>"></script>
 
 </body>
 </html>
