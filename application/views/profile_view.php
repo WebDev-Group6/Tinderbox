@@ -17,7 +17,15 @@
 
 <div class="container">
 <center>
-<img src="<?php echo base_url('/assets/img/udklip.png'); ?>" style="align-content: center;"></img>
+<hr> 
+ <div id="preview"><?php echo img('assets/img/noimage.jpg'); ?></div>
+ <form id="form" action="profile" method="post" enctype="multipart/form-data">
+  <input id="uploadImage" type="file" accept="image/*" name="image" />
+  <input id="button" type="submit" value="Upload">
+  
+ </form>
+    <div id="err"></div>
+ <hr>
 
 <form class="form">
   <div id="form-main">
