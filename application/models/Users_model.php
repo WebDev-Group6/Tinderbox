@@ -1,17 +1,17 @@
+<<<<<<< HEAD
 <?php
-
-class Users_model extends CI_Model
-{
-	
-	public function get_all_users() {
-        $result = $this->db->query('SELECT id, firstname, lastname, email
+class Users_model extends CI_Model {
+    
+    public function get_all_users() {
+        $result = $this->db->query('SELECT id, firstname, lastname, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
             FROM users
             ORDER BY created DESC');
         return $result->result();
     }
+
     public function get_user($id = null) {
         $query = sprintf('SELECT
-        id, firstname, lastname, email
+        id, firstname, lastname, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
         FROM users
         WHERE id = "%s" '
         , $this->db->escape_like_str($id));
@@ -21,15 +21,27 @@ class Users_model extends CI_Model
         }
         return false;
     }
+
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (firstname, lastname, email, password)
+            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task)
             VALUES
-            ("%s", "%s", "%s", "%s")'
-            , $this->db->escape_like_str($args['firstname'])
-            , $this->db->escape_like_str($args['lastname'])
+            ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
+            , $this->db->escape_like_str($args['first_name'])
+            , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
-            , $this->db->escape_like_str($args['password']));
+            , $this->db->escape_like_str($args['password'])
+            , $this->db->escape_like_str($args['gender'])
+            , $this->db->escape_like_str($args['dateofbirth'])
+            , $this->db->escape_like_str($args['phone_number'])
+            , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['zipcode'])
+            , $this->db->escape_like_str($args['city'])
+            , $this->db->escape_like_str($args['country'])
+            , $this->db->escape_like_str($args['nationality'])
+            , $this->db->escape_like_str($args['speak_danish'])
+            , $this->db->escape_like_str($args['colleague'])
+            , $this->db->escape_like_str($args['task']));
         $this->db->query($query);
         $id = $this->db->insert_id();
         if(is_int($id) && $id > 0) {
@@ -37,26 +49,53 @@ class Users_model extends CI_Model
         }
         return false;
     }
+
     public function update_user($args = []) {
         $query = sprintf('UPDATE users
             SET
-            firstname = "%s",
-            lastname = "%s",
+            first_name = "%s",
+            last_name = "%s",
             email = "%s",
-            password = "%s"
+            password = "%s",
+            gender = "%s",
+            dateofbirth = "%s",
+            phone_number = "%s",
+            address = "%s",
+            zipcode = "%s",
+            city = "%s",
+            country = "%s",
+            nationality = "%s",
+            speak_danish = "%s",
+            colleague = "%s",
+            task = "%s",
             WHERE id = %d '
-            , $this->db->escape_like_str($args['firstname'])
-            , $this->db->escape_like_str($args['lastname'])
+            , $this->db->escape_like_str($args['first_name'])
+            , $this->db->escape_like_str($args['last_name'])
             , $this->db->escape_like_str($args['email'])
             , $this->db->escape_like_str($args['password'])
-            , $this->db->escape_like_str($args['id']));
+            , $this->db->escape_like_str($args['gender'])
+            , $this->db->escape_like_str($args['dateofbirth'])
+            , $this->db->escape_like_str($args['phone_number'])
+            , $this->db->escape_like_str($args['address'])
+            , $this->db->escape_like_str($args['zipcode'])
+            , $this->db->escape_like_str($args['city'])
+            , $this->db->escape_like_str($args['country'])
+            , $this->db->escape_like_str($args['nationality'])
+            , $this->db->escape_like_str($args['speak_danish'])
+            , $this->db->escape_like_str($args['colleague'])
+            , $this->db->escape_like_str($args['task'])
+            , $this->db->escape_like_str($args['id'])
+            );
         $result = $this->db->query($query);
         return $args['id'];
+
     }
+
     public function delete_user($id = null) {
         $query = sprintf('DELETE FROM users WHERE id = %d'
             , $this->db->escape_like_str($id));
         $this->db->query($query);
+
         if($this->db->affected_rows() > 0) {
             return true;
         } else {
@@ -64,21 +103,23 @@ class Users_model extends CI_Model
         }
        
     }
+
     public function get_user_by_email_password($email, $password) {
-        $query = sprintf('SELECT id, firstname, lastname, email, password
+        $query = sprintf('SELECT id, first_name, last_name, email, password
             FROM users
             WHERE email = "%s"
-            LIMIT 1', 
-            $this->db->escape_like_str($email));
+            LIMIT 1'
+            , $this->db->escape_like_str($email));
         $result = $this->db->query($query);
         $row = $result->row();
+
         if(password_verify($password, $row->password)) {
-            $token = bin2hex(openssl_random_pseudo_bytes(18));
+            $token = bin2hex(openssl_random_pseudo_bytes(21));
             $this->insert_token_user($row->id, $token);
             $res = [
-                'userid' => $row->id,
-                'firstname' => $row->firstname,
-                'lastname' => $row->lastname,
+                'id' => $row->id,
+                'first_name' => $row->first_name,
+                'last_name' => $row->last_name,
                 'email' => $row->email,
                 'token' => $token
             ];
@@ -88,6 +129,7 @@ class Users_model extends CI_Model
         return false;
         die();
     }
+
     public function insert_token_user($id = null, $token = null) {
         $query = sprintf('UPDATE users
             SET
@@ -101,6 +143,7 @@ class Users_model extends CI_Model
         $this->db->query($query);
         
     }
+
     public function check_token($email = null, $token = null) {
         
         $query = sprintf('SELECT token_val FROM users WHERE email = "%s" LIMIT 1 '
@@ -113,105 +156,6 @@ class Users_model extends CI_Model
         }
         return false;
         die();
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Fra Redwans gide 	--ikke i brug--  */
-
-	// public function get($id = null)
-	// {
-	// 	if ($id === null) 
-	// 	{
-	// 	$q = $this->db->get('users');
-	// 	} elseif(is_array($id)) {
-	// 		$q = $this->db->get_where('users', $id);
-	// 	} else {
-	// 		$q = $this->db->get_where('users', ['id' => $id]);
-	// 		}
-	// 		return $q->result_array();
-	// }
-
-
-
-
-	//  public function insert($data)
-	// {
-	// 	$this->db->insert('users' ,$data);
-	// 	return $this->db->insert_id();
-	// }
-
-	 
-
-	// public function update($data, $id)
-	// {
-	// 	$this->db->where(['id' => $id]);
-	// 	$this->db->update('users', $data);
-
-	// 	return $this->db->affected_rows();
-	// }
-	 
-
-	// public function delete($id)
-	// {
-	// 	$this->db->delete('users', ['id' => $id]);
-	// 	return $this->db->affected_rows();
-	// }
-	 
-
-
-
-
-
-
-	// public function get_users()
-	// {
-	// 	$query = $this->db->query('SELECT * FROM users');
-	// 	return $query->result();
-	// }
-	// public function set_user($userdata)
-	// {
-	// 	$query = sprintf('INSERT INTO users 
-	// 		(firstname, lastname, email, password)
-	// 		VALUES
-	// 		("%s", "%s", "%s", "%s")'
-	// 	, $userdata['firstname']
-	// 	, $userdata['lastname']
-	// 	, $userdata['email']
-	// 	, $userdata['password']);
-
-	// 	$this->db->query($query);
-	// 	return $this->db->insert_id();
-	// }
-
-	// public function get_user_by_email_password($email, $password)
-	// {
-	// 	$query = sprintf('SELECT * FROM users WHERE email = "%s" AND password = "%s" LIMIT 1 '
-	// 	, $email
-	// 	, $password);
-
-	// 	$result = $this->db->query($query);
-	// 	return $result->row();
-	// }
 }

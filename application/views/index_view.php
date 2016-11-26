@@ -7,6 +7,7 @@
 <div id="form-main">
   	<div id="form-div">
     	<form id="login_form" class="form" action="<?=site_url('user/login')?>">  
+
 			<p class="email">
 				<input name="email" type="text" class="validate[required,custom[onlyLetter],length[0,100]] feedback-input" placeholder="E-mail" id="email" />
 			</p>

@@ -18,7 +18,5 @@ public function index()
 		$this->load->view('qr_view', $data);
 		$this->load->view('footer_view', $data);
 
-
-
 }
 }

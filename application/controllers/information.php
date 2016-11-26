@@ -6,15 +6,14 @@ class Information extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = 'Information';
+		$data['headline'] = 'Tinderbox Volunteer';
 
 		$this->info_auth->method('GET');
 
 		$this->load->model('information_model');
 		
 		$view = array(
-			$this->load->view('header_view', $data, true),
-			$this->load->view('information_view', true),
-			$this->load->view('footer_view', true)
+			$this->load->view('main_view', $data, true)
 		);
 
 		$this->output
