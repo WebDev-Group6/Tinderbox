@@ -1,4 +1,3 @@
-// NEEDS REVIEW ==========
 jQuery(function() {
 	if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
 		loginPage();
@@ -17,7 +16,7 @@ const RESS = 'assets/';
 
 function loginPage() {
 	storeCheck();
-	localStorage.removeItem('user');
+	store.remove('user');
     function storeCheck() {
 		// Use something else than alert()
         if (!store.enabled) {
@@ -214,36 +213,9 @@ function register() {
 
 /*----  Login Ends  ----*/
 
-/*--------------------
-	*-* Headline *-*
-----------------------*/
-function headline(pagetitle) {
-	var html =
-		'<h1>' + pagetitle + '</h1>'
-		// '<header class="z-depth-2">'
-		// 	+'<div class="arrow-back btn-back">'
-		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
-		// 	+'</div>'
-		// 	+'<div class="nav-header-text">'
-		// 		+'<h4>'+ title +'</h4>'
-		// 	+'</div>'
-		// +'</header>'
-
-	return html;
-}
-
-function back() {
-	var html =
-	'<button id="back-link" class="backbutton">Back</button>'
-
-	return html;
-}
-/*=====  End of Back Navigation  ======*/
-
-
-/*=============================================
-=            frontPage // Menu                =
-=============================================*/
+/*-------------------------
+	*-* Frontpage *-*
+---------------------------*/
 
 function frontPage() {
 	var user = store.get('user');
@@ -280,7 +252,7 @@ function frontPage() {
 		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
 		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
 		    		//<!-- Logout has no link or function yet -->
-		    		+'<a class="fa fa-sign-out" href="">Logout</a>'
+		    		+'<a id="btn-logout" class="fa fa-sign-out" href="">Logout</a>'
 		  		+'</div>'
 			+'</div>';
 
@@ -324,24 +296,32 @@ function frontPage() {
 	};
 };
 
+/*----  Frontpage Ends  ----*/
+
+/*-------------------------
+	*-* User Profile *-*
+---------------------------*/
+
+
+
+/*-------------------
+	*-* Map *-*
+-------------------*/
+
 function map() {
 	var html = 
-			+'<div class="row">'
-				+'<div class="col-xs-offset-1 col-xs-11 nopadding">'
-						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
-					+'</div>'
-				+'</div>'
-			+'</div>'
-
-			+'<div class="container">'
+		'<div class="container">'
 			+'<div class="col-xs-12 map">'
-			+'<img src="' + RESS + 'img/map.png>'
+				+'<img src="' + RESS + 'img/map.png">'
 			+'</div>'
-			+'</div>';
+		+'</div>';
 
 		jQuery('#main').html(html); //overwrites the content from the view
 		jQuery('#pagetitle').html(headline('Festival Map'));
 };
+/*-----------------------
+	*-* Messages *-*
+-------------------------*/
 
 function messages() {
 	var html =
@@ -349,64 +329,79 @@ function messages() {
 
 	jQuery('#main').html(html); //overwrites the content from the view
 }
-
+/*-------------------------
+	*-* Information *-*
+---------------------------*/
 function information() {
-	var html =
-	'<h1>Information</h1>';
+	
+	jQuery.ajax({
+		url: URL + 'information/get_info',
+		contentType: 'application/json',
+		type: 'GET',
+		data: JSON.stringify(),
+		success: function(data, status, response) {
+			console.log(data);
+
+			var title = data.info_title;
+			var html = 
+			'<h1>' + title + '</h1>';
+			jQuery('#main').html(html);
+		},
+		error: function(xhr, status, error) {
+			console.log('error');
+		}
+	})
 
 	
 	jQuery('#pagetitle').html(headline('Information'));
 	jQuery('#back-link').html(back());
-	jQuery('#main').html(html); //overwrites the content from the view
+	 //overwrites the content from the view
 }
-
-function faq() {
-	var html;
-	var sendHtml = backNav('Faq') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-}
-
+/*-------------------------
+	*-* Schedule *-*
+---------------------------*/
 function schedule() {
 	var html = 
 	'<h1>SCHEDULE</h1>';
 	jQuery('#main').html(html);
 }
-
+/*-------------------------
+	*-* Qr Codes *-*
+---------------------------*/
 function qrcode() {
 	var html = 
 	'<h1>QRCODE</h1>';
 	jQuery('#main').html(html);
 }
 
-/*=====  End of FrontPage  ======*/
-
-/*==================================
-=            Burgermenu            =
-==================================*/
-function changeImage() {
+/*--------------------
+	*-* Headline *-*
+----------------------*/
+function headline(pagetitle) {
 	var html =
-		'<h1>changeImage</h1>'
-		+'<button class="btn waves-effect btn-back">Back</button>';
-	var sendHtml = backNav('Change Image') + html;
-	jQuery('#main').html(sendhtml); //overwrites the content from the view
-};
+		'<h1>' + pagetitle + '</h1>'
+		// '<header class="z-depth-2">'
+		// 	+'<div class="arrow-back btn-back">'
+		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
+		// 	+'</div>'
+		// 	+'<div class="nav-header-text">'
+		// 		+'<h4>'+ title +'</h4>'
+		// 	+'</div>'
+		// +'</header>'
 
-function settings() {
-	var html;
-	var sendHtml = backNav('Settings') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-};
+	return html;
+}
 
-function notification(event) {
+/*----------------------------
+	*-* Back to Frontpage *-*
+-----------------------------*/
+
+function back() {
 	var html =
-		'<h1>notification ' + event.data.title + '</h1>';
-	var sendHtml = backNav('Notification') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-};
+	'<button id="back-link" class="backbutton">Back</button>'
 
-
-/*=====  End of Burgermenu  ======*/
-
+	return html;
+}
 
 /**================================================== *
  * ==========  Custom Functions  ========== *
@@ -429,12 +424,9 @@ jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
-jQuery('#main').on('click', '.btn-faq', faq);
 jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
-jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
-jQuery('#main').on('click', '.btn-settings', settings);
-jQuery('#main').on('click', '.btn-logout', loginPage);
+jQuery('#main').on('click', '#btn-logout', loginPage);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 
