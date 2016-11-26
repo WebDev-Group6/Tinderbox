@@ -95,6 +95,12 @@ function login() {
 
 /*----  Login Ends  ----*/
 
+
+function logout(){
+	var user = store.clear('user');
+	window.location.replace("http://localhost:8888/tinderbox/tinderbox/")
+};
+
 /*-----------------------------
 	*-* Registration Page *-*
 ------------------------------*/
@@ -253,7 +259,9 @@ function frontPage() {
 		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
 		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
 		    		//<!-- Logout has no link or function yet -->
-		    		+'<a id="btn-logout" class="fa fa-sign-out" href="">Logout</a>'
+		    		+'<div class="btn-logout">'
+		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
+		    		+'</div>'
 		  		+'</div>'
 			+'</div>';
 
@@ -427,7 +435,7 @@ jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
-jQuery('#main').on('click', '#btn-logout', loginPage);
+jQuery('#main').on('click', '.btn-logout', logout);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 
