@@ -41,23 +41,17 @@ function loginPage() {
 			+'</div>'
 			+'<div class="form-div">'
 					+'<div class="input-field">'
-					+'<span class="fa fa-user input-login">'
-					+'</span>'
-					+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
+						+'<span class="fa fa-user input-login"></span>'
+						+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
 					+'</div>'
 					+'<div class="input-field">'
-					+'<span class="fa fa-user input-login">'
-					+'</span>'
-					+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password">'
+						+'<span class="fa fa-lock input-login"></span>'
+						+'<input name="password" type="password" class=" feedback-input" id="password" placeholder="password">'
 					+'</div>'
-				+'<div class="submit">'
 					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
-				+'</div>'
-	  			+'<div id="signup">'
 	    			+'<button class="signup">'
 	    				+'SIGN UP'
 	    			+'</button>'
-	  			+'</div>'
 			+'</div>'
 		+'</div>';
 
@@ -213,7 +207,7 @@ function register() {
 			alert('Your Profile has been created, you can login now.');
 			loginPage();
 		},
-		error: function(xhr, status, error) {
+			error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
 		}
 	});	
@@ -333,8 +327,21 @@ function frontPage() {
 
 function map() {
 	var html = 
-	'<h1>Festival Map</h1>';
-	jQuery('#main').html(html); //overwrites the content from the view
+			+'<div class="row">'
+				+'<div class="col-xs-offset-1 col-xs-11 nopadding">'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+			+'</div>'
+
+			+'<div class="container">'
+			+'<div class="col-xs-12 map">'
+			+'<img src="' + RESS + 'img/map.png>'
+			+'</div>'
+			+'</div>';
+
+		jQuery('#main').html(html); //overwrites the content from the view
+		jQuery('#pagetitle').html(headline('Festival Map'));
 };
 
 function messages() {
