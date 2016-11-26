@@ -34,13 +34,22 @@ function loginPage() {
 		{
 		var htmldata = 
 		'<div class="container">'
-			+'<div id="form-div">'
-				+'<p class="email">'
-					+'<input name="email" type="text" class="feedback-input" placeholder="E-mail" id="email" />'
-				+'</p>'
-				+'<p class="password">'
-					+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password" />'
-				+'</p>'
+			+'<div class="login-headline">'
+			+'<h2>Login as a Volunteer For</h2>'
+			+'<img src="' + RESS + 'img/tinderbox_date.svg">'
+			+'<h4>Or Register below</h4>'
+			+'</div>'
+			+'<div class="form-div">'
+					+'<div class="input-field">'
+					+'<span class="fa fa-user input-login">'
+					+'</span>'
+					+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
+					+'</div>'
+					+'<div class="input-field">'
+					+'<span class="fa fa-user input-login">'
+					+'</span>'
+					+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password">'
+					+'</div>'
 				+'<div class="submit">'
 					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
 				+'</div>'
@@ -91,7 +100,7 @@ function login() {
 };
 
 
-/*----  End of Login  ----*/
+/*----  Login Ends  ----*/
 
 /*-----------------------------
 	*-* Registration Page *-*
@@ -177,25 +186,6 @@ function register() {
 	var colleagueVal = jQuery('#colleague').val();
 	var taskVal = jQuery('#task').val();
 
-
-	// var data = {
-	// 		email: jQuery('#email').val(),
-	// 		password: jQuery('#password').val(),
-	// 		first_name: jQuery('#first_name').val(),
-	// 		last_name: jQuery('#last_name').val(), 
-	// 		gender: jQuery('#gender').val(),
-	// 		dateofbirth: jQuery('#dateofbirth').val(),
-	// 		phone_number: jQuery('#phone_number').val(), 
-	// 		address: jQuery('#address').val(), 
-	// 		city: jQuery('#zipcode').val(),
-	// 		zipcode: jQuery('#city').val(), 
-	// 		country: jQuery('#country').val(), 
-	// 		nationality: jQuery('#nationality').val(),
-	// 		speak_danish: jQuery('#speak_danish').val(),
-	// 		colleague: jQuery('#colleague').val(), 
-	// 		task: jQuery('#task').val()
-	// 	};
-
 	var sendData = {
 			"email": jQuery('#email').val(),
 			"password": passwordVal,
@@ -226,13 +216,14 @@ function register() {
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
 		}
-	});
-		//console.log(sendData);	
+	});	
 }
 
-/*=====================================
-=            Back Navigation            =
-=====================================*/
+/*----  Login Ends  ----*/
+
+/*--------------------
+	*-* Headline *-*
+----------------------*/
 function headline(pagetitle) {
 	var html =
 		'<h1>' + pagetitle + '</h1>'
@@ -285,7 +276,6 @@ function frontPage() {
 		var user = store.get('user');
 		//console.log(shifts);
 
-
 		var header =
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
@@ -306,82 +296,34 @@ function frontPage() {
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-schedule" id="button-schedule">'
 						+'<span class="fa fa-calendar-o">Schedule</span>'
-						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 					+'</div>'
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-qrcode" id="button-qrcode">'
 						+'<span class="fa fa-qrcode">QR Codes</span>'
-						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 					+'</div>'
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-map" id="button-map">'
 						+'<span class="fa fa-map">Festival Map</span>'
-						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 					+'</div>'
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-info" id="button-information">'
 						+'<span class="fa fa-question-circle">Information</span>'
-						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 					+'</div>'
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-messages" id="button-messages">'
 						+'<span class="fa fa-comments">Messages</span>'
-						+'<?php echo img(/assets/img/tinderbox_single_line.svg); ?>'
+					+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 					+'</div>'
 				+'</div>'
 			+'</div>';
-
-		// '<input type="checkbox" id="sidebarToggler">'
-		// +'<header class="z-depth-2">'
-		// 	+'<div class="logo">'
-		// 		+'<img src="'+ RESS +'img/logo.png">'
-		// 	+'</div>'
-		// 	+'<label class="toggle-sidebar" for="sidebarToggler">'
-		// 		+'<img src="'+ RESS +'img/menu.png" alt="" style="padding-top: 15px;">'
-		// 	+'</label>'
-
-		// 	+'<div class="sidebar z-depth-2">'
-		// 		+'<label class="toggle-close" for="sidebarToggler">✕</label>'
-		// 		+'<div class="sidebar-wrapper">'
-		// 			+'<div class="sidebar-profile">'
-		// 				+'<img src="'+ RESS +'img/user.jpg" alt="">'
-		// 				+'<h2>'
-		// 					+ user.first_name
-		// 				+'</h2>'
-		// 				+'<p>'
-		// 					+ user.email
-		// 				+'</p>'
-		// 			+'</div>'
-		// 			+'<div class="sidebar-links">'
-		// 				+'<ul>'
-		// 					+'<li class="btn-notification">'
-		// 						+'<img src="'+ RESS +'img/alarm.svg">Noticication'
-		// 					+'</li>'
-		// 					+'<li class="btn-settings">'
-		// 						+'<img src="'+ RESS +'img/settings.svg">Settings'
-		// 					+'</li>'
-		// 					+'<li class="btn-logout">'
-		// 						+'<img src="'+ RESS +'img/exit.svg">Logout'
-		// 					+'</li>'
-		// 				+'</ul>'
-		// 			+'</div>'
-		// 			+'<div class="sidebar-copy">'
-		// 				+'<p>Tinderbox &copy; 2017<br>Version: Bravo Two Zero</p>'
-		// 			+'</div>'
-		// 		+'</div>'
-		// 	+'</div>'
-		// +'</header>';
-
-		// var html =
-		// 	'<h1>Front Page</h1>'
-		// 		+ '<button class="waves-effect waves-light btn btn-map">Map</button>'
-		// 		+ '<button class="waves-effect waves-light btn btn-chat">Chat</button>'
-		// 		+ '<button class="waves-effect waves-light btn btn-info">Info</button>'
-		// 		+ '<button class="waves-effect waves-light btn btn-faq">FAQ</button>';
 		
 		jQuery('#pagetitle').html(headline('Front'));
 		jQuery('#dropdown').html(header);
@@ -475,16 +417,14 @@ function responseHandling(data){
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-register-user', register);
-//jQuery('#main').on('click', '.link-register-user', function(e){
-	//e.preventDefault();
-	//register;
-	//});
+jQuery('#main').on('click', '.tinderbox-logo', frontPage);
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.btn-faq', faq);
+jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
 jQuery('#main').on('click', '.btn-settings', settings);
