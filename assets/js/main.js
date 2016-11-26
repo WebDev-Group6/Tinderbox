@@ -8,7 +8,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost/tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -206,15 +206,27 @@ function register() {
 	jQuery.ajax({
 		url: URL + 'user/add_user',
 		contentType: 'application/json',
+		dataType: 'JSON',
 		type: 'POST',
 		data: JSON.stringify(sendData),
-		success: function(data, status, response) {
+		complete: function(xhr) {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 201) {
+                        alert("Created");
+                        loginPage();
+                    }
+                } else {
+                    alert("NoGood");
+                }
+            }
+		/*success: function(data, status, response) {
 			alert('Your Profile has been created, you can login now.');
 			loginPage();
 		},
-		error: function(xhr, status, error) {
-			var err = JSON.parse(xhr.responseText);
-		}
+		error: function(xhr, status, error) {*/
+			/*console.log('error');
+			var err = JSON.parse(xhr.responseText);*/
+		
 	});	
 }
 
@@ -332,8 +344,31 @@ function frontPage() {
 
 function map() {
 	var html = 
-	'<h1>Festival Map</h1>';
-	jQuery('#main').html(html); //overwrites the content from the view
+			+'<div class="headline container-fluid">'
+				+'<div class="row">'
+					+'<div class="col-xs-4 nopadding">'
+						+'<button id="back-link" class="backbutton">Back</button>'
+			+'</div>'
+			+'<div class="col-xs-8 nopadding headline">'
+					+'<h1>Tinderbox Map</h1>'
+			+'</div>'
+			+'</div>'
+				+'<div class="row">'
+						+'<div class="col-xs-offset-1 col-xs-11 nopadding">'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+			+'</div>'
+
+			+'<div class="container">'
+			+'<div class="col-xs-12 map">'
+			+'<img src="' + RESS + 'img/map.png>'
+			+'</div>'
+			+'</div>';
+
+		jQuery('#main').html(html); //overwrites the content from the view
+		jQuery('#pagetitle').html(headline('Front'));
+		jQuery('#dropdown').html(header);
 };
 
 function messages() {
