@@ -15,9 +15,10 @@
 			<div id="logo" class="col-xs-2">
 				<?php echo img('assets/img/tuborg.svg'); ?>
 			</div>
-			<a id="logo" class="col-xs-8" href="<?php echo base_url('frontpage'); ?>">
-			<?php echo img('assets/img/tinderbox_volunteer.svg'); ?>
-			</a>
+			<div id="logo" class="link-front col-xs-8">
+				<?php echo img('assets/img/tinderbox_volunteer.svg' ); ?>
+			</div>
+			
 			<div id="dropdown" class="col-xs-2 nopadding"></div>
 		</div>
 	</div>
