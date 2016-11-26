@@ -1,11 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
-<<<<<<< HEAD
 
-
-=======
->>>>>>> Ingibjörg
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('auth');
@@ -36,11 +32,7 @@ class User extends CI_Controller {
 		$post = (array)$post;
 
 		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
-<<<<<<< HEAD
 
-
-=======
->>>>>>> Ingibjörg
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
 			// convert $post back to an object, in order to use it with JSON
@@ -79,12 +71,7 @@ class User extends CI_Controller {
 			$safe_speak_danish = $this->auth->super_escape('sanitize', 2, $post->speak_danish);
 			$safe_colleague = $this->auth->super_escape('sanitize', 2, $post->colleague);
 			$safe_task = $this->auth->super_escape('sanitize', 2, $post->task);
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> Ingibjörg
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, [
 			'cost' => 10,
 			]);
@@ -126,11 +113,7 @@ class User extends CI_Controller {
 		$post = (array)$post;
 
 		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
-<<<<<<< HEAD
 
-
-=======
->>>>>>> Ingibjörg
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
 			// convert $post back to an object, in order to use it with JSON
@@ -219,11 +202,7 @@ class User extends CI_Controller {
 			'message' => 'User not found'
 		]);
 	}
-<<<<<<< HEAD
 
-
-=======
->>>>>>> Ingibjörg
 	public function Login() {
 
 		$this->auth->method('GET');
