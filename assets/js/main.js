@@ -287,7 +287,7 @@ function frontPage() {
 		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
 		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
 		    		//<!-- Logout has no link or function yet -->
-		    		+'<a class="fa fa-sign-out" href="">Logout</a>'
+		    		+'<a class="fa fa-sign-out" id="btn-logout "href="">Logout</a>'
 		  		+'</div>'
 			+'</div>';
 
@@ -428,7 +428,7 @@ jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
 jQuery('#main').on('click', '.btn-settings', settings);
-jQuery('#main').on('click', '.btn-logout', loginPage);
+jQuery('#main').on('click', '#btn-logout', loginPage);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 
