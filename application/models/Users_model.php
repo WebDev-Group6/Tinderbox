@@ -97,7 +97,7 @@ class Users_model extends CI_Model {
        
     }
     public function get_user_by_email_password($email, $password) {
-        $query = sprintf('SELECT id, first_name, last_name, email, password
+        $query = sprintf('SELECT id, first_name, last_name, email, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task, password
             FROM users
             WHERE email = "%s"
             LIMIT 1'
@@ -112,6 +112,17 @@ class Users_model extends CI_Model {
                 'first_name' => $row->first_name,
                 'last_name' => $row->last_name,
                 'email' => $row->email,
+                'gender' => $row->gender,
+                'dateofbirth' => $row->dateofbirth,
+                'phone_number' => $row->phone_number,
+                'address' => $row->address,
+                'zipcode' => $row->zipcode,
+                'city' => $row->city,
+                'country' => $row->country,
+                'nationality' => $row->nationality,
+                'speak_danish' => $row->speak_danish,
+                'colleague' => $row->colleague,
+                'task' => $row->task,
                 'token' => $token
             ];
             return $res;

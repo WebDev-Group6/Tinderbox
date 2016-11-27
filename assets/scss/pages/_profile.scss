@@ -1,3 +1,7 @@
+#profile {
+  @include gradient-background($primary-color-beige);
+}
+
 #profile-form {
   width: 160px;
   background-size: 30px 30px;

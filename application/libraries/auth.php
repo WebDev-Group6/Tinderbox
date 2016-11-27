@@ -43,6 +43,17 @@ class Auth {
                 'first_name' => $userdata['first_name'],
                 'last_name' => $userdata['last_name'],
                 'email' => $userdata['email'],
+                'gender' => $userdata['gender'],
+                'dateofbirth' => $userdata['dateofbirth'],
+                'phone_number' => $userdata['phone_number'],
+                'address' => $userdata['address'],
+                'zipcode' => $userdata['zipcode'],
+                'city' => $userdata['city'],
+                'country' => $userdata['country'],
+                'nationality' => $userdata['nationality'],
+                'speak_danish' => $userdata['speak_danish'],
+                'colleague' => $userdata['colleague'],
+                'task' => $userdata['task'],
                 'secretToken' => $encoded_token
             ]);
         } else {

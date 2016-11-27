@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/Tinderbox/Tinderbox/';
+const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -86,6 +86,17 @@ function login() {
 				first_name: data.first_name,
 				last_name: data.last_name,
 				email: data.email,
+				gender: data.gender,
+				dateofbirth: data.dateofbirth,
+				phone_number: data.phone_number,
+				address: data.address,
+				zipcode: data.zipcode,
+				city: data.city,
+				country: data.country,
+				nationality: data.nationality,
+				speak_danish: data.speak_danish,
+				colleague: data.colleague,
+				task: data.task,
 				token: data.secretToken
 			});
 			frontPage();
@@ -98,7 +109,7 @@ function login() {
 
 function logout(){
 	var user = store.clear('user');
-	window.location.replace("http://localhost:8888/tinderbox/tinderbox/")
+	window.location.replace(URL)
 };
 
 /*-----------------------------
@@ -300,12 +311,10 @@ function frontPage() {
 					+'</div>'
 				+'</div>'
 			+'</div>';
-			var username =
+			var userFirstName =
 			store.get('user').first_name;
 
-		console.log(username);
-
-		jQuery('#pagetitle').html(headline('Welcome '+ username));
+		jQuery('#pagetitle').html(headline('Welcome '+ userFirstName));
 		jQuery('#dropdown').html(header);
 		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
@@ -318,7 +327,44 @@ function frontPage() {
 	*-* User Profile *-*
 ---------------------------*/
 
+function profile() {
 
+	var first_name = store.get('user').first_name;
+	var last_name = store.get('user').last_name;
+	var email = store.get('user').email;
+	var gender = store.get('user').gender;
+	var dateofbirth = store.get('user').dateofbirth;
+	var phone_number = store.get('user').phone_number;
+	var address = store.get('user').address;
+	var city = store.get('user').city;
+	var zipcode = store.get('user').zipcode;
+	var country = store.get('user').country;
+	var nationality = store.get('user').nationality;
+	var speak_danish = store.get('user').speak_danish;
+	var colleague = store.get('user').colleague;
+	var task = store.get('user').task;
+
+	var html =
+	'<div id="profile">'
+		+'<div class="container">'
+			+'<h5>Name</h5>'
+			+'<p>' + first_name + ' ' + last_name + '</p>'
+			+'<p>' + email + '</p>'
+			+'<p>' + dateofbirth + '</p>'
+			+'<p>' + phone_number + '</p>'
+			+'<p>' + address + '</p>'
+			+'<p>' + zipcode + '</p>'
+			+'<p>' + country + '</p>'
+			+'<p>' + nationality + '</p>'
+			+'<p>' + speak_danish + '</p>'
+			+'<p>' + colleague + '</p>'
+			+'<p>' + task + '</p>'
+		+'</div>'
+	+'</div>';
+
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('#pagetitle').html(headline('Your Profile'));
+}
 
 /*-------------------
 	*-* Map *-*
