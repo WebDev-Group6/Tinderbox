@@ -1,19 +1,24 @@
 table {
   font-family: "eveleth-regular";
-  font-size: 8px;
+  font-size: 10px;
   border-collapse: collapse;
-  width: 90%; }
+  width: 100%; }
 
 td {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 12px; }
+  padding: 8px; }
 
 th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 12px;
-  font-size: 10px; }
+  padding: 8px;
+  font-size: 10px; 
+}
 
-tr:nth-child(even) {
-  background-color: #dddddd; }
+tr {
+  &:nth-child(even) {
+    background-color: #dddddd;
+    color: $primary-color-teal; 
+  }
+}
