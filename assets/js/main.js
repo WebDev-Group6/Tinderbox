@@ -1,4 +1,3 @@
-// NEEDS REVIEW ==========
 jQuery(function() {
 	if(store.get('user') === undefined || jQuery.isEmptyObject(store.get('user'))) {
 		loginPage();
@@ -8,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost/tinderbox/';
+const URL = 'http://localhost:8888/Tinderbox/Tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -17,7 +16,7 @@ const RESS = 'assets/';
 
 function loginPage() {
 	storeCheck();
-	localStorage.removeItem('user');
+	store.remove('user');
     function storeCheck() {
 		// Use something else than alert()
         if (!store.enabled) {
@@ -41,23 +40,17 @@ function loginPage() {
 			+'</div>'
 			+'<div class="form-div">'
 					+'<div class="input-field">'
-					+'<span class="fa fa-user input-login">'
-					+'</span>'
-					+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
+						+'<span class="fa fa-user input-login"></span>'
+						+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
 					+'</div>'
 					+'<div class="input-field">'
-					+'<span class="fa fa-user input-login">'
-					+'</span>'
-					+'<input name="password" type="password" class="feedback-input" id="password" placeholder="Password">'
+						+'<span class="fa fa-lock input-login"></span>'
+						+'<input name="password" type="password" class=" feedback-input" id="password" placeholder="password">'
 					+'</div>'
-				+'<div class="submit">'
 					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
-				+'</div>'
-	  			+'<div id="signup">'
 	    			+'<button class="signup">'
 	    				+'SIGN UP'
 	    			+'</button>'
-	  			+'</div>'
 			+'</div>'
 		+'</div>';
 
@@ -101,6 +94,12 @@ function login() {
 
 
 /*----  Login Ends  ----*/
+
+
+function logout(){
+	var user = store.clear('user');
+	window.location.replace("http://localhost:8888/tinderbox/tinderbox/")
+};
 
 /*-----------------------------
 	*-* Registration Page *-*
@@ -160,6 +159,7 @@ function registrationPage() {
 				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'
 			+'</div>'
 		+'</div>';
+
 	jQuery('#main').html(html);
 }
 
@@ -233,66 +233,27 @@ function register() {
 	jQuery.ajax({
 		url: URL + 'user/add_user',
 		contentType: 'application/json',
-		dataType: 'JSON',
 		type: 'POST',
 		data: JSON.stringify(sendData),
-		complete: function(xhr) {
-                if (xhr.readyState == 4) {
-                    if (xhr.status == 201) {
-                        alert("Created");
-                        loginPage();
-                    }
-                } else {
-                    alert("NoGood");
-                }
-            }
-		/*success: function(data, status, response) {
+		success: function(data, status, response) {
 			alert('Your Profile has been created, you can login now.');
 			loginPage();
 		},
-		error: function(xhr, status, error) {*/
-			/*console.log('error');
-			var err = JSON.parse(xhr.responseText);*/
-		
+			error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+		}
 	});	
 }
 
 /*----  Login Ends  ----*/
 
-/*--------------------
-	*-* Headline *-*
-----------------------*/
-function headline(pagetitle) {
-	var html =
-		'<h1>' + pagetitle + '</h1>'
-		// '<header class="z-depth-2">'
-		// 	+'<div class="arrow-back btn-back">'
-		// 		+'<img src="'+ RESS +'img/back-arrow.svg">'
-		// 	+'</div>'
-		// 	+'<div class="nav-header-text">'
-		// 		+'<h4>'+ title +'</h4>'
-		// 	+'</div>'
-		// +'</header>'
-
-	return html;
-}
-
-function back() {
-	var html =
-	'<button id="back-link" class="backbutton">Back</button>'
-
-	return html;
-}
-/*=====  End of Back Navigation  ======*/
-
-
-/*=============================================
-=            frontPage // Menu                =
-=============================================*/
+/*-------------------------
+	*-* Frontpage *-*
+---------------------------*/
 
 function frontPage() {
 	var user = store.get('user');
-	console.log("Main menu loaded!");
+	//console.log("Main menu loaded!");
 
 	jQuery.ajax({
 		beforeSend: function(xhr) {
@@ -313,19 +274,23 @@ function frontPage() {
 	function loadFrontPage(shifts) {
 		var user = store.get('user');
 		//console.log(shifts);
+		var logo =
+		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
 
 		var header =
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
-		    		+'<a class="fa fa-calendar-o link-schedule">SCHEDULE</a>'
-		    		+'<a class="fa fa-qrcode" href="<?php echo base_url(qrcodes); ?>">QR CODES</a>'
-		    		+'<a class="fa fa-map" href="<?php echo base_url(map); ?>">FESTIVAL MAP</a>'
-		    		+'<a class="fa fa-lightbulb-o" href="<?php echo base_url(information); ?>">INFORMATION</a>'
-		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
-		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
+		    		+'<a class="fa fa-calendar-o" onclick="schedule();">SCHEDULE</a>'
+		    		+'<a class="fa fa-qrcode" href="#" onclick="qrcode();">QR CODES</a>'
+		    		+'<a class="fa fa-map" href="#" onclick="map();">FESTIVAL MAP</a>'
+		    		+'<a class="fa fa-lightbulb-o" href="#" onclick="information();">INFORMATION</a>'
+		    		+'<a class="fa fa-comments" href="#" onclick="messages();">MESSAGES</a>'
+		    		+'<a class="fa fa-user" href="#" onclick="profile();">Profile</a>'
 		    		//<!-- Logout has no link or function yet -->
-		    		+'<a class="fa fa-sign-out" href="">Logout</a>'
+		    		+'<div class="btn-logout">'
+		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
+		    		+'</div>'
 		  		+'</div>'
 			+'</div>';
 
@@ -362,41 +327,45 @@ function frontPage() {
 					+'</div>'
 				+'</div>'
 			+'</div>';
-		
-		jQuery('#pagetitle').html(headline('Front'));
+			var username =
+			store.get('user').first_name;
+
+		console.log(username);
+
+		jQuery('#pagetitle').html(headline('Welcome '+ username));
 		jQuery('#dropdown').html(header);
+		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
 	};
 };
 
+/*----  Frontpage Ends  ----*/
+
+/*-------------------------
+	*-* User Profile *-*
+---------------------------*/
+
+
+
+/*-------------------
+	*-* Map *-*
+-------------------*/
+
 function map() {
 	var html = 
-			+'<div class="headline container-fluid">'
-				+'<div class="row">'
-					+'<div class="col-xs-4 nopadding">'
-						+'<button id="back-link" class="backbutton">Back</button>'
+		'<div class="container">'
+			+ '<div class="col-xs-12 map">'
+				+ '<h2>Overview of Festival Area</h2>'
+				+'<img src="' + RESS + 'img/map.png">'
 			+'</div>'
-			+'<div class="col-xs-8 nopadding headline">'
-					+'<h1>Tinderbox Map</h1>'
-			+'</div>'
-			+'</div>'
-				+'<div class="row">'
-						+'<div class="col-xs-offset-1 col-xs-11 nopadding">'
-						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
-					+'</div>'
-				+'</div>'
-			+'</div>'
-
-			+'<div class="container">'
-			+'<div class="col-xs-12 map">'
-			+'<img src="' + RESS + 'img/map.png>'
-			+'</div>'
-			+'</div>';
+		+'</div>';
 
 		jQuery('#main').html(html); //overwrites the content from the view
-		jQuery('#pagetitle').html(headline('Front'));
-		jQuery('#dropdown').html(header);
+		jQuery('#pagetitle').html(headline('Festival Map'));
 };
+/*-----------------------
+	*-* Messages *-*
+-------------------------*/
 
 function messages() {
 	var html =
@@ -404,65 +373,93 @@ function messages() {
 
 	jQuery('#main').html(html); //overwrites the content from the view
 }
-
+/*-------------------------
+	*-* Information *-*
+---------------------------*/
 function information() {
-	var html =
-	'<h1>Information</h1>';
-
 	
+	jQuery.ajax({
+		url: URL + 'information/get_info',
+		contentType: 'application/json',
+		type: 'GET',
+		data: JSON.stringify(),
+		success: function(data, status, response) {
+			var title = '';
+			for(var i in data) {
+				title += 
+				'<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ data[i].info_title 
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ data[i].info_content
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>';
+			}
+			var html = 
+				''
+				+'<div class="container">' 
+					+ title
+				+ '</div>';
+
+			jQuery('#main').html(html);
+			jQuery('.dropdown-headline').on('click', function() {
+  				$parent_box = $(this).closest('.textbox');
+  				$parent_box.siblings().find('.dropdown-text').slideUp();
+  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+			});
+		},
+		error: function(xhr, status, error) {
+			console.log('error');
+		}
+	})
+
 	jQuery('#pagetitle').html(headline('Information'));
 	jQuery('#back-link').html(back());
-	jQuery('#main').html(html); //overwrites the content from the view
+	 //overwrites the content from the view
 }
-
-function faq() {
-	var html;
-	var sendHtml = backNav('Faq') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-}
-
+/*-------------------------
+	*-* Schedule *-*
+---------------------------*/
 function schedule() {
 	var html = 
 	'<h1>SCHEDULE</h1>';
 	jQuery('#main').html(html);
 }
-
+/*-------------------------
+	*-* Qr Codes *-*
+---------------------------*/
 function qrcode() {
 	var html = 
 	'<h1>QRCODE</h1>';
 	jQuery('#main').html(html);
 }
 
-/*=====  End of FrontPage  ======*/
+/*--------------------
+	*-* Headline *-*
+----------------------*/
+function headline(pagetitle) {
+		var html =
+		'<h1>' + pagetitle + '</h1>'
+		return html;
+}
 
-/*==================================
-=            Burgermenu            =
-==================================*/
-function changeImage() {
+/*----------------------------
+	*-* Back to Frontpage *-*
+-----------------------------*/
+
+function back() {
 	var html =
-		'<h1>changeImage</h1>'
-		+'<button class="btn waves-effect btn-back">Back</button>';
-	var sendHtml = backNav('Change Image') + html;
-	jQuery('#main').html(sendhtml); //overwrites the content from the view
-};
+	'<button id="back-link" class="backbutton">Back</button>'
 
-function settings() {
-	var html;
-	var sendHtml = backNav('Settings') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-};
-
-function notification(event) {
-	var html =
-		'<h1>notification ' + event.data.title + '</h1>';
-	var sendHtml = backNav('Notification') + html;
-	jQuery('#main').html(sendHtml); //overwrites the content from the view
-};
-
-
-/*=====  End of Burgermenu  ======*/
-
-
+	return html;
+}
 /**================================================== *
  * ==========  Custom Functions  ========== *
  * ================================================== */
@@ -478,18 +475,14 @@ function responseHandling(data){
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-register-user', register);
-jQuery('#main').on('click', '.tinderbox-logo', frontPage);
+jQuery('#logo-tinderbox').on('click', '.tinderbox-logo', frontPage);
 jQuery('#main').on('click', '.link-map', map);
 jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
-jQuery('#main').on('click', '.btn-faq', faq);
-jQuery('#logo').on('click', '.link-front', frontPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
-jQuery('#main').on('click', '.btn-notification', {title: "notification"}, notification);
-jQuery('#main').on('click', '.btn-settings', settings);
-jQuery('#main').on('click', '.btn-logout', loginPage);
+jQuery('#main').on('click', '.btn-logout', logout);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 

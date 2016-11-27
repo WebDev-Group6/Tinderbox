@@ -12,11 +12,10 @@
 <header>
 	<div class="container-fluid">
 		<div class="row">
-			<div id="logo" class="col-xs-2">
+			<div id="logo-tuborg" class="col-xs-2 logo-header">
 				<?php echo img('assets/img/tuborg.svg'); ?>
 			</div>
-			<div id="logo" class="link-front col-xs-8">
-				<?php echo img('assets/img/tinderbox_volunteer.svg' ); ?>
+			<div id="logo-tinderbox" class="link-front col-xs-8 logo-header">
 			</div>
 			
 			<div id="dropdown" class="col-xs-2 nopadding"></div>
@@ -44,7 +43,6 @@
 <script src="<?php echo base_url('assets/js/store.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/scripts.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/information.js'); ?>"></script>
 
 </body>
 </html>

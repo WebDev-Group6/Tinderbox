@@ -18,10 +18,10 @@
 <div class="container">
 <center>
 <hr> 
- <div id="preview"><?php echo img('assets/img/noimage.jpg'); ?></div>
- <form id="form" action="profile" method="post" enctype="multipart/form-data">
-  <input id="uploadImage" type="file" accept="image/*" name="image" />
-  <input id="button" type="submit" value="Upload">
+  <div id="preview"><?php echo img('assets/img/noimage.jpg'); ?></div>
+    <form id="form" action="profile" method="post" enctype="multipart/form-data">
+      <input id="uploadImage" type="file" accept="image/*" name="image" />
+      <input id="button" type="submit" value="Upload">
   
  </form>
     <div id="err"></div>

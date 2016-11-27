@@ -1,31 +1,34 @@
+.form-div {
+  padding: 15px;
+  button {
+
+  }
+}
 .feedback-input {
   color: $secondary-color-azur;
   font-size: 18px;
+  border: 1px solid $primary-color-teal;
   border-radius: 0;
   line-height: 22px;
-  background-color: $primary-color-teal;
-  padding: 13px 13px 13px 54px;
-  margin-bottom: 10px;
+  padding: 10px 10px 10px 54px;
+  margin-bottom: 15px;
   width: 100%;
   @include box-sizing(border-box);
-  border: none; 
   &:focus {
     background: #fff;
     box-shadow: 0;
-    border: none;
     color: #3498db;
     outline: none;
-    padding: 13px 13px 13px 54px; 
   }
 }
 .input-field { 
   position: relative;
   span {
-    color: blue;
+    color: $primary-color-teal;
     position: absolute;
     top: 12px;
-      left: 18px;
-      font-size: 22px;
+    left: 18px;
+    font-size: 22px;
   }
 }
 
@@ -38,73 +41,15 @@
     margin: 10px 20px;
   }
 }
-#email {
-  background-color: white;
-  border: none;
-  border-radius: 12px; 
-  font-family: 'brown';
-  .fa-user:before {
-    content: "/f007";
-    font-family: "font-awesome";
-    position: absolute;
-    top: 0px;
-    left: -5px;
-    color: #000;
-  }
-}
-
-#password {
-  background-size: 30px 30px;
-  background-position: 11px 8px;
-  background-repeat: no-repeat;
-  background-color: white;
-  border: #fbfbfb solid 2px;
-  border-radius: 12px; 
-}
 
 .signup {
-  font-family: 'eveleth-regular', Arial, Helvetica, sans-serif;
-  float: left;
   width: 100%;
-  border: 2px;
-  border-radius: 12px;
-  cursor: pointer;
   background-color: $secondary-color-yellow;
-  background-size: 20px 20px;
-  background-position: 11px 8px;
-  color: $primary-color-teal;
-  font-size: 18px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-  margin-top: 16px;
   text-align: center; 
 }
 #button-blue {
-  font-family: 'eveleth-regular', Arial, Helvetica, sans-serif;
-  float: left;
   width: 100%;
-  border: 2px;
-  border-radius: 12px;
   cursor: pointer;
   background-color: $secondary-color-azur;
-  color: $primary-color-teal;
-  font-size: 18px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  transition: all 0.3s;
-  margin-top: 6px;
-}
-
-.ease {
-  width: 0px;
-  height: 74px;
-  background-color: #fbfbfb;
-  -webkit-transition: .3s ease;
-  -moz-transition: .3s ease;
-  -o-transition: .3s ease;
-  -ms-transition: .3s ease;
-  transition: .3s ease; 
+  
 }

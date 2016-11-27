@@ -1,9 +1,9 @@
-$(document).ready(function (e) {
- $("#form").on('submit',(function(e) {
+jQuery(document).ready(function (e) {
+ jQuery('#form').on('submit',(function(e) {
   e.preventDefault();
-  $.ajax({
-    url: "localhost/tinderbox/index.php/profile",
-    type: "POST",
+  jQuery.ajax({
+    url: 'http://localhost:8888/profile/upload_image',
+    type: 'POST',
     data:  new FormData(this),
     contentType: false,
     cache: false,
@@ -11,25 +11,26 @@ $(document).ready(function (e) {
     beforeSend : function()
    {
     //$("#preview").fadeOut();
-    $("#err").fadeOut();
+    jQuery('#err').fadeOut();
    },
    success: function(data)
       {
-    if(data=='invalid file')
+    if(data =='invalid file')
     {
      // invalid file format.
-     $("#err").html("Invalid File !").fadeIn();
+     jQuery('#err').html('Invalid File !').fadeIn();
     }
     else
     {
      // view uploaded file.
-     $("div#preview").html(data).fadeIn();
-     $("#form")[0].reset(); 
+     jQuery('#preview').html(data);
+     jQuery('#form')[0].reset(); 
+     console.log('Success');
     }
       },
      error: function(e) 
       {
-    $("#err").html(e).fadeIn();
+    jQuery('#err').html(e).fadeIn();
       }          
     });
  }));
