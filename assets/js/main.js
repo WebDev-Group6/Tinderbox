@@ -343,22 +343,39 @@ function profile() {
 	var speak_danish = store.get('user').speak_danish;
 	var colleague = store.get('user').colleague;
 	var task = store.get('user').task;
+	var genderType ='';
+	var danish = '';
 
+	if(gender = '1') {
+		genderType = '<i class="fa fa-female" aria-hidden="true"></i>Female';
+	}
+	else {
+		genderType = 'i class="fa fa-male" aria-hidden="true"></i>Male';
+	}
+
+	if(speak_danish = '1') {
+		danish = 'I Speak Danish';
+	}
+	else {
+		danish = "I don't Speak Danish";
+	}
 	var html =
 	'<div id="profile">'
 		+'<div class="container">'
-			+'<h5>Name</h5>'
-			+'<p>' + first_name + ' ' + last_name + '</p>'
-			+'<p>' + email + '</p>'
-			+'<p>' + dateofbirth + '</p>'
-			+'<p>' + phone_number + '</p>'
-			+'<p>' + address + '</p>'
-			+'<p>' + zipcode + '</p>'
-			+'<p>' + country + '</p>'
-			+'<p>' + nationality + '</p>'
-			+'<p>' + speak_danish + '</p>'
-			+'<p>' + colleague + '</p>'
-			+'<p>' + task + '</p>'
+			+'<h4 class="editprofile"><i class="fa fa-pencil" aria-hidden="true"></i>Edit Profile</h4>'
+			+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+			+'<p><i class="fa fa-user" aria-hidden="true"></i>' + first_name + ' ' + last_name + '</p>'
+			+'<p><i class="fa fa-envelope" aria-hidden="true"></i>' + email + '</p>'
+			+'<p>' + genderType + '</p>'
+			+'<p><i class="fa fa-birthday-cake" aria-hidden="true"></i>' + dateofbirth + '</p>'
+			+'<p><i class="fa fa-mobile" aria-hidden="true"></i>' + phone_number + '</p>'
+			+'<p><i class="fa fa-home" aria-hidden="true"></i>' + address + '</p>'
+			+'<p><i class="fa fa-map-marker" aria-hidden="true"></i>' + zipcode + ' ' + city +'</p>'
+			+'<p><i class="fa fa-globe" aria-hidden="true"></i>' + country + '</p>'
+			+'<p><i class="fa fa-flag" aria-hidden="true"></i>' + nationality + '</p>'
+			+'<p><i class="fa fa-commenting-o" aria-hidden="true"></i>' + danish + '</p>'
+			+'<p><i class="fa fa-users" aria-hidden="true"></i>' + colleague + '</p>'
+			+'<p><i class="fa fa-cog" aria-hidden="true"></i>' + task + '</p>'
 		+'</div>'
 	+'</div>';
 
@@ -366,6 +383,15 @@ function profile() {
 	jQuery('#pagetitle').html(headline('Your Profile'));
 }
 
+/*-------------------------
+	*-* User Profile *-*
+---------------------------*/
+function editUser() {
+	var html =
+	'<h1>Edit Profile</h1>';
+
+	jQuery('#main').html(html);
+}
 /*-------------------
 	*-* Map *-*
 -------------------*/
@@ -500,6 +526,7 @@ jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
+jQuery('#main').on('click', '.editprofile', editUser);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-logout', logout);
 

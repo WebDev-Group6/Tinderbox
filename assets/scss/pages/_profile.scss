@@ -1,5 +1,16 @@
 #profile {
   @include gradient-background($primary-color-beige);
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 16px;
+  h4 {
+    text-align: right;
+  }
+  i {
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
+  }
 }
 
 #profile-form {
