@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
+
 	public function __construct() {
 		parent::__construct();
 		$this->load->library('auth');
@@ -22,18 +23,23 @@ class User extends CI_Controller {
 	}
 	public function add_user() {
 		$this->auth->method('POST');
+
+
 		// $this->auth->check_token();
 		$post = file_get_contents('php://input');
 		$post = json_decode($post);
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
+
 		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
+
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
 			// convert $post back to an object, in order to use it with JSON
 			$post = (object)$post;
 			
 			// Validate
+
 			$this->auth->super_escape('validate', 'string', $post->first_name);
 			$this->auth->super_escape('validate', 'string', $post->last_name);
 			$this->auth->super_escape('validate', 'email', $post->email);
@@ -65,10 +71,12 @@ class User extends CI_Controller {
 			$safe_speak_danish = $this->auth->super_escape('sanitize', 2, $post->speak_danish);
 			$safe_colleague = $this->auth->super_escape('sanitize', 2, $post->colleague);
 			$safe_task = $this->auth->super_escape('sanitize', 2, $post->task);
+
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, [
 			'cost' => 10,
 			]);
 			$res = $this->users_model->set_user([
+
 				'first_name' => $safe_first_name,
 				'last_name' => $safe_last_name,
 				'email' => $safe_email,
@@ -84,6 +92,7 @@ class User extends CI_Controller {
 				'speak_danish' => $safe_speak_danish,
 				'colleague' => $safe_colleague,
 				'task' => $safe_task
+
 			]);
 			if($res) {
 				$this->auth->http_response(201, 'Created', [
@@ -102,7 +111,9 @@ class User extends CI_Controller {
 		$post = json_decode($post);
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
+
 		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
+
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
 			// convert $post back to an object, in order to use it with JSON
@@ -144,6 +155,7 @@ class User extends CI_Controller {
 			];
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, $options);
 			$send_args = [
+
 				'id' => $id,
 				'firstname' => $safe_firstname,
 				'lastname' => $safe_lastname,
@@ -190,7 +202,9 @@ class User extends CI_Controller {
 			'message' => 'User not found'
 		]);
 	}
+
 	public function Login() {
+
 		$this->auth->method('GET');
 		$this->auth->handle_login();
 	}

@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost:8888/Tinderbox/Tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -95,6 +95,12 @@ function login() {
 
 /*----  Login Ends  ----*/
 
+
+function logout(){
+	var user = store.clear('user');
+	window.location.replace("http://localhost:8888/tinderbox/tinderbox/")
+};
+
 /*-----------------------------
 	*-* Registration Page *-*
 ------------------------------*/
@@ -153,6 +159,7 @@ function registrationPage() {
 				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'
 			+'</div>'
 		+'</div>';
+
 	jQuery('#main').html(html);
 }
 
@@ -247,14 +254,16 @@ function frontPage() {
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
-		    		+'<a class="fa fa-calendar-o link-schedule">SCHEDULE</a>'
-		    		+'<a class="fa fa-qrcode" href="<?php echo base_url(qrcodes); ?>">QR CODES</a>'
-		    		+'<a class="fa fa-map" href="<?php echo base_url(map); ?>">FESTIVAL MAP</a>'
-		    		+'<a class="fa fa-lightbulb-o" href="<?php echo base_url(information); ?>">INFORMATION</a>'
-		    		+'<a class="fa fa-comments" href="<?php echo base_url (messages) ?>">MESSAGES</a>'
-		    		+'<a class="fa fa-user" href="<?php echo base_url(profile); ?>">Profile</a>'
+		    		+'<a class="fa fa-calendar-o" onclick="schedule();">SCHEDULE</a>'
+		    		+'<a class="fa fa-qrcode" href="#" onclick="qrcode();">QR CODES</a>'
+		    		+'<a class="fa fa-map" href="#" onclick="map();">FESTIVAL MAP</a>'
+		    		+'<a class="fa fa-lightbulb-o" href="#" onclick="information();">INFORMATION</a>'
+		    		+'<a class="fa fa-comments" href="#" onclick="messages();">MESSAGES</a>'
+		    		+'<a class="fa fa-user" href="#" onclick="profile();">Profile</a>'
 		    		//<!-- Logout has no link or function yet -->
-		    		+'<a id="btn-logout" class="fa fa-sign-out" href="">Logout</a>'
+		    		+'<div class="btn-logout">'
+		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
+		    		+'</div>'
 		  		+'</div>'
 			+'</div>';
 
@@ -446,7 +455,7 @@ jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#headline').on('click', '.backbutton', frontPage);
-jQuery('#main').on('click', '#btn-logout', loginPage);
+jQuery('#main').on('click', '.btn-logout', logout);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
 
