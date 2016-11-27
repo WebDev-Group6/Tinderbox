@@ -21,7 +21,7 @@ class Users_model extends CI_Model {
     }
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task)
+            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city,  country, nationality, speak_danish, colleague, task)
             VALUES
             ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
             , $this->db->escape_like_str($args['first_name'])

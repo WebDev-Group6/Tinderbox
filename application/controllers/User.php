@@ -105,14 +105,14 @@ class User extends CI_Controller {
 		$this->auth->http_response(406, 'Not Acceptable', ['message' => 'Check the JSON data - properties are not correctly']);
 	}
 	public function update_user($id = null) {
-		$this->auth->method('PATCH');
+		$this->auth->method('PUT');
 		$this->auth->check_token();
 		$post = file_get_contents('php://input');
 		$post = json_decode($post);
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'zipcode','city', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
 
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
