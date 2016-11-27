@@ -291,8 +291,12 @@ function frontPage() {
 					+'</div>'
 				+'</div>'
 			+'</div>';
-		
-		jQuery('#pagetitle').html(headline('Front'));
+			var username =
+			store.get('user').first_name;
+
+		console.log(username);
+
+		jQuery('#pagetitle').html(headline('Welcome '+ username));
 		jQuery('#dropdown').html(header);
 		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
@@ -405,10 +409,9 @@ function qrcode() {
 	*-* Headline *-*
 ----------------------*/
 function headline(pagetitle) {
-	var html =
+		var html =
 		'<h1>' + pagetitle + '</h1>'
-
-	return html;
+		return html;
 }
 
 /*----------------------------

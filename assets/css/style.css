@@ -363,7 +363,8 @@ a.button {
   padding-bottom: 15px;
   color: #043540; }
   .menu-button span {
-    font-family: "eveleth-regular"; }
+    font-family: "eveleth-regular";
+    width: 100%; }
     .menu-button span:before {
       font-family: "font-awesome";
       float: right;
