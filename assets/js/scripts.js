@@ -32,9 +32,3 @@ window.onclick = function(event) {
 //      history.go(-1) 
 //    });
 // });
-
-$('.dropdown-headline').on('click', function() {
-  $parent_box = $(this).closest('.textbox');
-  $parent_box.siblings().find('.dropdown-text').slideUp();
-  $parent_box.find('.dropdown-text').slideToggle(400, 'swing');
-});
