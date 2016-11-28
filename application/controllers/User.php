@@ -365,6 +365,15 @@ class User extends CI_Controller {
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->users_model->get_user_team($safe_id));
 	}
+	public function team_leader($id = null) {
+		$this->auth->method('GET');
+		//$this->auth->check_token();
+		// Validate Data
+		$this->auth->secure_escape('validate', 'int', $id);
+		// Sanitize Data
+		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
+		$this->auth->http_response(200, 'OK', $this->users_model->get_team_leader($safe_id));
+	}
 
 	public function team_members($id = null) {
 		$this->auth->method('GET');

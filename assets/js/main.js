@@ -97,6 +97,7 @@ function login() {
 				speak_danish: data.speak_danish,
 				colleague: data.colleague,
 				task: data.task,
+				user_team_id: data.user_team_id,
 				token: data.secretToken
 			});
 			frontPage();
@@ -488,23 +489,51 @@ function information() {
 ---------------------------*/
 function schedule() {
 	var user = store.get('user');
+	var user_team = 'user/user_team/' + user.id;
+	var team_leader = 
 	jQuery.ajax({
 		url: URL + 'user/user_team/' + user.id,
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
-			console.log(data);
-			console.log(data.team_name);
+			
+			var monthNames = [
+  				'Jan', 'Feb', 'Mar',
+  				'Apr', 'May', 'Jun', 'Jul',
+  				'Aug', 'Sep', 'Oct',
+  				'Nov', 'Dec'
+			];
+			var weekNames = [
+			'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+			]
+			var date = new Date(data.shift_date);
+			var day = date.getDate();
+			var weekIndex = date.getDay();
+			var monthIndex = date.getMonth();
+			var year = date.getFullYear();
+
+			var shift_date = weekNames[weekIndex] + ' ' + day + '-' + monthNames[monthIndex];
+			
+			var time = data.shift_start;
+
+			var d = new Date(data.shift_start);
+			var hour = d.getHours();
+			var min = d.getMinutes();
+
+			var shiftTime = hour + ':' + min;
+			console.log(shiftTime); 
+			
 			var schedule = 
 				'<div class="row">'
 					+ '<div class="col-xs-12">'
 						+ '<div class="textbox">'
 	        				+ '<div class="dropdown-headline fa fa-angle-down">'
 								+'<h3>' 
-									+ data.team_name + ' Team'
+									+'Your Team'
 								+ '</h3>'
 							+ '</div>'
 							+ '<div class="dropdown-text">'
+								+ '<h4>' + data.team_name + '</h4>'
 								+ data.team_info
 							+ '</div>'
 					  	+ '</div>'
@@ -515,7 +544,7 @@ function schedule() {
 						+ '<div class="textbox">'
 	        				+ '<div class="dropdown-headline">'
 								+'<h3>' 
-									+ data.shift_date + ' ' + data.shift_start + ' ' + data.shift_end
+									+ shift_date + ' ' + data.shift_start + '-' + data.shift_end
 								+ '</h3>'
 							+ '</div>'
 					  	+ '</div>'
@@ -526,21 +555,7 @@ function schedule() {
 						+ '<div class="textbox">'
 	        				+ '<div class="dropdown-headline fa fa-angle-down">'
 								+'<h3>' 
-									+ 'Team Leader'
-								+ '</h3>'
-							+ '</div>'
-							+ '<div class="dropdown-text">'
-								+ '<h4>Name of leader</h4>'
-							+ '</div>'
-					  	+ '</div>'
-					+ '</div>'
-				+ '</div>'
-				+ '<div class="row">'
-					+ '<div class="col-xs-12">'
-						+ '<div class="textbox">'
-	        				+ '<div class="dropdown-headline fa fa-angle-down">'
-								+'<h3>' 
-									+ 'Meeting Place'
+									+ 'Meeting Point'
 								+ '</h3>'
 							+ '</div>'
 							+ '<div class="dropdown-text">'
@@ -548,21 +563,59 @@ function schedule() {
 							+ '</div>'
 					  	+ '</div>'
 					+ '</div>'
-				+ '</div>'
-				;
-
-				var html = 
-					'<div class="container">' 
-						+ schedule
 					+ '</div>';
+				console.log(user.user_team_id);
 
-				jQuery('#main').html(html);
+				jQuery.ajax({
+					url: URL + 'user/team_leader/' + user.user_team_id,
+					contentType: 'application/json',
+					type: 'GET',
+					success: function(data, status, response) {
+						console.log(data);
+						var html_leader = 
+							'<div class="row">'
+								+ '<div class="col-xs-12">'
+									+ '<div class="textbox">'
+	        							+ '<div class="dropdown-headline fa fa-angle-down">'
+											+'<h3>Team Leader</h3>' 
+										+ '</div>'
+										+ '<div class="dropdown-text">'
+											+ '<p>' + data.first_name + ' ' + data.last_name + '</p>'
+											+ '<p>Email: ' + data.email + '</p>'
+											+ '<p>' + data.phone_number + '</p>'
+											+ '<p>Your team leader is responseble for scanning your QR code and giving instructions during your shift.'
+										+ '</div>'
+					  				+ '</div>'
+								+ '</div>'
+							+ '</div>';
+							var html = 
+								'<div id="schedule" class="container">'
+									+'<div class="row">'
+										+'<div class="col-xs-12">'
+											+ '<div class="textbox">'
+												+ '<div class="dropdown-headline">'
+													+'<p>Read about your team and responsibilites, when you have shifts, where you should check in and who your team leader is.</p>'
+												+ '</div>'
+											+ '</div>'
+										+'</div>'
+									+'</div>'
+									+ schedule
+									+ html_leader
+								+ '</div>';
 
-				jQuery('.dropdown-headline').on('click', function() {
+							jQuery('#main').html(html);
+							jQuery('#pagetitle').html(headline('Schedule'));
+
+							jQuery('.dropdown-headline').on('click', function() {
   				$parent_box = $(this).closest('.textbox');
   				$parent_box.siblings().find('.dropdown-text').slideUp();
-  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+  				$parent_box.find('.dropdown-text').slideToggle(300, 'swing');
 			});
+					},
+					error: function(xhr, status, error) {
+						var err = JSON.parse(xhr.responseText);
+					}
+				})
 		},
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);

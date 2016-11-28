@@ -41,6 +41,27 @@ class Users_model extends CI_Model {
         }
         return false;
     }
+
+    public function get_team_leader($id = null) {
+        $query = sprintf('SELECT 
+            `users`.`id`
+            , `users`.`first_name`
+            , `users`.`last_name`
+            , `users`.`email`
+            , `users`.`phone_number`
+            , `users`.`user_team_id`
+            , `team`.`team_leader_id` 
+            FROM `team` INNER JOIN `users` 
+            ON `team`.`team_leader_id` = `users`.`id` 
+            WHERE `team`.`team_id` = "%s" '
+            , $this->db->escape_like_str($id));
+        $result = $this->db->query($query);
+        if($result) {
+            return $result->row();
+        }
+        return false;
+    }
+
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
             (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task)
