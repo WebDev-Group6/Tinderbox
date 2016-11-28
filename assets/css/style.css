@@ -21,11 +21,10 @@ h3, h4, h5 {
 h6 {
   font-family: "eveleth-thin";
   line-height: 1.1;
-  font-size: 20px;  }
-h7 {
-  font-family: "eveleth-thin";
-  line-height: 1.3;
-  font-size: 20px;  }
+  font-size: 16px;
+  color: #ffd962;
+  background-color: #043540;
+}
 
 a {
   color: #8bc7b9;
