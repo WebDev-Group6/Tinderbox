@@ -6,6 +6,8 @@ class User extends CI_Controller {
 		parent::__construct();
 		$this->load->library('auth');
 		$this->load->model('users_model');
+		$this->load->model('teams_model');
+		// $this->load->model('shifts_model');
     }
 	public function users() {
 		$this->auth->method('GET');
@@ -23,7 +25,6 @@ class User extends CI_Controller {
 	}
 	public function add_user() {
 		$this->auth->method('POST');
-
 
 		// $this->auth->check_token();
 		$post = file_get_contents('php://input');
@@ -102,11 +103,11 @@ class User extends CI_Controller {
 			}
 		}
 		
-		$this->auth->http_response(406, 'Not Acceptable', ['message' => 'Check the JSON data - properties are not correctly']);
+		$this->auth->http_response(406, 'Not Acceptable', ['message' => 'Check the JSON data - properties are not set correctly']);
 	}
 	public function update_user($id = null) {
-		$this->auth->method('PUT');
-		$this->auth->check_token();
+		$this->auth->method('PATCH');
+		//$this->auth->check_token();
 		$post = file_get_contents('php://input');
 		$post = json_decode($post);
 		// Convert the $post object to an array, for testing
@@ -119,8 +120,8 @@ class User extends CI_Controller {
 			// convert $post back to an object, in order to use it with JSON
 			$post = (object)$post;
 			// Validate
-			$this->auth->super_escape('validate', 'string', $post->firstname);
-			$this->auth->super_escape('validate', 'string', $post->lastname);
+			$this->auth->super_escape('validate', 'string', $post->first_name);
+			$this->auth->super_escape('validate', 'string', $post->last_name);
 			$this->auth->super_escape('validate', 'email', $post->email);
 			$this->auth->super_escape('validate', 'password', $post->password);
 			$this->auth->super_escape('validate', 'tinyint', $post->gender);
@@ -135,8 +136,8 @@ class User extends CI_Controller {
 			$this->auth->super_escape('validate', 'string', $post->colleague);
 			$this->auth->super_escape('validate', 'string', $post->task);
 			// Sanitize
-			$safe_firstname = $this->auth->super_escape('sanitize', 2, $post->firstname);
-			$safe_lastname = $this->auth->super_escape('sanitize', 2, $post->lastname);
+			$safe_first_name = $this->auth->super_escape('sanitize', 2, $post->first_name);
+			$safe_last_name = $this->auth->super_escape('sanitize', 2, $post->last_name);
 			$safe_email = $this->auth->super_escape('sanitize', 2, $post->email);
 			$safe_password = $this->auth->super_escape('sanitize', 2, $post->password);
 			$safe_gender = $this->auth->super_escape('sanitize', 2, $post->gender);
@@ -155,10 +156,9 @@ class User extends CI_Controller {
 			];
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, $options);
 			$send_args = [
-
 				'id' => $id,
-				'firstname' => $safe_firstname,
-				'lastname' => $safe_lastname,
+				'first_name' => $safe_first_name,
+				'last_name' => $safe_last_name,
 				'email' => $safe_email,
 				'password' => $safe_password,
 				'gender' => $safe_gender,
@@ -208,58 +208,213 @@ class User extends CI_Controller {
 		$this->auth->method('GET');
 		$this->auth->handle_login();
 	}
+
 	public function all_shifts() {
 		$this->auth->method('GET');
 		$this->auth->check_token();
 		$this->auth->http_response(200, 'OK', $this->shifts_model->get_all_shifts());
 	}
+
 	public function shifts($id = null) {
 		$this->auth->method('GET');
 		$this->auth->check_token();
-		// validate
+		// Validate ID
 		$this->auth->super_escape('validate', 'int', $id);
 		// Sanitize
 		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->shifts_model->get_shifts($safe_id));
 	}
-	public function add_shift() {
-		$this->auth->method('POST'); 
+
+	// public function add_shift() {
+	// 	$this->auth->method('POST'); 
+	// 	$this->auth->check_token();
+	// 	$post = file_get_contents('php://input');
+	// 	$post = json_decode($post);
+	// 	$post = (array)$post;
+	// 	$args_check = array('shift_userid', 'shift_name', 'shift_content', 'shift_station', 'shift_location', 'shift_start', 'shift_end');
+	// 	if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
+	// 		$post = (object)$post;
+	// 		// Validate
+	// 		$this->auth->super_escape('validate', 'int', $post->shift_userid);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_name);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_content);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_station);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_location);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_start);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_end);
+	// 		// Sanitize
+	// 		$safe_shift_userid = $this->auth->super_escape('sanitize', 2, $post->shift_userid);
+	// 		$safe_shift_name = $this->auth->super_escape('sanitize', 2, $post->shift_name);
+	// 		$safe_shift_content = $this->auth->super_escape('sanitize', 2, $post->shift_content);
+	// 		$safe_shift_station = $this->auth->super_escape('sanitize', 2, $post->shift_station);
+	// 		$safe_shift_location = $this->auth->super_escape('sanitize', 2, $post->shift_location);
+	// 		$safe_shift_start = $this->auth->super_escape('sanitize', 2, $post->shift_start);
+	// 		$safe_shift_end = $this->auth->super_escape('sanitize', 2, $post->shift_end);
+		
+	// 		$res = $this->shifts_model->set_shift([
+	// 			'shift_userid' => $safe_shift_userid,
+	// 			'shift_name' => $safe_shift_name,
+	// 			'shift_content' => $safe_shift_content,
+	// 			'shift_station' => $safe_shift_station,
+	// 			'shift_location' => $safe_shift_location,
+	// 			'shift_start' => $safe_shift_start,
+	// 			'shift_end' => $safe_shift_end
+	// 		]);
+	// 		if($res) {
+	// 			$this->auth->http_response(201, 'Created', [
+	// 				'message' => 'Shift Created',
+	// 				'id' => $res
+	// 			]);
+	// 		}
+	// 	}
+	// 	$this->auth->http_response(406, 'Not Acceptable', [
+	// 		'message' => 'Check the JSON data - properties are not correct' 
+	// 	]);
+	// }
+	
+	// public function update_shift($id = null) {
+	// 	$this->auth->method('PATCH');
+	// 	$this->auth->check_token();
+	// 	// Validate
+	// 	$this->auth->super_escape('validate', 'int', $id);
+	// 	// Sanitize
+	// 	$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+	// 	$post = file_get_contents('php://input');
+	// 	$post = json_decode($post);
+	// 	$post = (array)$post;
+	// 	$args_check = array('shift_userid', 'shift_name', 'shift_content', 'shift_station', 'shift_location', 'shift_start', 'shift_end');
+	// 	if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
+	// 		$post = (object)$post;
+	// 		// Validate
+	// 		$this->auth->super_escape('validate', 'int', $post->shift_userid);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_name);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_content);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_station);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_location);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_start);
+	// 		$this->auth->super_escape('validate', 'string', $post->shift_end);
+	// 		// Sanitize
+	// 		$safe_shift_userid = $this->auth->super_escape('sanitize', 2, $post->shift_userid);
+	// 		$safe_shift_name = $this->auth->super_escape('sanitize', 2, $post->shift_name);
+	// 		$safe_shift_content = $this->auth->super_escape('sanitize', 2, $post->shift_content);
+	// 		$safe_shift_station = $this->auth->super_escape('sanitize', 2, $post->shift_station);
+	// 		$safe_shift_location = $this->auth->super_escape('sanitize', 2, $post->shift_location);
+	// 		$safe_shift_start = $this->auth->super_escape('sanitize', 2, $post->shift_start);
+	// 		$safe_shift_end = $this->auth->super_escape('sanitize', 2, $post->shift_end);
+	// 		$res = $this->shifts_model->update_shift([
+	// 			'shift_userid' => $safe_shift_userid,
+	// 			'shift_name' => $safe_shift_name,
+	// 			'shift_content' => $safe_shift_content,
+	// 			'shift_station' => $safe_shift_station,
+	// 			'shift_location' => $safe_shift_location,
+	// 			'shift_start' => $safe_shift_start,
+	// 			'shift_end' => $safe_shift_end,
+	// 			'sid' => $safe_id
+	// 		]);
+	// 		if($res) {
+	// 			$this->auth->http_response(200, 'OK', [
+	// 				'message' => 'Shift Updated',
+	// 				'id' => $res
+	// 			]);
+	// 		}
+	// 	}
+	// 	$this->auth->http_response(406, 'Not Acceptable', [
+	// 		'message' => 'Check the JSON data - properties are not correct'
+	// 	]);
+	// }
+	// public function delete_shift($id = null) {
+	// 	$this->auth->method('DELETE');
+	// 	$this->auth->check_token();
+	// 	// Validate
+	// 	$this->auth->super_escape('validate', 'int', $id);
+	// 	// Sanitize
+	// 	$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+	// 	$res = $this->shifts_model->delete_shift($safe_id);
+		
+	// 	if($res) {
+	// 		$this->auth->http_response(200, 'OK', [
+	// 			'message' => 'Shift is deleted'
+	// 		]);
+	// 	} else {
+	// 		$this->auth->http_response(404, 'Not Found', [
+	// 			'message' => 'Shift not found'
+	// 		]);
+	// 	}
+	// }
+	public function all_teams() {
+		$this->auth->method('GET');
+		//$this->auth->check_token();
+		$this->auth->http_response(200, 'OK', $this->teams_model->get_all_teams());
+	}
+
+	public function team($id = null) {
+		$this->auth->method('GET');
 		$this->auth->check_token();
+		// Validate Data
+		$this->auth->super_escape('validate', 'int', $id);
+		// Sanitize Data
+		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+		$this->auth->http_response(200, 'OK', $this->teams_model->get_team($safe_id));
+	}
+
+	public function user_team($id = null) {
+		$this->auth->method('GET');
+		//$this->auth->check_token();
+		// Validate Data
+		$this->auth->super_escape('validate', 'int', $id);
+		// Sanitize Data
+		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+		$this->auth->http_response(200, 'OK', $this->users_model->get_user_team($safe_id));
+	}
+
+	public function team_members($id = null) {
+		$this->auth->method('GET');
+		//$this->auth->check_token();
+		// Validate Data
+		$this->auth->super_escape('validate', 'int', $id);
+		// Sanitize Data
+		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+		$this->auth->http_response(200, 'OK', $this->teams_model->get_team_members($safe_id));
+	}
+
+	public function add_team() {
+		$this->auth->method('POST'); 
+		//$this->auth->check_token();
 		$post = file_get_contents('php://input');
 		$post = json_decode($post);
 		$post = (array)$post;
-		$args_check = array('shift_userid', 'shift_name', 'shift_content', 'shift_station', 'shift_location', 'shift_start', 'shift_end');
+		$args_check = array('team_name, team_info, shift_date, shift_start, shift_end, team_place, team_leader_id');
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
 			$post = (object)$post;
-			// Validate
-			$this->auth->super_escape('validate', 'int', $post->shift_userid);
-			$this->auth->super_escape('validate', 'string', $post->shift_name);
-			$this->auth->super_escape('validate', 'string', $post->shift_content);
-			$this->auth->super_escape('validate', 'string', $post->shift_station);
-			$this->auth->super_escape('validate', 'string', $post->shift_location);
+			// Validate Data
+			$this->auth->super_escape('validate', 'string', $post->team_name);
+			$this->auth->super_escape('validate', 'string', $post->team_info);
+			$this->auth->super_escape('validate', 'string', $post->shift_date);
 			$this->auth->super_escape('validate', 'string', $post->shift_start);
 			$this->auth->super_escape('validate', 'string', $post->shift_end);
-			// Sanitize
-			$safe_shift_userid = $this->auth->super_escape('sanitize', 2, $post->shift_userid);
-			$safe_shift_name = $this->auth->super_escape('sanitize', 2, $post->shift_name);
-			$safe_shift_content = $this->auth->super_escape('sanitize', 2, $post->shift_content);
-			$safe_shift_station = $this->auth->super_escape('sanitize', 2, $post->shift_station);
-			$safe_shift_location = $this->auth->super_escape('sanitize', 2, $post->shift_location);
+			$this->auth->super_escape('validate', 'string', $post->team_place);
+			$this->auth->super_escape('validate', 'int', $post->team_leader_id);
+			// Sanitize Data
+			$safe_team_name = $this->auth->super_escape('sanitize', 2, $post->team_name);
+			$safe_team_info = $this->auth->super_escape('sanitize', 2, $post->team_info);
+			$safe_shift_date = $this->auth->super_escape('sanitize', 2, $post->shift_date);
 			$safe_shift_start = $this->auth->super_escape('sanitize', 2, $post->shift_start);
 			$safe_shift_end = $this->auth->super_escape('sanitize', 2, $post->shift_end);
-		
-			$res = $this->shifts_model->set_shift([
-				'shift_userid' => $safe_shift_userid,
-				'shift_name' => $safe_shift_name,
-				'shift_content' => $safe_shift_content,
-				'shift_station' => $safe_shift_station,
-				'shift_location' => $safe_shift_location,
-				'shift_start' => $safe_shift_start,
-				'shift_end' => $safe_shift_end
-			]);
+			$safe_team_place = $this->auth->super_escape('sanitize', 2, $post->team_place);
+			$safe_team_leader_id = $this->auth->super_escape('sanitize', 2, $post->team_leader_id);
+
+			$res = $this->teams_model->set_team([
+				'team_name' => $safe_team_name, 
+				'team_info' => $safe_team_info, 
+				'shift_date' => $safe_shift_date, 
+				'shift_start' => $safe_shift_start, 
+				'shift_end' => $safe_shift_end, 
+				'team_place' => $safe_team_place, 
+				'team_leader_id' => $safe_team_leader_id
+				]);
 			if($res) {
 				$this->auth->http_response(201, 'Created', [
-					'message' => 'Shift Created',
+					'message' => 'Team Created',
 					'id' => $res
 				]);
 			}
@@ -267,74 +422,5 @@ class User extends CI_Controller {
 		$this->auth->http_response(406, 'Not Acceptable', [
 			'message' => 'Check the JSON data - properties are not correct' 
 		]);
-	}
-	public function update_shift($id = null) {
-		$this->auth->method('PATCH');
-		$this->auth->check_token();
-		// Validate
-		$this->auth->super_escape('validate', 'int', $id);
-		// Sanitize
-		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
-		$post = file_get_contents('php://input');
-		$post = json_decode($post);
-		$post = (array)$post;
-		$args_check = array('shift_userid', 'shift_name', 'shift_content', 'shift_station', 'shift_location', 'shift_start', 'shift_end');
-		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
-			$post = (object)$post;
-			// Validate
-			$this->auth->super_escape('validate', 'int', $post->shift_userid);
-			$this->auth->super_escape('validate', 'string', $post->shift_name);
-			$this->auth->super_escape('validate', 'string', $post->shift_content);
-			$this->auth->super_escape('validate', 'string', $post->shift_station);
-			$this->auth->super_escape('validate', 'string', $post->shift_location);
-			$this->auth->super_escape('validate', 'string', $post->shift_start);
-			$this->auth->super_escape('validate', 'string', $post->shift_end);
-			// Sanitize
-			$safe_shift_userid = $this->auth->super_escape('sanitize', 2, $post->shift_userid);
-			$safe_shift_name = $this->auth->super_escape('sanitize', 2, $post->shift_name);
-			$safe_shift_content = $this->auth->super_escape('sanitize', 2, $post->shift_content);
-			$safe_shift_station = $this->auth->super_escape('sanitize', 2, $post->shift_station);
-			$safe_shift_location = $this->auth->super_escape('sanitize', 2, $post->shift_location);
-			$safe_shift_start = $this->auth->super_escape('sanitize', 2, $post->shift_start);
-			$safe_shift_end = $this->auth->super_escape('sanitize', 2, $post->shift_end);
-			$res = $this->shifts_model->update_shift([
-				'shift_userid' => $safe_shift_userid,
-				'shift_name' => $safe_shift_name,
-				'shift_content' => $safe_shift_content,
-				'shift_station' => $safe_shift_station,
-				'shift_location' => $safe_shift_location,
-				'shift_start' => $safe_shift_start,
-				'shift_end' => $safe_shift_end,
-				'sid' => $safe_id
-			]);
-			if($res) {
-				$this->auth->http_response(200, 'OK', [
-					'message' => 'Shift Updated',
-					'id' => $res
-				]);
-			}
-		}
-		$this->auth->http_response(406, 'Not Acceptable', [
-			'message' => 'Check the JSON data - properties are not correct'
-		]);
-	}
-	public function delete_shift($id = null) {
-		$this->auth->method('DELETE');
-		$this->auth->check_token();
-		// Validate
-		$this->auth->super_escape('validate', 'int', $id);
-		// Sanitize
-		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
-		$res = $this->shifts_model->delete_shift($safe_id);
-		
-		if($res) {
-			$this->auth->http_response(200, 'OK', [
-				'message' => 'Shift is deleted'
-			]);
-		} else {
-			$this->auth->http_response(404, 'Not Found', [
-				'message' => 'Shift not found'
-			]);
-		}
 	}
 }
