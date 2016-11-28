@@ -31,6 +31,9 @@ function loginPage() {
 		type: 'GET',
 		success: function(data, status, response)
 		{
+			var logo =
+		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
+		
 		var htmldata = 
 		'<div class="container">'
 			+'<div class="login-headline">'
@@ -55,6 +58,7 @@ function loginPage() {
 		+'</div>';
 
 		jQuery('#main').html(htmldata);
+		jQuery('#logo-tinderbox').html(logo);
 		}
 	});
 }
