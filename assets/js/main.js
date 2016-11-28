@@ -428,11 +428,39 @@ function map() {
 -------------------------*/
 
 function messages() {
-	var html =
-	'<h1>Messages</h1>';
+    var html =
+    '<h1>Messages</h1>'
 
-	jQuery('#main').html(html); //overwrites the content from the view
+	+ '<table width="100%" border="1" style="border-collapse:collapse; border-color:#043540;" cellpadding="4" cellspacing="4">'
+	+ '<tr>'
+	+ '<td style="padding:10px;">'
+	+ '<a href="<?php echo site_url()."/pm"?><H6>Inbox</H6></a>'
+	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_UNREAD?><H6>Unread</H6></a>'
+	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_SENT?><H6>Sent</H6></a>'
+	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_DELETED?><H6>Trashed</H6></a>'
+	+ '<a href="<?php echo site_url()."/pm/send"?><H6>Compose</H6></a>'
+	+ '</td>'
+	+ '</tr>'
+	+ '</table>';
+
+    jQuery('#main').html(html);
 }
+/*
+
+ <table width="100%" border="1" style="border-collapse:collapse; border-color:#CCCCCC;" cellpadding="4" cellspacing="4">
+ <tr>
+ <td style="padding:10px;">
+ <a href="<?php echo site_url()."/pm"?>"><h2>Inbox</h2></a> &nbsp;&nbsp;&nbsp;
+ <a href="<?php echo site_url()."/pm/messages/".MSG_UNREAD?>"><h2>Unread</h2></a> &nbsp;&nbsp;&nbsp;
+ <a href="<?php echo site_url()."/pm/messages/".MSG_SENT?>">Sent</a> &nbsp;&nbsp;&nbsp;
+ <a href="<?php echo site_url()."/pm/messages/".MSG_DELETED?>">Trashed</a> &nbsp;&nbsp;&nbsp;
+ <a href="<?php echo site_url()."/pm/send"?>">Compose</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ </td>
+ </tr>
+ </table>
+*/
+	 //overwrites the content from the view
+
 /*-------------------------
 	*-* Information *-*
 ---------------------------*/
