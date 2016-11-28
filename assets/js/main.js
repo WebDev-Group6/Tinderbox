@@ -226,7 +226,7 @@ function register() {
 			error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
 		}
-	});	
+	});
 }
 
 /*----  Login Ends  ----*/
@@ -257,7 +257,7 @@ function frontPage() {
 
 	function loadFrontPage(shifts) {
 		var user = store.get('user');
-		//console.log(shifts);
+		console.log(shifts);
 		var logo =
 		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
 
