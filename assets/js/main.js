@@ -434,14 +434,15 @@ function messages() {
 	+ '<table width="100%" border="1" style="border-collapse:collapse; border-color:#043540;" cellpadding="4" cellspacing="4">'
 	+ '<tr>'
 	+ '<td style="padding:10px;">'
-	+ '<a href="<?php echo site_url()."/pm"?><H6>Inbox</H6></a>'
-	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_UNREAD?><H6>Unread</H6></a>'
-	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_SENT?><H6>Sent</H6></a>'
-	+ '<a href="<?php echo site_url()."/pm/messages/".MSG_DELETED?><H6>Trashed</H6></a>'
-	+ '<a href="<?php echo site_url()."/pm/send"?><H6>Compose</H6></a>'
+	+ '<a href="<?php echo site_url()."/tinderbox"?><H6>Inbox</H6></a>'
+	+ '<a href="<?php echo site_url()."/tinderbox/messages/".MSG_UNREAD?><H6>Unread</H6></a>'
+	+ '<a href="<?php echo site_url()."/tinderbox/messages/".MSG_SENT?><H6>Sent</H6></a>'
+	+ '<a href="<?php echo site_url()."/tinderbox/messages/".MSG_DELETED?><H6>Trashed</H6></a>'
+	+ '<a href="<?php echo site_url()."/tinderbox/send"?><H6>Compose</H6></a>'
 	+ '</td>'
 	+ '</tr>'
-	+ '</table>';
+	+ '</table>'
+	+ '<br />';
 
     jQuery('#main').html(html);
 }
