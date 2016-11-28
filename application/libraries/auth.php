@@ -5,7 +5,7 @@ class Auth {
         $this->ci =& get_instance();
     }
     public function method($allowed_method = 'GET') {
-        $this->super_escape('validate', 'string', $allowed_method);
+        $this->secure_escape('validate', 'string', $allowed_method);
         $method = $_SERVER['REQUEST_METHOD'];
         if($allowed_method === $method) {
             return true;
@@ -26,11 +26,11 @@ class Auth {
         $decoded_login = base64_decode($encoded_login);
         $credentials = explode(':', $decoded_login);
         // Validate
-        $this->super_escape('validate', 'emailLogin', $credentials[0]);
-        $this->super_escape('validate', 'passwordLogin', $credentials[1]);
+        $this->secure_escape('validate', 'emailLogin', $credentials[0]);
+        $this->secure_escape('validate', 'passwordLogin', $credentials[1]);
         // Sanitize
-        $safe_email = $this->super_escape('sanitize', 2, $credentials[0]);
-        $safe_password = $this->super_escape('sanitize', 2, $credentials[1]);
+        $safe_email = $this->secure_escape('sanitize', 2, $credentials[0]);
+        $safe_password = $this->secure_escape('sanitize', 2, $credentials[1]);
         $userdata = $this->ci->users_model->get_user_by_email_password($safe_email, $safe_password);
         
         if($userdata) {
@@ -77,11 +77,11 @@ class Auth {
         $decoded_token = base64_decode($basic_token);
         $credentials = explode(':', $decoded_token);
         // Validate
-        $this->super_escape('validate', 'email', $credentials[0]);
-        $this->super_escape('validate', 'string', $credentials[1]);
+        $this->secure_escape('validate', 'email', $credentials[0]);
+        $this->secure_escape('validate', 'string', $credentials[1]);
         // Sanitize
-        $safe_email = $this->super_escape('sanitize', 2, $credentials[0]);
-        $safe_token = $this->super_escape('sanitize', 2, $credentials[1]);
+        $safe_email = $this->secure_escape('sanitize', 2, $credentials[0]);
+        $safe_token = $this->secure_escape('sanitize', 2, $credentials[1]);
         $token_check = $this->ci->users_model->check_token($safe_email, $safe_token);
         if($token_check) {
             return true;
@@ -127,7 +127,7 @@ class Auth {
                 ->_display();
             die();
     }
-    public function super_escape($ops, $type, $data) {
+    public function secure_escape($ops, $type, $data) {
         switch($ops) {
             case 'validate':
                 switch($type) {
