@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Information extends CI_Controller {
 
-	public function index()
+	public function get_info()
 	{
 		$data['title'] = 'Information';
 		$data['headline'] = 'Tinderbox Volunteer';
@@ -11,10 +11,6 @@ class Information extends CI_Controller {
 		$this->info_auth->method('GET');
 
 		$this->load->model('information_model');
-		
-		$view = array(
-			$this->load->view('main_view', $data, true)
-		);
 
 		$this->output
 		->set_header('HTTP/1.1 200 OK')
