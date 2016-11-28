@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/Tinderbox/Tinderbox/';
+const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -86,6 +86,17 @@ function login() {
 				first_name: data.first_name,
 				last_name: data.last_name,
 				email: data.email,
+				gender: data.gender,
+				dateofbirth: data.dateofbirth,
+				phone_number: data.phone_number,
+				address: data.address,
+				zipcode: data.zipcode,
+				city: data.city,
+				country: data.country,
+				nationality: data.nationality,
+				speak_danish: data.speak_danish,
+				colleague: data.colleague,
+				task: data.task,
 				token: data.secretToken
 			});
 			frontPage();
@@ -98,7 +109,7 @@ function login() {
 
 function logout(){
 	var user = store.clear('user');
-	window.location.replace("http://localhost:8888/tinderbox/tinderbox/")
+	window.location.replace(URL)
 };
 
 /*-----------------------------
@@ -232,7 +243,7 @@ function frontPage() {
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("SecretToken", user.token);
 		},
-		url: URL + 'user/shifts/' + user.id, //load token
+		url: URL + 'user/team/' + user.id, //load token
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
@@ -244,7 +255,7 @@ function frontPage() {
 		loadFrontPage(data);
 	});
 
-	function loadFrontPage(shifts) {
+	function loadFrontPage(team) {
 		var user = store.get('user');
 		//console.log(shifts);
 		var logo =
@@ -300,12 +311,10 @@ function frontPage() {
 					+'</div>'
 				+'</div>'
 			+'</div>';
-			var username =
+			var userFirstName =
 			store.get('user').first_name;
 
-		console.log(username);
-
-		jQuery('#pagetitle').html(headline('Welcome '+ username));
+		jQuery('#pagetitle').html(headline('Welcome '+ userFirstName));
 		jQuery('#dropdown').html(header);
 		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
@@ -318,8 +327,88 @@ function frontPage() {
 	*-* User Profile *-*
 ---------------------------*/
 
+function profile() {
+	var user = store.get('user');
+	var first_name = store.get('user').first_name;
+	var last_name = store.get('user').last_name;
+	var email = store.get('user').email;
+	var gender = store.get('user').gender;
+	var dateofbirth = store.get('user').dateofbirth;
+	var phone_number = store.get('user').phone_number;
+	var address = store.get('user').address;
+	var city = store.get('user').city;
+	var zipcode = store.get('user').zipcode;
+	var country = store.get('user').country;
+	var nationality = store.get('user').nationality;
+	var speak_danish = store.get('user').speak_danish;
+	var colleague = store.get('user').colleague;
+	var task = store.get('user').task;
+	var genderType ='';
+	var danish = '';
 
+	if(gender = '1') {
+		genderType = '<i class="fa fa-female" aria-hidden="true"></i>Female';
+	}
+	else {
+		genderType = 'i class="fa fa-male" aria-hidden="true"></i>Male';
+	}
 
+	if(speak_danish = '1') {
+		danish = 'I Speak Danish';
+	}
+	else {
+		danish = "I don't Speak Danish";
+	}
+	var html =
+	'<div id="profile">'
+		+'<div class="container">'
+			+'<h4 class="editprofile"><i class="fa fa-pencil" aria-hidden="true"></i>Edit Profile</h4>'
+			+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+			+'<p><i class="fa fa-user" aria-hidden="true"></i>' + first_name + ' ' + last_name + '</p>'
+			+'<p><i class="fa fa-envelope" aria-hidden="true"></i>' + email + '</p>'
+			+'<p>' + genderType + '</p>'
+			+'<p><i class="fa fa-birthday-cake" aria-hidden="true"></i>' + dateofbirth + '</p>'
+			+'<p><i class="fa fa-mobile" aria-hidden="true"></i>' + phone_number + '</p>'
+			+'<p><i class="fa fa-home" aria-hidden="true"></i>' + address + '</p>'
+			+'<p><i class="fa fa-map-marker" aria-hidden="true"></i>' + zipcode + ' ' + city +'</p>'
+			+'<p><i class="fa fa-globe" aria-hidden="true"></i>' + country + '</p>'
+			+'<p><i class="fa fa-flag" aria-hidden="true"></i>' + nationality + '</p>'
+			+'<p><i class="fa fa-commenting-o" aria-hidden="true"></i>' + danish + '</p>'
+			+'<p><i class="fa fa-users" aria-hidden="true"></i>' + colleague + '</p>'
+			+'<p><i class="fa fa-cog" aria-hidden="true"></i>' + task + '</p>'
+		+'</div>'
+	+'</div>';
+
+	console.log(user);
+
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('#pagetitle').html(headline('Your Profile'));
+}
+
+/*----------------------------
+	*-* Edit User Profile *-*
+------------------------------*/
+function editUser() {
+	
+	var user = store.get('user');
+	
+	jQuery.ajax({
+		url: URL + 'user/update_user',
+		contentType: 'application/json',
+		type: 'PATCH',
+		success: function(data, status, response) {
+			console.log('data');
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+		}
+	});
+
+	var html =
+	'<h1>Edit Profile</h1>';
+
+	jQuery('#main').html(html);
+}
 /*-------------------
 	*-* Map *-*
 -------------------*/
@@ -376,8 +465,7 @@ function information() {
 				+ '</div>';
 			}
 			var html = 
-				''
-				+'<div class="container">' 
+				'<div class="container">' 
 					+ title
 				+ '</div>';
 
@@ -401,9 +489,87 @@ function information() {
 	*-* Schedule *-*
 ---------------------------*/
 function schedule() {
-	var html = 
-	'<h1>SCHEDULE</h1>';
-	jQuery('#main').html(html);
+	var user = store.get('user');
+	jQuery.ajax({
+		url: URL + 'user/user_team/' + user.id,
+		contentType: 'application/json',
+		type: 'GET',
+		success: function(data, status, response) {
+			console.log(data);
+			console.log(data.team_name);
+			var schedule = 
+				'<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ data.team_name + ' Team'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ data.team_info
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline">'
+								+'<h3>' 
+									+ data.shift_date + ' ' + data.shift_start + ' ' + data.shift_end
+								+ '</h3>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ 'Team Leader'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ '<h4>Name of leader</h4>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ 'Meeting Place'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ '<h4 class="meetingplace">'+ data.team_place +'</h4>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				;
+
+				var html = 
+					'<div class="container">' 
+						+ schedule
+					+ '</div>';
+
+				jQuery('#main').html(html);
+
+				jQuery('.dropdown-headline').on('click', function() {
+  				$parent_box = $(this).closest('.textbox');
+  				$parent_box.siblings().find('.dropdown-text').slideUp();
+  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+			});
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+		}
+	})
 }
 /*-------------------------
 	*-* Qr Codes *-*
@@ -454,6 +620,7 @@ jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
+jQuery('#main').on('click', '.editprofile', editUser);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-logout', logout);
 

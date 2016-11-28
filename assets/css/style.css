@@ -295,7 +295,6 @@ header {
     font-size: 26px;
     color: #043540; }
   .headline img {
-    padding-top: 15px;
     padding-bottom: 15px; }
 
 .underline {
@@ -501,6 +500,24 @@ a.button {
   font-family: "eveleth-regular";
   color: #043540;
   margin-bottom: 15px; }
+
+#profile {
+  background: #fff9f4;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #fff9f4);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #fff9f4);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #fff9f4);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #fff9f4);
+  width: 100%;
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 16px; }
+  #profile h4 {
+    text-align: right; }
+  #profile i {
+    width: 20px;
+    margin-right: 10px;
+    text-align: center; }
 
 #profile-form {
   width: 160px;
