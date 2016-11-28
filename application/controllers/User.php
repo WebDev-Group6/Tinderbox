@@ -209,21 +209,21 @@ class User extends CI_Controller {
 		$this->auth->handle_login();
 	}
 
-	public function all_shifts() {
-		$this->auth->method('GET');
-		$this->auth->check_token();
-		$this->auth->http_response(200, 'OK', $this->shifts_model->get_all_shifts());
-	}
+	// public function all_shifts() {
+	// 	$this->auth->method('GET');
+	// 	$this->auth->check_token();
+	// 	$this->auth->http_response(200, 'OK', $this->shifts_model->get_all_shifts());
+	// }
 
-	public function shifts($id = null) {
-		$this->auth->method('GET');
-		$this->auth->check_token();
-		// Validate ID
-		$this->auth->super_escape('validate', 'int', $id);
-		// Sanitize
-		$safe_id = $this->auth->super_escape('sanitize', 2, $id);
-		$this->auth->http_response(200, 'OK', $this->shifts_model->get_shifts($safe_id));
-	}
+	// public function shifts($id = null) {
+	// 	$this->auth->method('GET');
+	// 	$this->auth->check_token();
+	// 	// Validate ID
+	// 	$this->auth->super_escape('validate', 'int', $id);
+	// 	// Sanitize
+	// 	$safe_id = $this->auth->super_escape('sanitize', 2, $id);
+	// 	$this->auth->http_response(200, 'OK', $this->shifts_model->get_shifts($safe_id));
+	// }
 
 	// public function add_shift() {
 	// 	$this->auth->method('POST'); 
