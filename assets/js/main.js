@@ -243,7 +243,7 @@ function frontPage() {
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader("SecretToken", user.token);
 		},
-		url: URL + 'user/shifts/' + user.id, //load token
+		url: URL + 'user/team/' + user.id, //load token
 		contentType: 'application/json',
 		type: 'GET',
 		success: function(data, status, response) {
@@ -255,7 +255,7 @@ function frontPage() {
 		loadFrontPage(data);
 	});
 
-	function loadFrontPage(shifts) {
+	function loadFrontPage(team) {
 		var user = store.get('user');
 		console.log(shifts);
 		var logo =
@@ -265,15 +265,13 @@ function frontPage() {
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
-		    		+'<a class="fa fa-calendar-o" onclick="schedule();">SCHEDULE</a>'
-		    		+'<a class="fa fa-qrcode" href="#" onclick="qrcode();">QR CODES</a>'
-		    		+'<a class="fa fa-map" href="#" onclick="map();">FESTIVAL MAP</a>'
-		    		+'<a class="fa fa-lightbulb-o" href="#" onclick="information();">INFORMATION</a>'
-		    		+'<a class="fa fa-comments" href="#" onclick="messages();">MESSAGES</a>'
-		    		+'<a class="fa fa-user" href="#" onclick="profile();">Profile</a>'
-		    		//<!-- Logout has no link or function yet -->
-		    		+'<div class="btn-logout">'
-		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
+		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="schedule();">SCHEDULE</div>'
+		    		+'<div class="dropdown-link fa fa-qrcode" onclick="qrcode();">QR CODES</div>'
+		    		+'<div class="dropdown-link fa fa-map" onclick="map();">FESTIVAL MAP</div>'
+		    		+'<div class="dropdown-link fa fa-lightbulb-o"  onclick="information();">INFORMATION</div>'
+		    		+'<div class="dropdown-link fa fa-comments" onclick="messages();">MESSAGES</div>'
+		    		+'<div class="dropdown-link fa fa-user" onclick="profile();">Profile</div>'
+		    		+'<div class="dropdown-link fa fa-sign-out" onclick="logout();">Logout</div>'
 		    		+'</div>'
 		  		+'</div>'
 			+'</div>';
@@ -328,7 +326,7 @@ function frontPage() {
 ---------------------------*/
 
 function profile() {
-
+	var user = store.get('user');
 	var first_name = store.get('user').first_name;
 	var last_name = store.get('user').last_name;
 	var email = store.get('user').email;
@@ -379,14 +377,31 @@ function profile() {
 		+'</div>'
 	+'</div>';
 
+	console.log(user);
+
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('#pagetitle').html(headline('Your Profile'));
 }
 
-/*-------------------------
-	*-* User Profile *-*
----------------------------*/
+/*----------------------------
+	*-* Edit User Profile *-*
+------------------------------*/
 function editUser() {
+	
+	var user = store.get('user');
+	
+	jQuery.ajax({
+		url: URL + 'user/update_user',
+		contentType: 'application/json',
+		type: 'PATCH',
+		success: function(data, status, response) {
+			console.log('data');
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+		}
+	});
+
 	var html =
 	'<h1>Edit Profile</h1>';
 
@@ -448,8 +463,7 @@ function information() {
 				+ '</div>';
 			}
 			var html = 
-				''
-				+'<div class="container">' 
+				'<div class="container">' 
 					+ title
 				+ '</div>';
 
@@ -473,9 +487,87 @@ function information() {
 	*-* Schedule *-*
 ---------------------------*/
 function schedule() {
-	var html = 
-	'<h1>SCHEDULE</h1>';
-	jQuery('#main').html(html);
+	var user = store.get('user');
+	jQuery.ajax({
+		url: URL + 'user/user_team/' + user.id,
+		contentType: 'application/json',
+		type: 'GET',
+		success: function(data, status, response) {
+			console.log(data);
+			console.log(data.team_name);
+			var schedule = 
+				'<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ data.team_name + ' Team'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ data.team_info
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline">'
+								+'<h3>' 
+									+ data.shift_date + ' ' + data.shift_start + ' ' + data.shift_end
+								+ '</h3>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ 'Team Leader'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ '<h4>Name of leader</h4>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline fa fa-angle-down">'
+								+'<h3>' 
+									+ 'Meeting Place'
+								+ '</h3>'
+							+ '</div>'
+							+ '<div class="dropdown-text">'
+								+ '<h4 class="meetingplace">'+ data.team_place +'</h4>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				;
+
+				var html = 
+					'<div class="container">' 
+						+ schedule
+					+ '</div>';
+
+				jQuery('#main').html(html);
+
+				jQuery('.dropdown-headline').on('click', function() {
+  				$parent_box = $(this).closest('.textbox');
+  				$parent_box.siblings().find('.dropdown-text').slideUp();
+  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+			});
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+		}
+	})
 }
 /*-------------------------
 	*-* Qr Codes *-*
