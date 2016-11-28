@@ -257,6 +257,7 @@ function frontPage() {
 
 	function loadFrontPage(team) {
 		var user = store.get('user');
+
 		var logo =
 		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
 
