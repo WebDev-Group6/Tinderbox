@@ -29,7 +29,7 @@ class Teams_model extends CI_Model {
 	}
 
 	public function set_team($args = []) {
-		$query = sprintf('INSERT INTO team (team_name, team_info, shift_date, shift_start, shift_end, team_place, team_leader_id) 
+		$query = sprintf('INSERT INTO team(team_name, team_info, shift_date, shift_start, shift_end, team_place, team_leader_id) 
 			VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s") '
 			, $this->db->escape_like_str($args['team_name'])
 			, $this->db->escape_like_str($args['team_info'])
