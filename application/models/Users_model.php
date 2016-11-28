@@ -2,28 +2,48 @@
 class Users_model extends CI_Model {
     
     public function get_all_users() {
-        $result = $this->db->query('SELECT id, firstname, lastname, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
+        $result = $this->db->query('SELECT id, first_name, last_name, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id
             FROM users
             ORDER BY created DESC');
         return $result->result();
     }
-
     public function get_user($id = null) {
         $query = sprintf('SELECT
-        id, firstname, lastname, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task
+        id, first_name, last_name, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id
         FROM users
         WHERE id = "%s" '
         , $this->db->escape_like_str($id));
+        $result = $this->db->query($query);
+        if($result) {
+            return $result->result();
+        }
+        return false;
+    }
+
+    public function get_user_team($id = null) {
+        $query = sprintf('SELECT 
+            `users`.`id`
+            , `team`.`team_id`
+            , `team`.`team_name`
+            , `team`.`team_info`
+            , `team`.`shift_date`
+            , `team`.`shift_start`
+            , `team`.`shift_end`
+            , `team`.`team_place`
+            , `team`.`team_leader_id` 
+            FROM `team` INNER JOIN `users` 
+            ON `team`.`team_id` = `users`.`user_team_id` 
+            WHERE `users`.`id` = "%s" '
+            , $this->db->escape_like_str($id));
         $result = $this->db->query($query);
         if($result) {
             return $result->row();
         }
         return false;
     }
-
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task)
+            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task)
             VALUES
             ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
             , $this->db->escape_like_str($args['first_name'])
@@ -48,7 +68,6 @@ class Users_model extends CI_Model {
         }
         return false;
     }
-
     public function update_user($args = []) {
         $query = sprintf('UPDATE users
             SET
@@ -87,14 +106,11 @@ class Users_model extends CI_Model {
             );
         $result = $this->db->query($query);
         return $args['id'];
-
     }
-
     public function delete_user($id = null) {
         $query = sprintf('DELETE FROM users WHERE id = %d'
             , $this->db->escape_like_str($id));
         $this->db->query($query);
-
         if($this->db->affected_rows() > 0) {
             return true;
         } else {
@@ -102,16 +118,14 @@ class Users_model extends CI_Model {
         }
        
     }
-
     public function get_user_by_email_password($email, $password) {
-        $query = sprintf('SELECT id, first_name, last_name, email, password
+        $query = sprintf('SELECT id, first_name, last_name, email, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task, user_team_id, password
             FROM users
             WHERE email = "%s"
             LIMIT 1'
             , $this->db->escape_like_str($email));
         $result = $this->db->query($query);
         $row = $result->row();
-
         if(password_verify($password, $row->password)) {
             $token = bin2hex(openssl_random_pseudo_bytes(21));
             $this->insert_token_user($row->id, $token);
@@ -120,6 +134,18 @@ class Users_model extends CI_Model {
                 'first_name' => $row->first_name,
                 'last_name' => $row->last_name,
                 'email' => $row->email,
+                'gender' => $row->gender,
+                'dateofbirth' => $row->dateofbirth,
+                'phone_number' => $row->phone_number,
+                'address' => $row->address,
+                'zipcode' => $row->zipcode,
+                'city' => $row->city,
+                'country' => $row->country,
+                'nationality' => $row->nationality,
+                'speak_danish' => $row->speak_danish,
+                'colleague' => $row->colleague,
+                'task' => $row->task,
+                'user_team_id' => $row->user_team_id,
                 'token' => $token
             ];
             return $res;
@@ -128,7 +154,6 @@ class Users_model extends CI_Model {
         return false;
         die();
     }
-
     public function insert_token_user($id = null, $token = null) {
         $query = sprintf('UPDATE users
             SET
@@ -142,7 +167,6 @@ class Users_model extends CI_Model {
         $this->db->query($query);
         
     }
-
     public function check_token($email = null, $token = null) {
         
         $query = sprintf('SELECT token_val FROM users WHERE email = "%s" LIMIT 1 '
@@ -155,9 +179,5 @@ class Users_model extends CI_Model {
         }
         return false;
         die();
-
     }
-
-
-
 }
