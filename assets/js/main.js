@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost:8888/tinderbox/tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -265,12 +265,12 @@ function frontPage() {
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
-		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="schedule();">SCHEDULE</div>'
-		    		+'<div class="dropdown-link fa fa-qrcode" onclick="qrcode();">QR CODES</div>'
+		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="toggleDropdown(); schedule();">SCHEDULE</div>'
+		    		+'<div class="dropdown-link fa fa-qrcode" onclick="toggleDropdown(); qrcode();">QR CODES</div>'
 		    		+'<div class="dropdown-link fa fa-map" onclick="map();">FESTIVAL MAP</div>'
-		    		+'<div class="dropdown-link fa fa-lightbulb-o"  onclick="information();">INFORMATION</div>'
-		    		+'<div class="dropdown-link fa fa-comments" onclick="messages();">MESSAGES</div>'
-		    		+'<div class="dropdown-link fa fa-user" onclick="profile();">Profile</div>'
+		    		+'<div class="dropdown-link fa fa-lightbulb-o"  onclick="toggleDropdown(); information();">INFORMATION</div>'
+		    		+'<div class="dropdown-link fa fa-comments" onclick="toggleDropdown(); messages();">MESSAGES</div>'
+		    		+'<div class="dropdown-link fa fa-user" onclick="toggleDropdown(); profile();">Profile</div>'
 		    		+'<div class="dropdown-link fa fa-sign-out" onclick="logout();">Logout</div>'
 		    		+'</div>'
 		  		+'</div>'
@@ -597,14 +597,6 @@ function back() {
 
 	return html;
 }
-/**================================================== *
- * ==========  Custom Functions  ========== *
- * ================================================== */
-function responseHandling(data){
-	Materialize.toast(data.message, 4000);
-}
-
-/* =======  End of Custom Functions  ======= */
 
 /**================================================== *
  * ==========  Buttons  ========== *
