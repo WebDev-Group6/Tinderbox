@@ -259,7 +259,7 @@ function register() {
 	var taskVal = jQuery('#task').val();
 
 	var sendData = {
-			"email": jQuery('#email').val(),
+			"email": emailVal,
 			"password": passwordVal,
 			"first_name": first_nameVal,
 			"last_name": last_nameVal,
@@ -275,7 +275,7 @@ function register() {
 			"colleague": colleagueVal,
 			"task": taskVal
 	};
-// Check BeforeSend ---------
+
 	jQuery.ajax({
 		url: URL + 'user/add_user',
 		contentType: 'application/json',
@@ -447,9 +447,9 @@ function profile() {
 	jQuery('title').html(titletag('Your Profile Page'));
 }
 
-/*----------------------------
-	*-* Edit User Profile *-*
-------------------------------*/
+/*--------------------------------
+	*-* Edit User Profile Page *-*
+----------------------------------*/
 
 function editUserPage() {
 
@@ -524,8 +524,6 @@ function editUserPage() {
 		// +'</select>';
  	// }
 
-
-
  	var html = 
 	'<div class="register-text container">'
 			+'<h3>You are about to register as a volunteer for</h3>'
@@ -584,7 +582,7 @@ function editUserPage() {
 				+'<br>'
 				+'<label for="address">Address</label>'
 				+'<br>'
-				+'<input id="address" type="text" name="address" placeholder="Address">'
+				+'<input id="address" type="text" name="address" placeholder="Address" value="' + address +'"">'
 				+'<br>'
 				+'<label for="countryId">Country</label>'
 				+'<br>'
@@ -623,29 +621,67 @@ function editUserPage() {
 				+'<label for="colleague">Preferred Colleague</label>'
 				+'<br>'
 				+'<input id="colleague" type="text" name="colleague" placeholder="I like to work with (name)" value="' + colleague + '">'
-				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'	
+				+'<button class="update-user" type="submit" value="UPDATE">Register</button>'	
 		+'</div>';
 
 	jQuery('#main').html(html);	
 
-	// jQuery.ajax({
-	// 	url: URL + 'user/update_user',
-	// 	contentType: 'application/json',
-	// 	type: 'PATCH',
-	// 	success: function(data, status, response) {
-	// 		console.log('data');
-	// 	},
-	// 	error: function(xhr, status, error) {
-	// 		var err = JSON.parse(xhr.responseText);
-	// 	}
-	// });
-
-	// var html =
-	// '<h1>Edit Profile</h1>';
-
-	// jQuery('#main').html(html);
-	// jQuery('title').html(titletag('Edit Your Profile'));
 }
+
+/*--------------------------------
+	*-* Edit User Profile *-*
+----------------------------------*/
+function editUser() {
+
+	var emailVal = jQuery('#email').val();
+	var passwordVal = jQuery('#password').val();
+	var first_nameVal = jQuery('#first_name').val();
+	var last_nameVal = jQuery('#last_name').val();
+	var genderVal = jQuery('#gender').val();
+	var dateofbirthVal = jQuery('#dateofbirth').val();
+	var phone_numberVal = jQuery('#phonenumber').val();
+	var addressVal = jQuery('#address').val();
+	var cityVal = jQuery('#city').val();
+	var zipcodeVal = jQuery('#zipcode').val();
+	var countryVal = jQuery('#country').val();
+	var nationalityVal = jQuery('#nationality').val();
+	var speak_danishVal = jQuery('#speak_danish').val();
+	var colleagueVal = jQuery('#colleague').val();
+	var taskVal = jQuery('#task').val();
+
+	var sendData = {
+			"email": emailVal,
+			"password": passwordVal,
+			"first_name": first_nameVal,
+			"last_name": last_nameVal,
+			"gender": genderVal,
+			"dateofbirth": dateofbirthVal,
+			"phone_number": phone_numberVal,
+			"address": addressVal,
+			"city": cityVal,
+			"zipcode": zipcodeVal,
+			"country": countryVal,
+			"nationality": nationalityVal,
+			"speak_danish": speak_danishVal,
+			"colleague": colleagueVal,
+			"task": taskVal
+	};
+	jQuery.ajax({
+		url: URL + 'user/update_user',
+		contentType: 'application/json',
+		type: 'PATCH',
+		data: JSON.stringify(sendData),
+		success: function(data, status, response) {
+			console.log(data);
+		},
+		error: function(xhr, status, error) {
+			var err = JSON.parse(xhr.responseText);
+			console.log(sendData);
+		}
+	});
+}
+
+
 /*-------------------
 	*-* Map *-*
 -------------------*/
@@ -916,6 +952,7 @@ jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.editprofile', editUserPage);
+jQuery('#main').on('click', '.update-user', editUser);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-logout', logout);
 
