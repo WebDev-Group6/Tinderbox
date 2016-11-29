@@ -32,7 +32,7 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task' );
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
 
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -432,4 +432,18 @@ class User extends CI_Controller {
 			'message' => 'Check the JSON data - properties are not correct' 
 		]);
 	}
+
+	public function qr_code_true($id = null, $user_qr = null){
+		$this->auth->method('PATCH');
+		$post = file_get_contents('php://input');
+		$post = json_decode($post);		
+		$qr_bool = $this->users_model->get_qr_bool();
+		
+		if ($qr_bool === null) {
+			$qr_bool = true;
+			$this->users_model->set_qr_bool(true);
+			print_r($qr_bool);
+			print_r($id);
+		};
+	} 
 }

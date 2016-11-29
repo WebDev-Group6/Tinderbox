@@ -55,6 +55,7 @@ class Auth {
                 'colleague' => $userdata['colleague'],
                 'task' => $userdata['task'],
                 'user_team_id' => $userdata['user_team_id'],
+                'user_qr' => $userdata['user_qr'],
                 'secretToken' => $encoded_token
             ]);
         } else {
