@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/tinderbox/tinderbox/';
+const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -450,27 +450,201 @@ function profile() {
 /*----------------------------
 	*-* Edit User Profile *-*
 ------------------------------*/
-function editUser() {
-	
+
+function editUserPage() {
+
 	var user = store.get('user');
-	
-	jQuery.ajax({
-		url: URL + 'user/update_user',
-		contentType: 'application/json',
-		type: 'PATCH',
-		success: function(data, status, response) {
-			console.log('data');
-		},
-		error: function(xhr, status, error) {
-			var err = JSON.parse(xhr.responseText);
-		}
-	});
 
-	var html =
-	'<h1>Edit Profile</h1>';
+	var first_name = store.get('user').first_name;
+	var last_name = store.get('user').last_name;
+	var email = store.get('user').email;
+	var gender = store.get('user').gender;
+	var dateofbirth = store.get('user').dateofbirth;
+	var phone_number = store.get('user').phone_number;
+	var address = store.get('user').address;
+	var city = store.get('user').city;
+	var zipcode = store.get('user').zipcode;
+	var country = store.get('user').country;
+	var nationality = store.get('user').nationality;
+	var speak_danish = store.get('user').speak_danish;
+	var colleague = store.get('user').colleague;
+	var task = store.get('user').task;
+	var genderSelected ='';
+	var danishSelected = '';
+	var countrySelected = '';
 
-	jQuery('#main').html(html);
-	jQuery('title').html(titletag('Edit Your Profile'));
+ 	if(gender = '1') {
+ 		genderSelected = 
+ 		'<select id="gender" name="gender" placeholder="Gender">'
+			+'<option value="" disabled selected>Gender</option>'
+			+'<option value="1" selected>Female</option>'
+			+'<option value="0">Male</option>'
+		+'</select>';
+ 	}
+ 	else {
+ 		genderSelected = 
+ 		'<select id="gender" name="gender" placeholder="Gender">'
+			+'<option value="" disabled selected>Gender</option>'
+			+'<option value="1">Female</option>'
+			+'<option value="0" selected>Male</option>'
+		+'</select>';
+ 	}
+
+ 	if(speak_danish = '1') {
+ 		danishSelected =
+ 		'<select id="speak_danish" name="speak_danish">'
+					+'<option value="danish" disabled selected>Speak and understand Danish</option>'
+					+'<option value="1" selected>Yes</option>'
+					+'<option value="0">No</option>'
+		+'</select>';
+ 	} 
+ 	else {
+ 		danishSelected =
+ 		'<select id="speak_danish" name="speak_danish">'
+			+'<option value="danish" disabled selected>Speak and understand Danish</option>'
+			+'<option value="1">Yes</option>'
+			+'<option value="0" selected>No</option>'
+		+'</select>';
+ 	}
+
+ 	// if(countrySelected = 'store.get('user').country;') {
+ 	// 	countrySelected = 
+ 	// 	'<select id="gender" name="gender" placeholder="Gender">'
+		// 	+'<option value="" disabled selected>Gender</option>'
+		// 	+'<option value="1" selected>Female</option>'
+		// 	+'<option value="0">Male</option>'
+		// +'</select>';
+ 	// }
+ 	// else {
+ 	// 	countrySelected = 
+ 	// 	'<select id="gender" name="gender" placeholder="Gender">'
+		// 	+'<option value="" disabled selected>Gender</option>'
+		// 	+'<option value="1">Female</option>'
+		// 	+'<option value="0" selected>Male</option>'
+		// +'</select>';
+ 	// }
+
+
+
+ 	var html = 
+	'<div class="register-text container">'
+			+'<h3>You are about to register as a volunteer for</h3>'
+			+'<img src="' + RESS +'img/tinderbox_date.svg">'
+		+'</div>'
+		+'<div class="register-input container">'
+				+'<br>'
+				+'<label for="email">Email Address</label>'
+				+'<br>'
+				+'<input id="email" type="email" name="email" placeholder="Email" value="' + email + '">'
+				+'<br>'
+				+'<label for="password">Password</label>'
+				+'<br>'	
+				+'<input id="password" type="password" name="password" placeholder="Password">'
+				+'<br>'
+				+'<label for="first_name">First Name</label>'
+				+'<br>'
+				+'<input id="first_name" type="text" name="first_name" placeholder="First Name" value="' + first_name + '">'
+				+'<br>'
+				+'<label for="last_name">Last Name</label>'
+				+'<br>'
+				+'<input id="last_name" type="text" name="last_name" placeholder="Last Name" value="' + last_name + '">'
+				+'<br>'
+				+'<label for="gender">Gender</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+	genderSelected
+				+'</div>'
+				+'<br>'
+				+'<label for="dateofbirth">Date of Birth</label>'
+				+'<br>'
+				+'<input id="dateofbirth" placeholder="Date of Birth" type="date" name="dateofbirth" value="' + dateofbirth + '">'
+				+'<br>'
+				+'<label for="nationality">Nationality</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+'<select id="nationality" name="nationality" >'
+					+'<option value="nationality" disabled selected>Nationality</option>'
+					+'<option value="Danish">Danish</option>'
+					+'<option value="German">German</option>'
+					+'<option value="norwegian">Norwegian</option>'
+				+'</select>'
+				+'</div>'
+				+'<br>'
+				+'<label for="upload-image">Upload Image</label>'
+				+'<br>'
+
+				+'<div class="upload-image">'
+					+'<img src="images/picture.svg">'
+					+'<p>Upload image</p>'
+				+'</div>'
+				+'<br>'
+				+'<label for="phonenumber">Phonenumber</label>'
+				+'<br>'
+				+'<input id="phonenumber" type="text" name="phonenumber" placeholder="Phonenumber" value="' + phone_number + '">'
+				+'<br>'
+				+'<label for="address">Address</label>'
+				+'<br>'
+				+'<input id="address" type="text" name="address" placeholder="Address">'
+				+'<br>'
+				+'<label for="countryId">Country</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+ '<select name="country" class="countries" id="countryId">'
+				+ '<option value="" disabled>Select Country</option>'
+				+ '</select>'
+				+'</div>'
+				+ '<script src="http://lab.iamrohit.in/js/location.js"></script>'
+				+'<br>'
+				+'<label for="zipcode">ZIP</label>'
+				+'<br>'
+				+'<input id="zipcode" type="text" name="zipcode" placeholder="Zip code" value="' + zipcode + '">'
+				+'<br>'
+				+'<label for="city">City</label>'
+				+'<br>'
+				+'<input id="city" input="city" type="text" name="city" placeholder="City" value="' + city + '">'
+				+'<br>'
+				+'<label for="speak_danish">Speak and understand Danish</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+ danishSelected
+				+'</div>'
+				+'<br>'
+				+'<label for="task">Preferred work tasks</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+'<select id="task" name="task">'
+					+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+					+'<option value="fences">Building Fences</option>'
+					+'<option value="bartender">Bartender</option>'
+					+'<option value="it-work">IT Work</option>'
+				+'</select>'
+				+'</div>'
+				+'<br>'
+				+'<label for="colleague">Preferred Colleague</label>'
+				+'<br>'
+				+'<input id="colleague" type="text" name="colleague" placeholder="I like to work with (name)" value="' + colleague + '">'
+				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'	
+		+'</div>';
+
+	jQuery('#main').html(html);	
+
+	// jQuery.ajax({
+	// 	url: URL + 'user/update_user',
+	// 	contentType: 'application/json',
+	// 	type: 'PATCH',
+	// 	success: function(data, status, response) {
+	// 		console.log('data');
+	// 	},
+	// 	error: function(xhr, status, error) {
+	// 		var err = JSON.parse(xhr.responseText);
+	// 	}
+	// });
+
+	// var html =
+	// '<h1>Edit Profile</h1>';
+
+	// jQuery('#main').html(html);
+	// jQuery('title').html(titletag('Edit Your Profile'));
 }
 /*-------------------
 	*-* Map *-*
@@ -661,7 +835,7 @@ function schedule() {
 										+'<div class="col-xs-12">'
 											+ '<div class="textbox">'
 												+ '<div class="dropdown-headline">'
-													+'<p>Read about your team and responsibilites, when you have shifts, where you should check in and who your team leader is.¡</p>'
+													+'<p>Read about your team and responsibilites, when you have shifts, where you should check in and who your team leader is.</p>'
 												+ '</div>'
 											+ '</div>'
 										+'</div>'
@@ -741,7 +915,7 @@ jQuery('#main').on('click', '.link-schedule', schedule);
 jQuery('#main').on('click', '.link-qrcode', qrcode);
 jQuery('#main').on('click', '.link-messages', messages);
 jQuery('#main').on('click', '.link-info', information);
-jQuery('#main').on('click', '.editprofile', editUser);
+jQuery('#main').on('click', '.editprofile', editUserPage);
 jQuery('#headline').on('click', '.backbutton', frontPage);
 jQuery('#main').on('click', '.btn-logout', logout);
 

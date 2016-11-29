@@ -107,6 +107,7 @@ class Users_model extends CI_Model {
             speak_danish = "%s",
             colleague = "%s",
             task = "%s",
+            user_team_id = "%s"
             WHERE id = %d '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
@@ -123,6 +124,7 @@ class Users_model extends CI_Model {
             , $this->db->escape_like_str($args['speak_danish'])
             , $this->db->escape_like_str($args['colleague'])
             , $this->db->escape_like_str($args['task'])
+            , $this->db->escape_like_str($args['user_team_id'])
             , $this->db->escape_like_str($args['id'])
             );
         $result = $this->db->query($query);
