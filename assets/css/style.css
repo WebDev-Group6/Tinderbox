@@ -154,17 +154,17 @@ button {
     top: 50px;
     right: 0;
     z-index: 3; }
-    .dropdown-content a {
+    .dropdown-content .dropdown-link {
       color: #fff9f4;
-      padding: 20px 30px;
+      padding: 20px 16px;
       text-decoration: none;
       display: block;
       font-family: "eveleth-thin";
       font-size: 22px; }
-      .dropdown-content a:before {
+      .dropdown-content .dropdown-link:before {
         font-family: fontawesome;
         float: right; }
-      .dropdown-content a:last-child {
+      .dropdown-content .dropdown-link:last-child {
         color: #f18879; }
 
 .show {
@@ -295,7 +295,6 @@ header {
     font-size: 26px;
     color: #043540; }
   .headline img {
-    padding-top: 15px;
     padding-bottom: 15px; }
 
 .underline {
@@ -501,6 +500,24 @@ a.button {
   font-family: "eveleth-regular";
   color: #043540;
   margin-bottom: 15px; }
+
+#profile {
+  background: #fff9f4;
+  background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #fff9f4);
+  background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #fff9f4);
+  background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #fff9f4);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0), #fff9f4);
+  width: 100%;
+  margin-bottom: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 16px; }
+  #profile h4 {
+    text-align: right; }
+  #profile i {
+    width: 20px;
+    margin-right: 10px;
+    text-align: center; }
 
 #profile-form {
   width: 160px;

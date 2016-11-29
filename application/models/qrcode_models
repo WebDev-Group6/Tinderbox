@@ -2,9 +2,9 @@
 <?php
 //class Qrcode_model extends CI_Model {
 	//function insert_data($data) {
-		//$this->db->insert('qruser', $data);
-		//$this->db->select('qruser');
-        //$this->db->from('qruser');
+		//$this->db->insert('users', $data);
+		//$this->db->select('users');
+        //$this->db->from('users');
         //$query = $this->db->get();
        // return $result = $query->result();
 	//}

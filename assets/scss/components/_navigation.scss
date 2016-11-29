@@ -25,9 +25,9 @@
     top: 50px;
     right: 0;
     z-index: 3; 
-    a {
+    .dropdown-link {
       color: $primary-color-beige;
-      padding: 20px 30px;
+      padding: 20px 16px;
       text-decoration: none;
       display: block;
       font-family: "eveleth-thin"; 
