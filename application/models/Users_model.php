@@ -9,7 +9,7 @@ class Users_model extends CI_Model {
     }
     public function get_user($id = null) {
         $query = sprintf('SELECT
-        id, first_name, last_name, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id, user_qr, qr_bool
+        id, first_name, last_name, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id
         FROM users
         WHERE id = "%s" '
         , $this->db->escape_like_str($id));
@@ -148,11 +148,6 @@ class Users_model extends CI_Model {
         $result = $this->db->query($query);
         $row = $result->row();
         if(password_verify($password, $row->password)) {
-            $email = $row->email;
-            $id = $row->id;
-            $qr_name = $id . $email;
-            $qr_code = base64_encode($qr_name);
-            $this->insert_qr_user($row->id, $qr_code);
             $token = bin2hex(openssl_random_pseudo_bytes(21));
             $this->insert_token_user($row->id, $token);
             $res = [
@@ -172,9 +167,7 @@ class Users_model extends CI_Model {
                 'colleague' => $row->colleague,
                 'task' => $row->task,
                 'user_team_id' => $row->user_team_id,
-                'user_qr' => $qr_code,
                 'token' => $token
-                
             ];
             return $res;
             die();
@@ -195,47 +188,6 @@ class Users_model extends CI_Model {
         $this->db->query($query);
         
     }
-
-    public function insert_qr_user($id = null, $user_qr = null) {
-        $query = sprintf('UPDATE users
-            SET
-            user_qr = "%s"
-            WHERE
-            id = "%s"'
-            , $this->db->escape_like_str($user_qr)
-            , $this->db->escape_like_str($id));
-        $this->db->query($query);
-
-    }
-
-    public function get_qr_code($id = null, $user_qr = null){
-        $query = sprintf('SELECT user_qr
-            FROM 
-            users 
-            WHERE $id = "%s" LIMIT 1 ' 
-            , $this->db->escape_like_str($id));
-        $result = $this->db->query($query);
-        $row = $result->row();
-    }
-
-    public function get_qr_bool($id = null, $user_qr = null){
-        $query = sprintf('SELECT qr_bool
-            FROM 
-            users
-            WHERE id = "%s" LIMIT 1'
-            , $this->db->escape_like_str($id));
-        $result = $this->db->query($query);
-        $row = $result->row();
-    }
-    public function set_qr_bool($args = [])
-        { 
-            $query = sprintf('UPDATE users SET qr_bool = NOT qr_bool WHERE id = "%s" '
-                , $this->db->escape_like_str($args['qr_bool'])
-                , $this->db->escape_like_str($args['id']));
-            $this->db->query($query);
-            return $query;
-        }
-
     public function check_token($email = null, $token = null) {
         
         $query = sprintf('SELECT token_val FROM users WHERE email = "%s" LIMIT 1 '

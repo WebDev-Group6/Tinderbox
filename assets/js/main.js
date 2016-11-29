@@ -104,7 +104,6 @@ function login() {
 				colleague: data.colleague,
 				task: data.task,
 				user_team_id: data.user_team_id,
-				user_qr: data.user_qr,
 				token: data.secretToken
 			});
 			frontPage();
@@ -320,7 +319,7 @@ function frontPage() {
 
 	function loadFrontPage(team) {
 		var user = store.get('user');
-		console.log(user);
+		//console.log(shifts);
 		var logo =
 		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
 
@@ -905,18 +904,10 @@ function schedule() {
 	*-* Qr Codes *-*
 ---------------------------*/
 function qrcode() {
-	var user = store.get('user');
-
-	var user_qr = store.get('user').user_qr;
-	var id = store.get('user').id;
 	var html = 
-	'<img src="https://api.qrserver.com/v1/create-qr-code/?data=' + URL + 'users/' + id + '/' + user_qr + '" &format="svg" &color="[4]-[53]-[64]" alt="" title="" />'
-
+	'<h1>QRCODE</h1>';
 	jQuery('#main').html(html);
 	jQuery('title').html(titletag('QR Codes'));
-	jQuery('#pagetitle').html(headline('Qr Codes'));
-	jQuery('#back-link').html(back());
-
 }
 
 /*--------------------
