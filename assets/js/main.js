@@ -55,6 +55,7 @@ function loginPage() {
 		+'</div>';
 
 		jQuery('#main').html(htmldata);
+		jQuery('title').html(titletag('Signup or Login to Tinderbox Volunteer'));
 		}
 	});
 }
@@ -173,6 +174,7 @@ function registrationPage() {
 		+'</div>';
 
 	jQuery('#main').html(html);
+	jQuery('title').html(titletag('Register as Tinderbox Volunteer'));
 }
 
 /*-------------------------
@@ -314,6 +316,7 @@ function frontPage() {
 			store.get('user').first_name;
 
 		jQuery('#pagetitle').html(headline('Welcome '+ userFirstName));
+		jQuery('title').html(titletag('Tinderbox Volunteer'));
 		jQuery('#dropdown').html(header);
 		jQuery('#logo-tinderbox').html(logo);
 		jQuery('#main').html(html); //overwrites the content from the view
@@ -382,6 +385,7 @@ function profile() {
 
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('#pagetitle').html(headline('Your Profile'));
+	jQuery('title').html(titletag('Tinderbox Volunteer Profile Page'));
 }
 
 /*----------------------------
@@ -407,6 +411,7 @@ function editUser() {
 	'<h1>Edit Profile</h1>';
 
 	jQuery('#main').html(html);
+	jQuery('title').html(titletag('Tinderbox Volunteer Edit Profile'));
 }
 /*-------------------
 	*-* Map *-*
@@ -423,6 +428,7 @@ function map() {
 
 		jQuery('#main').html(html); //overwrites the content from the view
 		jQuery('#pagetitle').html(headline('Festival Map'));
+		jQuery('title').html(titletag('Festival Map'));
 };
 /*-----------------------
 	*-* Messages *-*
@@ -433,6 +439,7 @@ function messages() {
 	'<h1>Messages</h1>';
 
 	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('title').html(titletag('Tinderbox Volunteer Messages'));
 }
 /*-------------------------
 	*-* Information *-*
@@ -481,6 +488,7 @@ function information() {
 	})
 
 	jQuery('#pagetitle').html(headline('Information'));
+	jQuery('title').html(titletag('Tinderbox Volunteer Information'));
 	jQuery('#back-link').html(back());
 	 //overwrites the content from the view
 }
@@ -559,7 +567,7 @@ function schedule() {
 								+ '</h3>'
 							+ '</div>'
 							+ '<div class="dropdown-text">'
-								+ '<h4 class="meetingplace">'+ data.team_place +'</h4>'
+								+ '<h4 class="meetingplace fa fa-map">'+ data.team_place +'</h4>'
 							+ '</div>'
 					  	+ '</div>'
 					+ '</div>'
@@ -594,7 +602,7 @@ function schedule() {
 										+'<div class="col-xs-12">'
 											+ '<div class="textbox">'
 												+ '<div class="dropdown-headline">'
-													+'<p>Read about your team and responsibilites, when you have shifts, where you should check in and who your team leader is.</p>'
+													+'<p>Read about your team and responsibilites, when you have shifts, where you should check in and who your team leader is.¡</p>'
 												+ '</div>'
 											+ '</div>'
 										+'</div>'
@@ -605,6 +613,7 @@ function schedule() {
 
 							jQuery('#main').html(html);
 							jQuery('#pagetitle').html(headline('Schedule'));
+							jQuery('title').html(titletag('Tinderbox Volunteer Schedule'));
 
 							jQuery('.dropdown-headline').on('click', function() {
   				$parent_box = $(this).closest('.textbox');
@@ -629,6 +638,7 @@ function qrcode() {
 	var html = 
 	'<h1>QRCODE</h1>';
 	jQuery('#main').html(html);
+	jQuery('title').html(titletag('Tinderbox Volunteer QR Codes'));
 }
 
 /*--------------------
@@ -639,6 +649,15 @@ function headline(pagetitle) {
 		'<h1>' + pagetitle + '</h1>'
 		return html;
 }
+
+/*----------------------
+	*-*  View Titletag *-*
+----------------------*/
+function titletag(title) {
+	var html = title
+	return html;
+}
+
 
 /*----------------------------
 	*-* Back to Frontpage *-*
