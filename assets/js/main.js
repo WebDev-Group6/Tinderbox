@@ -385,7 +385,7 @@ function profile() {
 
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('#pagetitle').html(headline('Your Profile'));
-	jQuery('title').html(titletag('Tinderbox Volunteer Profile Page'));
+	jQuery('title').html(titletag('Your Profile Page'));
 }
 
 /*----------------------------
@@ -411,7 +411,7 @@ function editUser() {
 	'<h1>Edit Profile</h1>';
 
 	jQuery('#main').html(html);
-	jQuery('title').html(titletag('Tinderbox Volunteer Edit Profile'));
+	jQuery('title').html(titletag('Edit Your Profile'));
 }
 /*-------------------
 	*-* Map *-*
@@ -439,7 +439,7 @@ function messages() {
 	'<h1>Messages</h1>';
 
 	jQuery('#main').html(html); //overwrites the content from the view
-	jQuery('title').html(titletag('Tinderbox Volunteer Messages'));
+	jQuery('title').html(titletag('Messages'));
 }
 /*-------------------------
 	*-* Information *-*
@@ -488,7 +488,7 @@ function information() {
 	})
 
 	jQuery('#pagetitle').html(headline('Information'));
-	jQuery('title').html(titletag('Tinderbox Volunteer Information'));
+	jQuery('title').html(titletag('Information'));
 	jQuery('#back-link').html(back());
 	 //overwrites the content from the view
 }
@@ -613,7 +613,7 @@ function schedule() {
 
 							jQuery('#main').html(html);
 							jQuery('#pagetitle').html(headline('Schedule'));
-							jQuery('title').html(titletag('Tinderbox Volunteer Schedule'));
+							jQuery('title').html(titletag('Your Schedule'));
 
 							jQuery('.dropdown-headline').on('click', function() {
   				$parent_box = $(this).closest('.textbox');
@@ -638,7 +638,7 @@ function qrcode() {
 	var html = 
 	'<h1>QRCODE</h1>';
 	jQuery('#main').html(html);
-	jQuery('title').html(titletag('Tinderbox Volunteer QR Codes'));
+	jQuery('title').html(titletag('QR Codes'));
 }
 
 /*--------------------
