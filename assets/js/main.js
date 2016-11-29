@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost:8888/tinderbox/tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -31,6 +31,9 @@ function loginPage() {
 		type: 'GET',
 		success: function(data, status, response)
 		{
+			var logo =
+		'<img src="' + RESS +'img/tinderbox_volunteer.svg" class="tinderbox-logo">';
+
 		var htmldata = 
 		'<div class="container">'
 			+'<div class="login-headline">'
@@ -56,6 +59,8 @@ function loginPage() {
 
 		jQuery('#main').html(htmldata);
 		jQuery('title').html(titletag('Signup or Login to Tinderbox Volunteer'));
+		jQuery('#logo-tinderbox').html(logo);
+
 		}
 	});
 }
@@ -125,52 +130,106 @@ function registrationPage() {
 			+'<img src="' + RESS +'img/tinderbox_date.svg">'
 		+'</div>'
 		+'<div class="register-input container">'
-			+'<div>'
+				+'<br>'
+				+'<label for="email">Email Address</label>'
+				+'<br>'
 				+'<input id="email" type="email" name="email" placeholder="Email">'
+				+'<br>'
+				+'<label for="password">Password</label>'
+				+'<br>'	
 				+'<input id="password" type="password" name="password" placeholder="Password">'
+				+'<br>'
+				+'<label for="first_name">First Name</label>'
+				+'<br>'
 				+'<input id="first_name" type="text" name="first_name" placeholder="First Name">'
+				+'<br>'
+				+'<label for="last_name">Last Name</label>'
+				+'<br>'
 				+'<input id="last_name" type="text" name="last_name" placeholder="Last Name">'
+				+'<br>'
+				+'<label for="gender">Gender</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
 				+'<select id="gender" name="gender" placeholder="Gender">'
 					+'<option value="" disabled selected>Gender</option>'
 					+'<option value="1">Female</option>'
 					+'<option value="0">Male</option>'
 				+'</select>'
+				+'</div>'
+				+'<br>'
 				+'<label for="dateofbirth">Date of Birth</label>'
+				+'<br>'
 				+'<input id="dateofbirth" placeholder="Date of Birth" type="date" name="dateofbirth" >'
+				+'<br>'
+				+'<label for="nationality">Nationality</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
 				+'<select id="nationality" name="nationality" >'
 					+'<option value="nationality" disabled selected>Nationality</option>'
 					+'<option value="Danish">Danish</option>'
 					+'<option value="German">German</option>'
 					+'<option value="norwegian">Norwegian</option>'
 				+'</select>'
+				+'</div>'
+				+'<br>'
+				+'<label for="upload-image">Upload Image</label>'
+				+'<br>'
+
 				+'<div class="upload-image">'
 					+'<img src="images/picture.svg">'
 					+'<p>Upload image</p>'
 				+'</div>'
+				+'<br>'
+				+'<label for="phonenumber">Phonenumber</label>'
+				+'<br>'
 				+'<input id="phonenumber" type="text" name="phonenumber" placeholder="Phonenumber">'
+				+'<br>'
+				+'<label for="address">Address</label>'
+				+'<br>'
 				+'<input id="address" type="text" name="address" placeholder="Address">'
-				+'<select id="country" name="country" placeholder="Country">'
-					+'<option value="Denmark">Country</option>'
-					+'<option value="Denmark">Denmark</option>'
-					+'<option value="germany">Germany</option>'
-					+'<option value="Norway">Norway</option>'
-				+'</select>'
+				+'<br>'
+				+'<label for="countryId">Country</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
+				+ '<select name="country" class="countries" id="countryId">'
+				+ '<option value="">Select Country</option>'
+				+ '</select>'
+				+'</div>'
+				+ '<script src="http://lab.iamrohit.in/js/location.js"></script>'
+				+'<br>'
+				+'<label for="zipcode">ZIP</label>'
+				+'<br>'
 				+'<input id="zipcode" type="text" name="zipcode" placeholder="Zip code">'
+				+'<br>'
+				+'<label for="city">City</label>'
+				+'<br>'
 				+'<input id="city" input="city" type="text" name="city" placeholder="City">'
+				+'<br>'
+				+'<label for="speak_danish">Speak and understand Danish</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
 				+'<select id="speak_danish" name="speak_danish">'
 					+'<option value="danish" disabled selected>Speak and understand Danish</option>'
 					+'<option value="1">Yes</option>'
 					+'<option value="0">No</option>'
 				+'</select>'
+				+'</div>'
+				+'<br>'
+				+'<label for="task">Preferred work tasks</label>'
+				+'<br>'
+				+'<div class="dropdown-style">'
 				+'<select id="task" name="task">'
 					+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
 					+'<option value="fences">Building Fences</option>'
 					+'<option value="bartender">Bartender</option>'
 					+'<option value="it-work">IT Work</option>'
 				+'</select>'
+				+'</div>'
+				+'<br>'
+				+'<label for="colleague">Preferred Colleague</label>'
+				+'<br>'
 				+'<input id="colleague" type="text" name="colleague" placeholder="I like to work with (name)">'
-				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'
-			+'</div>'
+				+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'	
 		+'</div>';
 
 	jQuery('#main').html(html);
@@ -268,12 +327,12 @@ function frontPage() {
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
-		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="schedule();">SCHEDULE</div>'
-		    		+'<div class="dropdown-link fa fa-qrcode" onclick="qrcode();">QR CODES</div>'
-		    		+'<div class="dropdown-link fa fa-map" onclick="map();">FESTIVAL MAP</div>'
-		    		+'<div class="dropdown-link fa fa-lightbulb-o"  onclick="information();">INFORMATION</div>'
-		    		+'<div class="dropdown-link fa fa-comments" onclick="messages();">MESSAGES</div>'
-		    		+'<div class="dropdown-link fa fa-user" onclick="profile();">Profile</div>'
+		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="toggleDropdown(); schedule();">SCHEDULE</div>'
+		    		+'<div class="dropdown-link fa fa-qrcode" onclick="toggleDropdown(); qrcode();">QR CODES</div>'
+		    		+'<div class="dropdown-link fa fa-map" onclick="toggleDropdown(); map();">FESTIVAL MAP</div>'
+		    		+'<div class="dropdown-link fa fa-lightbulb-o"  onclick="toggleDropdown(); information();">INFORMATION</div>'
+		    		+'<div class="dropdown-link fa fa-comments" onclick="toggleDropdown(); messages();">MESSAGES</div>'
+		    		+'<div class="dropdown-link fa fa-user" onclick="toggleDropdown(); profile();">Profile</div>'
 		    		+'<div class="dropdown-link fa fa-sign-out" onclick="logout();">Logout</div>'
 		    		+'</div>'
 		  		+'</div>'
@@ -669,14 +728,6 @@ function back() {
 
 	return html;
 }
-/**================================================== *
- * ==========  Custom Functions  ========== *
- * ================================================== */
-function responseHandling(data){
-	Materialize.toast(data.message, 4000);
-}
-
-/* =======  End of Custom Functions  ======= */
 
 /**================================================== *
  * ==========  Buttons  ========== *

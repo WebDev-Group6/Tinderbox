@@ -13,11 +13,31 @@
 .register-input {
   text-align: center;
   margin-top: 20px;
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
+  label {
+    background-color: rgba(139, 199, 185, 0.7);
+    padding: 4px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
   input {
     width: 80%;
     margin-bottom: 15px; 
   }
+}
+
+.dropdown-style{
+      position: relative;
+    width: 80%;
+    margin: 0 auto;
+    padding: 3px;
+    background: #fff;
+    border-radius: 1px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    border: 1px solid;
+    cursor: pointer;
+    outline: none;
+    color: #8AA8BD;
 }
 
 .upload-image {
@@ -37,7 +57,6 @@
     color: rgba(4, 53, 64, 0.7); 
   }
 }
-
 .submit {
   width: 100%;
   border: none;

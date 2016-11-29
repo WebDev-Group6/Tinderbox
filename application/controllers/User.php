@@ -214,6 +214,7 @@ class User extends CI_Controller {
 	// 	$this->auth->http_response(200, 'OK', $this->shifts_model->get_all_shifts());
 	// }
 
+
 	// public function shifts($id = null) {
 	// 	$this->auth->method('GET');
 	// 	$this->auth->check_token();
