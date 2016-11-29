@@ -54,6 +54,7 @@ class Auth {
                 'speak_danish' => $userdata['speak_danish'],
                 'colleague' => $userdata['colleague'],
                 'task' => $userdata['task'],
+                'user_team_id' => $userdata['user_team_id'],
                 'secretToken' => $encoded_token
             ]);
         } else {

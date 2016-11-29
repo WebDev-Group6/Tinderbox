@@ -6,7 +6,7 @@
 	<?php echo link_tag('assets/bootstrap/css/bootstrap.min.css'); ?>
 	<?php echo link_tag('assets/fonts/font-awesome/css/font-awesome.min.css'); ?>
 	<?php echo link_tag('assets/css/style.css'); ?>
-	<title><?php echo $title; ?></title>
+	<title></title>
 </head>
 <body>
 <header>

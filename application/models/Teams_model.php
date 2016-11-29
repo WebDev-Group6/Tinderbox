@@ -12,7 +12,20 @@ class Teams_model extends CI_Model {
 	}
 
 	public function get_team($team_id) {
-		$query = sprintf('SELECT `team`.`team_id`, `team`.`team_name`, `team`.`team_info`, `team`.`shift_date`, `team`.`shift_start`, `team`.`shift_end`, `team`.`team_place`, `team`.`team_leader_id`, `users`.`id`, `users`.`first_name` FROM team INNER JOIN users on `users`.`user_team_id` = team_id WHERE team_id = "%s" '
+		$query = sprintf('SELECT 
+			`team`.`team_id`
+			, `team`.`team_name`
+			, `team`.`team_info`
+			, `team`.`shift_date`
+			, `team`.`shift_start`
+			, `team`.`shift_end`
+			, `team`.`team_place`
+			, `team`.`team_leader_id`
+			, `users`.`id`
+			, `users`.`first_name`
+			 FROM team INNER JOIN users 
+			 on `users`.`user_team_id` = team_id 
+			 WHERE team_id = "%s" '
 			, $this->db->escape_like_str($team_id));
 
 		$result = $this->db->query($query);

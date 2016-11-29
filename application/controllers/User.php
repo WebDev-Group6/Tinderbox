@@ -113,7 +113,7 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'zipcode','city', 'country', 'nationality', 'speak_danish', 'colleague', 'task');
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'zipcode','city', 'country', 'nationality', 'speak_danish', 'colleague', 'task', 'user_team_id');
 
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -134,6 +134,7 @@ class User extends CI_Controller {
 			$this->auth->secure_escape('validate', 'string', $post->nationality);
 			$this->auth->secure_escape('validate', 'tinyint', $post->speak_danish);
 			$this->auth->secure_escape('validate', 'string', $post->colleague);
+			$this->auth->secure_escape('validate', 'string', $post->user_team_id);
 			$this->auth->secure_escape('validate', 'string', $post->task);
 			// Sanitize
 			$safe_first_name = $this->auth->secure_escape('sanitize', 2, $post->first_name);
@@ -151,6 +152,7 @@ class User extends CI_Controller {
 			$safe_speak_danish = $this->auth->secure_escape('sanitize', 2, $post->speak_danish);
 			$safe_colleague = $this->auth->secure_escape('sanitize', 2, $post->colleague);
 			$safe_task = $this->auth->secure_escape('sanitize', 2, $post->task);
+			$safe_user_team_id = $this->auth->secure_escape('sanitize', 2, $post->user_team_id);
 			$options = [
 			'cost' => 8,
 			];
@@ -171,7 +173,8 @@ class User extends CI_Controller {
 				'nationality' => $safe_nationality,
 				'speak_danish' => $safe_speak_danish,
 				'colleague' => $safe_colleague,
-				'task' => $safe_task
+				'task' => $safe_task,
+				'user_team_id' => $safe_user_team_id
 			];
 			$res = $this->users_model->update_user($send_args);
 			
@@ -365,6 +368,15 @@ class User extends CI_Controller {
 		// Sanitize Data
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->users_model->get_user_team($safe_id));
+	}
+	public function team_leader($id = null) {
+		$this->auth->method('GET');
+		//$this->auth->check_token();
+		// Validate Data
+		$this->auth->secure_escape('validate', 'int', $id);
+		// Sanitize Data
+		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
+		$this->auth->http_response(200, 'OK', $this->users_model->get_team_leader($safe_id));
 	}
 
 	public function team_members($id = null) {
