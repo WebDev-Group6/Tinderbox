@@ -385,7 +385,8 @@ function frontPage() {
 		jQuery('title').html(titletag('Tinderbox Volunteer'));
 		jQuery('#dropdown').html(header);
 		jQuery('#logo-tinderbox').html(logo);
-		jQuery('#main').html(html); //overwrites the content from the view
+		jQuery('#main').html(html);
+		jQuery('#back-link').html(fake_back());
 	};
 };
 
@@ -911,7 +912,7 @@ function msg_inbox(){
 	jQuery('#pagetitle').html(headline('Inbox'));
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('title').html(titletag('Messages'));
-	jQuery('#back-link').html(back());
+	jQuery('#back-link').html(back_msg());
 
 }
 
@@ -941,7 +942,7 @@ function msg_inbox(){
 	jQuery('#pagetitle').html(headline('Write New Meassage'));
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('title').html(titletag('Messages'));
-	jQuery('#back-link').html(back());
+	jQuery('#back-link').html(back_msg());
 
 
  }
@@ -953,20 +954,87 @@ function msg_inbox(){
 
  }
 
-// function msg_sent(){
-// 	var html = 
+ function msg_sent(){
+ 	var html = 
+'<div id="messages">'
+	+'<div class="container">'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
+						+'<span class="fa fa-address-book-o">I was placed the wrong place</span>'
+						+'<p>Hi Torben, i have apparently been asssigned to a new..........</p>'
+						+'<h1>To:  Torben (leader)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-new" id="button-schedule">'
+						+'<span class="fa fa-address-book-o">I need a new leader?!</span>'
+						+'<p>lorem ipsum stuff, new leader is needed because old....... </p>'
+						+'<h1>To:  Torben (leader)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
+						+'<span class="fa fa-address-book-o">Thank you!</span>'
+						+'<p>Hi Svend-ole, thank you so much for swapping shifts with......</p>'
+						+'<h1>To:  Svend-ole(Volunteer)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
+						+'<span class="fa fa-address-book-o">Important Message</span>'
+						+'<p>lorem ipsum stuff, content of the message seen here......</p>'
+						+'<h1>To:  Tinderbox (staff)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+	+'</div>'
+	+'</div>'
 
+	jQuery('#pagetitle').html(headline('Sent Messages'));
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('title').html(titletag('Sent Messages'));
+	jQuery('#back-link').html(back_msg());
 
+}
 
+ function msg_contacts(){
+	var html = 
+	'<div class="container-fluid">'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
+						+'<span class="fa fa-inbox">Inbox</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-new" id="button-schedule">'
+						+'<span class="fa fa-envelope">New Message</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
+						+'<span class="fa fa-envelope-o">Sent Messages</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-contacts" id="button-schedule">'
+						+'<span class="fa fa-fax" >Contacts</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
 
-// }
+				;
+	jQuery('#pagetitle').html(headline('Messages'));
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('title').html(titletag('Messages'));
+	jQuery('#back-link').html(back_msg());
 
-// function msg_contacts(){
-// 	var html = 
-
-
-
-// }
+ }
 
 /*-------------------------
 	*-* Information *-*
@@ -1159,6 +1227,7 @@ function schedule() {
 							jQuery('#main').html(html);
 							jQuery('#pagetitle').html(headline('Schedule'));
 							jQuery('title').html(titletag('Your Schedule'));
+							jQuery('#back-link').html(back());
 
 							jQuery('.dropdown-headline').on('click', function() {
 			  				$parent_box = $(this).closest('.textbox');
@@ -1210,6 +1279,7 @@ function qrcode() {
 	jQuery('#main').html(html);
 	jQuery('#pagetitle').html(headline('QR Code'));
 	jQuery('title').html(titletag('QR Codes'));
+	jQuery('#back-link').html(back());
 
 	jQuery('.dropdown-headline').on('click', function() {
   				$parent_box = $(this).closest('.textbox');
@@ -1235,6 +1305,13 @@ function titletag(title) {
 	return html;
 }
 
+function fake_back() {
+	var html =
+	'<br>'
+
+	return html;
+}
+
 
 /*----------------------------
 	*-* Back to Frontpage *-*
@@ -1243,6 +1320,16 @@ function titletag(title) {
 function back() {
 	var html =
 	'<button id="back-link" class="backbutton">Back</button>'
+
+	return html;
+}
+
+/*----------------------------
+	*-* Back to msg *-*
+-----------------------------*/
+function back_msg() {
+	var html =
+	'<button id="back-link_msg" class="backbutton_msg">Back</button>'
 
 	return html;
 }
@@ -1262,10 +1349,11 @@ jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.editprofile', editUserPage);
 jQuery('#main').on('click', '.update-user', editUser);
 jQuery('#headline').on('click', '.backbutton', frontPage);
+jQuery('#headline').on('click', '.backbutton_msg', messages);
 jQuery('#main').on('click', '.link-inbox', msg_inbox);
 jQuery('#main').on('click', '.link-new', msg_new);
-// jQuery('#main').on('click', '.link-sent', msg_sent);
-// jQuery('#main').on('click', '.link-contacts', msg_contacts);
+jQuery('#main').on('click', '.link-sent', msg_sent);
+jQuery('#main').on('click', '.link-contacts', msg_contacts);
 jQuery('#main').on('click', '.btn-logout', logout);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
