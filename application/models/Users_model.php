@@ -2,14 +2,14 @@
 class Users_model extends CI_Model {
     
     public function get_all_users() {
-        $result = $this->db->query('SELECT id, first_name, last_name, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id
+        $result = $this->db->query('SELECT id, first_name, last_name, gender, dateofbirth, email, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, user_team_id
             FROM users
             ORDER BY created DESC');
         return $result->result();
     }
     public function get_user($id = null) {
         $query = sprintf('SELECT
-        id, first_name, last_name, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, task, user_team_id
+        id, first_name, last_name, email, gender, dateofbirth, phone_number, address, city, zipcode, country, nationality, speak_danish, colleague, user_team_id, user_qr, qr_bool
         FROM users
         WHERE id = "%s" '
         , $this->db->escape_like_str($id));
@@ -26,9 +26,12 @@ class Users_model extends CI_Model {
             , `team`.`team_id`
             , `team`.`team_name`
             , `team`.`team_info`
-            , `team`.`shift_date`
-            , `team`.`shift_start`
-            , `team`.`shift_end`
+            , `team`.`first_shift_date`
+            , `team`.`first_shift_start`
+            , `team`.`first_shift_end`
+            , `team`.`second_shift_date`
+            , `team`.`second_shift_start`
+            , `team`.`second_shift_end`
             , `team`.`team_place`
             , `team`.`team_leader_id` 
             FROM `team` INNER JOIN `users` 
@@ -41,9 +44,30 @@ class Users_model extends CI_Model {
         }
         return false;
     }
+
+    public function get_team_leader($id = null) {
+        $query = sprintf('SELECT 
+            `users`.`id`
+            , `users`.`first_name`
+            , `users`.`last_name`
+            , `users`.`email`
+            , `users`.`phone_number`
+            , `users`.`user_team_id`
+            , `team`.`team_leader_id` 
+            FROM `team` INNER JOIN `users` 
+            ON `team`.`team_leader_id` = `users`.`id` 
+            WHERE `team`.`team_id` = "%s" '
+            , $this->db->escape_like_str($id));
+        $result = $this->db->query($query);
+        if($result) {
+            return $result->row();
+        }
+        return false;
+    }
+
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
-            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task)
+            (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, user_team_id)
             VALUES
             ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
             , $this->db->escape_like_str($args['first_name'])
@@ -60,7 +84,7 @@ class Users_model extends CI_Model {
             , $this->db->escape_like_str($args['nationality'])
             , $this->db->escape_like_str($args['speak_danish'])
             , $this->db->escape_like_str($args['colleague'])
-            , $this->db->escape_like_str($args['task']));
+            , $this->db->escape_like_str($args['user_team_id']));
         $this->db->query($query);
         $id = $this->db->insert_id();
         if(is_int($id) && $id > 0) {
@@ -85,7 +109,6 @@ class Users_model extends CI_Model {
             nationality = "%s",
             speak_danish = "%s",
             colleague = "%s",
-            task = "%s",
             WHERE id = %d '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
@@ -101,7 +124,6 @@ class Users_model extends CI_Model {
             , $this->db->escape_like_str($args['nationality'])
             , $this->db->escape_like_str($args['speak_danish'])
             , $this->db->escape_like_str($args['colleague'])
-            , $this->db->escape_like_str($args['task'])
             , $this->db->escape_like_str($args['id'])
             );
         $result = $this->db->query($query);
@@ -119,7 +141,7 @@ class Users_model extends CI_Model {
        
     }
     public function get_user_by_email_password($email, $password) {
-        $query = sprintf('SELECT id, first_name, last_name, email, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, task, user_team_id, password
+        $query = sprintf('SELECT id, first_name, last_name, email, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague,  user_team_id, password
             FROM users
             WHERE email = "%s"
             LIMIT 1'
@@ -127,6 +149,11 @@ class Users_model extends CI_Model {
         $result = $this->db->query($query);
         $row = $result->row();
         if(password_verify($password, $row->password)) {
+            $email = $row->email;
+            $id = $row->id;
+            $qr_name = $id . $email;
+            $qr_code = base64_encode($qr_name);
+            $this->insert_qr_user($row->id, $qr_code);
             $token = bin2hex(openssl_random_pseudo_bytes(21));
             $this->insert_token_user($row->id, $token);
             $res = [
@@ -144,8 +171,8 @@ class Users_model extends CI_Model {
                 'nationality' => $row->nationality,
                 'speak_danish' => $row->speak_danish,
                 'colleague' => $row->colleague,
-                'task' => $row->task,
                 'user_team_id' => $row->user_team_id,
+                'user_qr' => $qr_code,
                 'token' => $token
             ];
             return $res;
@@ -180,4 +207,46 @@ class Users_model extends CI_Model {
         return false;
         die();
     }
+
+    public function insert_qr_user($id = null, $user_qr = null) {
+        $query = sprintf('UPDATE users
+            SET
+            user_qr = "%s"
+            WHERE
+            id = "%s"'
+            , $this->db->escape_like_str($user_qr)
+            , $this->db->escape_like_str($id));
+        $this->db->query($query);
+
+    }
+
+    public function get_qr_code($id = null, $user_qr = null){
+        $query = sprintf('SELECT user_qr
+            FROM 
+            users 
+            WHERE $id = "%s" LIMIT 1 ' 
+            , $this->db->escape_like_str($id));
+        $result = $this->db->query($query);
+        $row = $result->row();
+    }
+
+    public function get_qr_bool($id = null, $user_qr = null){
+        $query = sprintf('SELECT qr_bool
+            FROM 
+            users
+            WHERE id = "%s" LIMIT 1'
+            , $this->db->escape_like_str($id));
+        $result = $this->db->query($query);
+        $row = $result->row();
+    }
+
+    public function set_qr_bool($args = [])
+        { 
+            $query = sprintf('UPDATE users SET qr_bool = NOT qr_bool WHERE id = "%s" '
+                , $this->db->escape_like_str($args['qr_bool'])
+                , $this->db->escape_like_str($args['id']));
+            $this->db->query($query);
+            return $query;
+        }
+
 }

@@ -3,7 +3,7 @@
 class Teams_model extends CI_Model {
 
 	public function get_all_teams() {
-		$query = sprintf('SELECT team_id, team_name, team_info, shift_date, shift_start, shift_end, team_place, team_leader_id 
+		$query = sprintf('SELECT team_id, team_name, team_info, first_shift_date, first_shift_start, first_shift_end, second_shift_date, second_shift_start, second_shift_end, team_place, team_leader_id 
 			FROM team 
 			ORDER BY team_name ASC');
 		$result = $this->db->query($query);
@@ -12,7 +12,23 @@ class Teams_model extends CI_Model {
 	}
 
 	public function get_team($team_id) {
-		$query = sprintf('SELECT `team`.`team_id`, `team`.`team_name`, `team`.`team_info`, `team`.`shift_date`, `team`.`shift_start`, `team`.`shift_end`, `team`.`team_place`, `team`.`team_leader_id`, `users`.`id`, `users`.`first_name` FROM team INNER JOIN users on `users`.`user_team_id` = team_id WHERE team_id = "%s" '
+		$query = sprintf('SELECT 
+			`team`.`team_id`
+			, `team`.`team_name`
+			, `team`.`team_info`
+			, `team`.`first_shift_date`
+			, `team`.`first_shift_start`
+			, `team`.`first_shift_end`
+			, `team`.`second_shift_date`
+			, `team`.`second_shift_start`
+			, `team`.`second_shift_end`
+			, `team`.`team_place`
+			, `team`.`team_leader_id`
+			, `users`.`id`
+			, `users`.`first_name`
+			 FROM team INNER JOIN users 
+			 on `users`.`user_team_id` = `team`.team_id 
+			 WHERE `team`.`team_id` = "%s" '
 			, $this->db->escape_like_str($team_id));
 
 		$result = $this->db->query($query);
@@ -29,13 +45,16 @@ class Teams_model extends CI_Model {
 	}
 
 	public function set_team($args = []) {
-		$query = sprintf('INSERT INTO team(team_name, team_info, shift_date, shift_start, shift_end, team_place, team_leader_id) 
-			VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s") '
+		$query = sprintf('INSERT INTO team(team_name, team_info, first_shift_date, first_shift_start, first_shift_end, second_shift_date, second_shift_start, second_shift_end, team_place, team_leader_id) 
+			VALUES ("%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s", "%s") '
 			, $this->db->escape_like_str($args['team_name'])
 			, $this->db->escape_like_str($args['team_info'])
-			, $this->db->escape_like_str($args['shift_date'])
-			, $this->db->escape_like_str($args['shift_start'])
-			, $this->db->escape_like_str($args['shift_end'])
+			, $this->db->escape_like_str($args['first_shift_date'])
+			, $this->db->escape_like_str($args['first_shift_start'])
+			, $this->db->escape_like_str($args['first_shift_end'])
+			, $this->db->escape_like_str($args['second_shift_date'])
+			, $this->db->escape_like_str($args['second_shift_start'])
+			, $this->db->escape_like_str($args['second_shift_end'])
 			, $this->db->escape_like_str($args['team_place'])
 			, $this->db->escape_like_str($args['team_leader_id']));
 
@@ -51,16 +70,22 @@ class Teams_model extends CI_Model {
 		$query = sprintf('UPDATE team SET 
 			team_name = "%s", 
 			team_info = "%s", 
-			shift_date = "%s", 
-			shift_start = "%s", 
-			shift_end = "%s", 
+			first_shift_date = "%s", 
+			first_shift_start = "%s", 
+			first_shift_end = "%s", 
+			second_shift_date = "%s", 
+			second_shift_start = "%s", 
+			second_shift_end = "%s", 
 			team_place = "%s", 
 			team_leader_id = "%s" '
 			, $this->db->escape_like_str($args['team_name'])
 			, $this->db->escape_like_str($args['team_info'])
-			, $this->db->escape_like_str($args['shift_date'])
-			, $this->db->escape_like_str($args['shift_start'])
-			, $this->db->escape_like_str($args['shift_end'])
+			, $this->db->escape_like_str($args['first_shift_date'])
+			, $this->db->escape_like_str($args['first_shift_start'])
+			, $this->db->escape_like_str($args['first_shift_end'])
+			, $this->db->escape_like_str($args['second_shift_date'])
+			, $this->db->escape_like_str($args['second_shift_start'])
+			, $this->db->escape_like_str($args['second_shift_end'])
 			, $this->db->escape_like_str($args['team_place'])
 			, $this->db->escape_like_str($args['team_leader_id']));
 		
