@@ -240,6 +240,7 @@ function registrationPage() {
 
 	jQuery('#main').html(html);
 	jQuery('title').html(titletag('Register as Tinderbox Volunteer'));
+	jQuery('#back-link').html(back());
 }
 
 /*-------------------------
@@ -343,16 +344,6 @@ function frontPage() {
 		    		+'<div class="dropdown-link fa fa-comments" onclick="toggleDropdown(); messages();">MESSAGES</div>'
 		    		+'<div class="dropdown-link fa fa-user" onclick="toggleDropdown(); profile();">Profile</div>'
 		    		+'<div class="dropdown-link fa fa-sign-out" onclick="logout();">Logout</div>'
-
-		    		+'<a class="fa fa-calendar-o" onclick="schedule();">SCHEDULE</a>'
-		    		+'<a class="fa fa-qrcode" href="#" onclick="qrcode();">QR CODES</a>'
-		    		+'<a class="fa fa-map" href="#" onclick="map();">FESTIVAL MAP</a>'
-		    		+'<a class="fa fa-lightbulb-o" href="#" onclick="information();">INFORMATION</a>'
-		    		+'<a class="fa fa-comments" href="#" onclick="messages();">MESSAGES</a>'
-		    		+'<a class="fa fa-user" href="#" onclick="profile();">Profile</a>'
-		    		
-		    		+'<div class="btn-logout">'
-		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
 
 		    		+'</div>'
 		  		+'</div>'
@@ -1279,7 +1270,4 @@ jQuery('#main').on('click', '.link-new', msg_new);
 // jQuery('#main').on('click', '.link-sent', msg_sent);
 // jQuery('#main').on('click', '.link-contacts', msg_contacts);
 jQuery('#main').on('click', '.btn-logout', logout);
-
-//'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
-
 /* =======  End of Buttons  ======= */
