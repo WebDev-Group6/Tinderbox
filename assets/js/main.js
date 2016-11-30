@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/tinderbox/tinderbox/';
+const URL = 'http://localhost:8888/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -1218,18 +1218,18 @@ function qrcode() {
 			});
 }
 
-/*--------------------
+/*-----------------------
 	*-* Headline *-*
-----------------------*/
+------------------------*/
 function headline(pagetitle) {
 		var html =
 		'<h1>' + pagetitle + '</h1>'
 		return html;
 }
 
-/*----------------------
+/*---------------------------
 	*-*  View Titletag *-*
-----------------------*/
+----------------------------*/
 function titletag(title) {
 	var html = title
 	return html;
@@ -1246,10 +1246,9 @@ function back() {
 
 	return html;
 }
-
-/**================================================== *
- * ==========  Onclick event listeners  ========== *
- * ================================================== */
+/*-----------------------------------
+	*-* Onclick event listeners *-*
+------------------------------------*/
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
 jQuery('#main').on('click', '.link-register-user', register);
