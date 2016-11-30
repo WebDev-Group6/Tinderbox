@@ -37,23 +37,23 @@ function loginPage() {
 		var htmldata = 
 		'<div class="container">'
 			+'<div class="login-headline">'
-			+'<h2>Login as a Volunteer For</h2>'
-			+'<img src="' + RESS + 'img/tinderbox_date.svg">'
-			+'<h4>Or Register below</h4>'
+				+'<h2>Login as a Volunteer For</h2>'
+				+'<img src="' + RESS + 'img/tinderbox_date.svg">'
+				+'<h4>Or Register below</h4>'
 			+'</div>'
 			+'<div class="form-div">'
-					+'<div class="input-field">'
-						+'<span class="fa fa-user input-login"></span>'
-						+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
-					+'</div>'
-					+'<div class="input-field">'
-						+'<span class="fa fa-lock input-login"></span>'
-						+'<input name="password" type="password" class=" feedback-input" id="password" placeholder="password">'
-					+'</div>'
-					+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
-	    			+'<button class="signup">'
+				+'<div class="input-field">'
+					+'<span class="fa fa-user input-login"></span>'
+					+'<input name="email" type="text" class=" feedback-input" placeholder="E-mail" id="email">'
+				+'</div>'
+				+'<div class="input-field">'
+					+'<span class="fa fa-lock input-login"></span>'
+					+'<input name="password" type="password" class=" feedback-input" id="password" placeholder="password">'
+				+'</div>'
+				+'<button class="link-login-submit" type="submit" value="LOGIN" id="button-blue">Login</button>'
+	    		+'<button class="signup">'
 	    				+'SIGN UP'
-	    			+'</button>'
+	    		+'</button>'
 			+'</div>'
 		+'</div>';
 
@@ -104,9 +104,11 @@ function login() {
 				colleague: data.colleague,
 				task: data.task,
 				user_team_id: data.user_team_id,
+				user_qr: data.user_qr,
 				token: data.secretToken
 			});
 			frontPage();
+			console.log('login');
 	});
 };
 
@@ -256,7 +258,7 @@ function register() {
 	var nationalityVal = jQuery('#nationality').val();
 	var speak_danishVal = jQuery('#speak_danish').val();
 	var colleagueVal = jQuery('#colleague').val();
-	var taskVal = jQuery('#task').val();
+	var user_team_idVal = jQuery('#task').val();
 
 	var sendData = {
 			"email": emailVal,
@@ -273,7 +275,7 @@ function register() {
 			"nationality": nationalityVal,
 			"speak_danish": speak_danishVal,
 			"colleague": colleagueVal,
-			"task": taskVal
+			"user_team_id": user_team_idVal
 	};
 
 	jQuery.ajax({
@@ -767,7 +769,7 @@ function information() {
 function schedule() {
 	var user = store.get('user');
 	var user_team = 'user/user_team/' + user.id;
-	var team_leader = 
+	 
 	jQuery.ajax({
 		url: URL + 'user/user_team/' + user.id,
 		contentType: 'application/json',
@@ -783,17 +785,24 @@ function schedule() {
 			var weekNames = [
 			'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
 			]
-			var date = new Date(data.shift_date);
-			var day = date.getDate();
-			var weekIndex = date.getDay();
-			var monthIndex = date.getMonth();
-			var year = date.getFullYear();
+			var first_date = new Date(data.first_shift_date);
+			var first_day = first_date.getDate();
+			var first_weekIndex = first_date.getDay();
+			var first_monthIndex = first_date.getMonth();
+			var first_year = first_date.getFullYear();
 
-			var shift_date = weekNames[weekIndex] + ' ' + day + '-' + monthNames[monthIndex];
+			var first_shift_date = weekNames[first_weekIndex] + ' ' + first_day + '-' + monthNames[first_monthIndex];
 			
-			var time = data.shift_start;
+			var second_date = new Date(data.second_shift_date);
+			var second_day = second_date.getDate();
+			var second_weekIndex = second_date.getDay();
+			var second_monthIndex = second_date.getMonth();
+			var second_year = second_date.getFullYear();
+			var second_shift_date = weekNames[second_weekIndex] + ' ' + second_day + '-' + monthNames[second_monthIndex];
+			
+			var time = data.first_shift_start;
 
-			var d = new Date(data.shift_start);
+			var d = new Date(data.first_shift_start);
 			var hour = d.getHours();
 			var min = d.getMinutes();
 
@@ -821,7 +830,18 @@ function schedule() {
 						+ '<div class="textbox">'
 	        				+ '<div class="dropdown-headline">'
 								+'<h3>' 
-									+ shift_date + ' ' + data.shift_start + '-' + data.shift_end
+									+ first_shift_date + ' ' + data.first_shift_start + '-' + data.first_shift_end
+								+ '</h3>'
+							+ '</div>'
+					  	+ '</div>'
+					+ '</div>'
+				+ '</div>'
+				+ '<div class="row">'
+					+ '<div class="col-xs-12">'
+						+ '<div class="textbox">'
+	        				+ '<div class="dropdown-headline">'
+								+'<h3>' 
+									+ second_shift_date + ' ' + data.second_shift_start + '-' + data.second_shift_end
 								+ '</h3>'
 							+ '</div>'
 					  	+ '</div>'
@@ -885,9 +905,9 @@ function schedule() {
 							jQuery('title').html(titletag('Your Schedule'));
 
 							jQuery('.dropdown-headline').on('click', function() {
-  				$parent_box = $(this).closest('.textbox');
-  				$parent_box.siblings().find('.dropdown-text').slideUp();
-  				$parent_box.find('.dropdown-text').slideToggle(300, 'swing');
+			  				$parent_box = $(this).closest('.textbox');
+			  				$parent_box.siblings().find('.dropdown-text').slideUp();
+			  				$parent_box.find('.dropdown-text').slideToggle(300, 'swing');
 			});
 					},
 					error: function(xhr, status, error) {
@@ -904,10 +924,42 @@ function schedule() {
 	*-* Qr Codes *-*
 ---------------------------*/
 function qrcode() {
+
+	var user = store.get('user');
+
+	var user_qr = store.get('user').user_qr;
+	var id = store.get('user').id;
+	
 	var html = 
-	'<h1>QRCODE</h1>';
+	'<div id="qrcodepage" class="container">'
+		+'<div class="row">'
+			+ '<div class="col-xs-12">'
+				+ '<div class="textbox">'
+	        		+ '<div class="dropdown-headline fa fa-angle-down">'
+						+'<h3>' 
+							+'Your QR Code'
+						+ '</h3>'
+					+ '</div>'
+					+ '<div class="dropdown-text">'
+						+ '<p>The QR Code is used to verify that you have attended your shift. Your QR code can only be scanned <strong>ONCE</strong> and it must be done by a your team leader.</p>'
+					+ '</div>'
+				+ '</div>'
+			+ '</div>'
+		+ '</div>'
+		+ '<div class="qrwrapper">'
+			+'<img src="https://api.qrserver.com/v1/create-qr-code/?data=' + URL + 'user/' + id + '/' + user_qr + ';&format=svg&color=4-53-64&bgcolor=255-249-244" alt="" title="" />'
+		+'</div>'
+	+'</div>';
+	
 	jQuery('#main').html(html);
+	jQuery('#pagetitle').html(headline('QR Code'));
 	jQuery('title').html(titletag('QR Codes'));
+
+	jQuery('.dropdown-headline').on('click', function() {
+  				$parent_box = $(this).closest('.textbox');
+  				$parent_box.siblings().find('.dropdown-text').slideUp();
+  				$parent_box.find('.dropdown-text').slideToggle(400, 'swing');
+			});
 }
 
 /*--------------------

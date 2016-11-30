@@ -556,11 +556,12 @@ a.button {
 #info .hours-table {
   width: 250px; }
 
-.qr-code {
-  height: 100%;
-  width: 100%;
-  max-height: 400px;
-  max-width: 400px; }
+#qrcodepage .qrwrapper {
+  margin: 15px;
+  background-color: #fff9f4;
+  padding: 30px; }
+  #qrcodepage .qrwrapper img {
+    width: 100%; }
 
 .map h2 {
   text-align: center; }
