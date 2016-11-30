@@ -32,7 +32,7 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague' );
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'city', 'zipcode', 'country', 'nationality', 'speak_danish', 'colleague', 'user_team_id');
 
 		// first, flips key/value in $args_check, then compares the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -55,6 +55,7 @@ class User extends CI_Controller {
 			$this->auth->secure_escape('validate', 'string', $post->nationality);
 			$this->auth->secure_escape('validate', 'tinyint', $post->speak_danish);
 			$this->auth->secure_escape('validate', 'string', $post->colleague);
+			$this->auth->secure_escape('validate', 'int', $post->user_team_id);
 			// Sanitize
 			$safe_first_name = $this->auth->secure_escape('sanitize', 2, $post->first_name);
 			$safe_last_name = $this->auth->secure_escape('sanitize', 2, $post->last_name);
@@ -70,12 +71,12 @@ class User extends CI_Controller {
 			$safe_nationality = $this->auth->secure_escape('sanitize', 2, $post->nationality);
 			$safe_speak_danish = $this->auth->secure_escape('sanitize', 2, $post->speak_danish);
 			$safe_colleague = $this->auth->secure_escape('sanitize', 2, $post->colleague);
+			$safe_user_team_id = $this->auth->secure_escape('sanitize', 2, $post->user_team_id);
 
 			$safe_password = password_hash($safe_password, PASSWORD_BCRYPT, [
 			'cost' => 10,
 			]);
 			$res = $this->users_model->set_user([
-
 				'first_name' => $safe_first_name,
 				'last_name' => $safe_last_name,
 				'email' => $safe_email,
@@ -89,8 +90,8 @@ class User extends CI_Controller {
 				'country' => $safe_country,
 				'nationality' => $safe_nationality,
 				'speak_danish' => $safe_speak_danish,
-				'colleague' => $safe_colleague
-
+				'colleague' => $safe_colleague,
+				'user_team_id' => $safe_user_team_id
 			]);
 			if($res) {
 				$this->auth->http_response(201, 'Created', [

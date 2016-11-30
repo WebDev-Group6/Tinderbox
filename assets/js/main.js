@@ -102,7 +102,6 @@ function login() {
 				nationality: data.nationality,
 				speak_danish: data.speak_danish,
 				colleague: data.colleague,
-				task: data.task,
 				user_team_id: data.user_team_id,
 				user_qr: data.user_qr,
 				token: data.secretToken
@@ -152,8 +151,8 @@ function registrationPage() {
 				+'<label for="gender">Gender</label>'
 				+'<br>'
 				+'<div class="dropdown-style">'
-				+'<select id="gender" name="gender" placeholder="Gender">'
-					+'<option value="" disabled selected>Gender</option>'
+				+'<select id="gender" name="gender">'
+					+'<option value="Gender" disabled selected>Gender</option>'
 					+'<option value="1">Female</option>'
 					+'<option value="0">Male</option>'
 				+'</select>'
@@ -193,7 +192,7 @@ function registrationPage() {
 				+'<label for="countryId">Country</label>'
 				+'<br>'
 				+'<div class="dropdown-style">'
-				+ '<select name="country" class="countries" id="countryId">'
+				+ '<select name="country" class="countries" id="country">'
 				+ '<option value="">Select Country</option>'
 				+ '</select>'
 				+'</div>'
@@ -222,9 +221,13 @@ function registrationPage() {
 				+'<div class="dropdown-style">'
 				+'<select id="task" name="task">'
 					+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
-					+'<option value="fences">Building Fences</option>'
-					+'<option value="bartender">Bartender</option>'
-					+'<option value="it-work">IT Work</option>'
+					+'<option value="2">Building Fences</option>'
+					+'<option value="3">Parking/Traffic Control</option>'
+					+'<option value="4">Security</option>'
+					+'<option value="7">ID Check</option>'
+					+'<option value="8">Bartending</option>'
+					+'<option value="11">Cleaning</option>'
+					+'<option value="12">Sandwich seller</option>'
 				+'</select>'
 				+'</div>'
 				+'<br>'
@@ -261,16 +264,16 @@ function register() {
 	var user_team_idVal = jQuery('#task').val();
 
 	var sendData = {
-			"email": emailVal,
-			"password": passwordVal,
 			"first_name": first_nameVal,
 			"last_name": last_nameVal,
+			"email": emailVal,
+			"password": passwordVal,
 			"gender": genderVal,
 			"dateofbirth": dateofbirthVal,
 			"phone_number": phone_numberVal,
 			"address": addressVal,
-			"city": cityVal,
 			"zipcode": zipcodeVal,
+			"city": cityVal,
 			"country": countryVal,
 			"nationality": nationalityVal,
 			"speak_danish": speak_danishVal,
@@ -281,14 +284,16 @@ function register() {
 	jQuery.ajax({
 		url: URL + 'user/add_user',
 		contentType: 'application/json',
-		type: 'POST',
 		data: JSON.stringify(sendData),
+		type: 'POST',
 		success: function(data, status, response) {
 			alert('Your Profile has been created, you can login now.');
 			loginPage();
 		},
 			error: function(xhr, status, error) {
-			var err = JSON.parse(xhr.responseText);
+			//var err = JSON.parse(xhr.responseText);
+			console.log(sendData);
+			console.log('ERROR');
 		}
 	});	
 }
@@ -405,7 +410,7 @@ function profile() {
 	var nationality = store.get('user').nationality;
 	var speak_danish = store.get('user').speak_danish;
 	var colleague = store.get('user').colleague;
-	var task = store.get('user').task;
+	var user_team_id = store.get('user').user_team_id;
 	var genderType ='';
 	var danish = '';
 
@@ -421,6 +426,33 @@ function profile() {
 	}
 	else {
 		danish = "I don't Speak Danish";
+	}
+
+	var task = '';
+	 if(user_team_id = '2') {
+			task = 'Building Fences';
+	}
+	else if(user_team_id = '3') {
+			task = 'Parking/Traffic Control';
+	}
+	else if(user_team_id = '4') {
+			task = 'Security';
+	}
+	else if(user_team_id = '7') {
+			task = 'Id Check';
+	}
+	else if(user_team_id = '8') {
+
+			task = 'Bartending';
+	}
+	else if(user_team_id = '11') {
+			task = 'Cleaning';
+	}
+	else if(user_team_id = '12') {
+			task = 'Sandwich Seller';
+	}
+	else {
+		task = 'No team added';
 	}
 	var html =
 	'<div id="profile">'
@@ -470,7 +502,7 @@ function editUserPage() {
 	var nationality = store.get('user').nationality;
 	var speak_danish = store.get('user').speak_danish;
 	var colleague = store.get('user').colleague;
-	var task = store.get('user').task;
+	var user_team_id = store.get('user').user_team_id;
 	var genderSelected ='';
 	var danishSelected = '';
 	var countrySelected = '';
@@ -509,6 +541,111 @@ function editUserPage() {
 		+'</select>';
  	}
 
+ 	var task = '';
+	if(user_team_id = '2') {
+		task = 
+		'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2" selected>Building Fences</option>'
+			+'<option value="3">Parking/Traffic Control</option>'
+			+'<option value="4">Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11">Cleaning</option>'
+			+'<option value="12">Sandwich seller</option>'
+		+'</select>';
+	}
+	else if(user_team_id = '3') {
+		task = 
+		'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2">Building Fences</option>'
+			+'<option value="3" selected>Parking/Traffic Control</option>'
+			+'<option value="4">Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11">Cleaning</option>'
+			+'<option value="12">Sandwich seller</option>'
+		+'</select>';
+	}
+	else if(user_team_id = '4') {
+		task = 
+		'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2">Building Fences</option>'
+			+'<option value="3">Parking/Traffic Control</option>'
+			+'<option value="4" selected>Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11">Cleaning</option>'
+			+'<option value="12">Sandwich seller</option>'
+		+'</select>';
+	}
+	else if(user_team_id = '7') {
+		task = 
+		'<select id="task" name="task">'
+				+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+				+'<option value="2">Building Fences</option>'
+				+'<option value="3">Parking/Traffic Control</option>'
+				+'<option value="4">Security</option>'
+				+'<option value="7" selected>ID Check</option>'
+				+'<option value="8">Bartending</option>'
+				+'<option value="11">Cleaning</option>'
+				+'<option value="12">Sandwich seller</option>'
+			+'</select>';
+	}
+	else if(user_team_id = '8') {
+		task = 
+		'<select id="task" name="task">'
+				+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+				+'<option value="2">Building Fences</option>'
+				+'<option value="3">Parking/Traffic Control</option>'
+				+'<option value="4">Security</option>'
+				+'<option value="7">ID Check</option>'
+				+'<option value="8" selected>Bartending</option>'
+				+'<option value="11">Cleaning</option>'
+				+'<option value="12">Sandwich seller</option>'
+			+'</select>';
+	}
+	else if(user_team_id = '11') {
+		task = 
+		'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2">Building Fences</option>'
+			+'<option value="3">Parking/Traffic Control</option>'
+			+'<option value="4">Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11" selected>Cleaning</option>'
+			+'<option value="12">Sandwich seller</option>'
+		+'</select>';
+	}
+	else if(user_team_id = '12') {
+		task = 
+		'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2">Building Fences</option>'
+			+'<option value="3">Parking/Traffic Control</option>'
+			+'<option value="4">Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11">Cleaning</option>'
+			+'<option value="12" selected>Sandwich seller</option>'
+		+'</select>';
+	}
+	else {
+		task = 
+		+'<select id="task" name="task">'
+			+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
+			+'<option value="2">Building Fences</option>'
+			+'<option value="3">Parking/Traffic Control</option>'
+			+'<option value="4">Security</option>'
+			+'<option value="7">ID Check</option>'
+			+'<option value="8">Bartending</option>'
+			+'<option value="11">Cleaning</option>'
+			+'<option value="12">Sandwich seller</option>'
+		+'</select>';
+	}
  	// if(countrySelected = 'store.get('user').country;') {
  	// 	countrySelected = 
  	// 	'<select id="gender" name="gender" placeholder="Gender">'
@@ -612,12 +749,7 @@ function editUserPage() {
 				+'<label for="task">Preferred work tasks</label>'
 				+'<br>'
 				+'<div class="dropdown-style">'
-				+'<select id="task" name="task">'
-					+'<option value="tasks" label disabled selected>Preferred work tasks</option>'
-					+'<option value="fences">Building Fences</option>'
-					+'<option value="bartender">Bartender</option>'
-					+'<option value="it-work">IT Work</option>'
-				+'</select>'
+				+ task
 				+'</div>'
 				+'<br>'
 				+'<label for="colleague">Preferred Colleague</label>'
@@ -649,7 +781,7 @@ function editUser() {
 	var nationalityVal = jQuery('#nationality').val();
 	var speak_danishVal = jQuery('#speak_danish').val();
 	var colleagueVal = jQuery('#colleague').val();
-	var taskVal = jQuery('#task').val();
+	var user_team_idVal = jQuery('#task').val();
 
 	var sendData = {
 			"email": emailVal,
@@ -666,7 +798,7 @@ function editUser() {
 			"nationality": nationalityVal,
 			"speak_danish": speak_danishVal,
 			"colleague": colleagueVal,
-			"task": taskVal
+			"user_team_id": user_team_idVal
 	};
 	jQuery.ajax({
 		url: URL + 'user/update_user',
@@ -674,7 +806,7 @@ function editUser() {
 		type: 'PATCH',
 		data: JSON.stringify(sendData),
 		success: function(data, status, response) {
-			console.log(data);
+			console.log(sendData);
 		},
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
@@ -778,9 +910,9 @@ function schedule() {
 			
 			var monthNames = [
   				'Jan', 'Feb', 'Mar',
-  				'Apr', 'May', 'Jun', 'Jul',
-  				'Aug', 'Sep', 'Oct',
-  				'Nov', 'Dec'
+  				'Apr', 'May', 'Jun', 
+  				'Jul', 'Aug', 'Sep', 
+  				'Oct', 'Nov', 'Dec'
 			];
 			var weekNames = [
 			'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
@@ -941,7 +1073,7 @@ function qrcode() {
 						+ '</h3>'
 					+ '</div>'
 					+ '<div class="dropdown-text">'
-						+ '<p>The QR Code is used to verify that you have attended your shift. Your QR code can only be scanned <strong>ONCE</strong> and it must be done by a your team leader.</p>'
+						+ '<p>The QR Code is used to verify that you have attended your shift. Your QR code can only be scanned <strong>ONCE</strong> and it must be done by your team leader.</p>'
 					+ '</div>'
 				+ '</div>'
 			+ '</div>'

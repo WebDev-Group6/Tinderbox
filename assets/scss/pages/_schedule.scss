@@ -3,6 +3,13 @@
 		font-family: "eveleth-regular";
 		font-size: 18px;
 	}
+  h4 {
+    font-family: "eveleth-thin";
+    &:before {
+      font-family: "font-awesome";
+      margin-right: 5px;
+    }
+  }
 }
 
 .rounded-img {

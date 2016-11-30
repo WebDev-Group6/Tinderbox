@@ -572,6 +572,11 @@ a.button {
 #schedule h3 {
   font-family: "eveleth-regular";
   font-size: 18px; }
+#schedule h4 {
+  font-family: "eveleth-thin"; }
+  #schedule h4:before {
+    font-family: "font-awesome";
+    margin-right: 5px; }
 
 .rounded-img {
   height: 150px;
