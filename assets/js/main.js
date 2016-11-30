@@ -8,6 +8,7 @@ jQuery(function() {
 });
 
 const URL = 'http://localhost:8888/';
+
 const RESS = 'assets/';
 
 /*--------------------
@@ -334,6 +335,7 @@ function frontPage() {
 			'<div class="dropdown">'
 		  		+'<button onclick="toggleDropdown()" class="dropbtn"><i class="fa fa-bars" aria-hidden="true"></i></button>'
 		  		+'<div id="myDropdown" class="dropdown-content">'
+
 		    		+'<div class="dropdown-link fa fa-calendar-o" onclick="toggleDropdown(); schedule();">SCHEDULE</div>'
 		    		+'<div class="dropdown-link fa fa-qrcode" onclick="toggleDropdown(); qrcode();">QR CODES</div>'
 		    		+'<div class="dropdown-link fa fa-map" onclick="toggleDropdown(); map();">FESTIVAL MAP</div>'
@@ -341,6 +343,17 @@ function frontPage() {
 		    		+'<div class="dropdown-link fa fa-comments" onclick="toggleDropdown(); messages();">MESSAGES</div>'
 		    		+'<div class="dropdown-link fa fa-user" onclick="toggleDropdown(); profile();">Profile</div>'
 		    		+'<div class="dropdown-link fa fa-sign-out" onclick="logout();">Logout</div>'
+
+		    		+'<a class="fa fa-calendar-o" onclick="schedule();">SCHEDULE</a>'
+		    		+'<a class="fa fa-qrcode" href="#" onclick="qrcode();">QR CODES</a>'
+		    		+'<a class="fa fa-map" href="#" onclick="map();">FESTIVAL MAP</a>'
+		    		+'<a class="fa fa-lightbulb-o" href="#" onclick="information();">INFORMATION</a>'
+		    		+'<a class="fa fa-comments" href="#" onclick="messages();">MESSAGES</a>'
+		    		+'<a class="fa fa-user" href="#" onclick="profile();">Profile</a>'
+		    		
+		    		+'<div class="btn-logout">'
+		    		+'<a class="fa fa-sign-out" href="#" onclick="logout();">Logout</a>'
+
 		    		+'</div>'
 		  		+'</div>'
 			+'</div>';
