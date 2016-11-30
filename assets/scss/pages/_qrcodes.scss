@@ -1,6 +1,10 @@
-.qr-code {
-  height: 100%;
-  width: 100%;
-  max-height: 400px;
-  max-width: 400px; 
+#qrcodepage {
+  .qrwrapper {
+  	margin: 15px;
+  	background-color: $primary-color-beige;
+  	padding: 30px;
+  	img {
+  		width: 100%;
+  	}
+  }
 }
