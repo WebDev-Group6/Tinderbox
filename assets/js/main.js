@@ -7,7 +7,7 @@ jQuery(function() {
 
 });
 
-const URL = 'http://localhost:8888/';
+const URL = 'http://localhost:8888/tinderbox/tinderbox/';
 const RESS = 'assets/';
 
 /*--------------------
@@ -84,7 +84,7 @@ function login() {
 		},
 		error: function(xhr, status, error) {
 			var err = JSON.parse(xhr.responseText);
-			responseHandling(err);
+			alert(err);
 		}
 	}).done(function(data, status, response) {
 		store.set('user', {
@@ -117,7 +117,7 @@ function login() {
 
 function logout(){
 	var user = store.clear('user');
-	window.location.replace(URL)
+	window.location.replace(URL);
 };
 
 /*-----------------------------
@@ -479,6 +479,7 @@ function profile() {
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('#pagetitle').html(headline('Your Profile'));
 	jQuery('title').html(titletag('Your Profile Page'));
+	jQuery('#back-link').html(back());
 }
 
 /*--------------------------------
@@ -727,7 +728,7 @@ function editUserPage() {
 				+'<br>'
 				+'<div class="dropdown-style">'
 				+ '<select name="country" class="countries" id="countryId">'
-				+ '<option value="" disabled>Select Country</option>'
+				+ '<option selected="' + country + '" disabled>' + country +'</option>'
 				+ '</select>'
 				+'</div>'
 				+ '<script src="http://lab.iamrohit.in/js/location.js"></script>'
@@ -759,6 +760,7 @@ function editUserPage() {
 		+'</div>';
 
 	jQuery('#main').html(html);	
+	jQuery('#back-link').html(back());
 
 }
 
@@ -822,7 +824,7 @@ function editUser() {
 
 function map() {
 	var html = 
-		'<div class="container">'
+		'<div class="container-fluid">'
 			+ '<div class="col-xs-12 map">'
 				+ '<h2>Overview of Festival Area</h2>'
 				+'<img src="' + RESS + 'img/map.png">'
@@ -832,6 +834,7 @@ function map() {
 		jQuery('#main').html(html); //overwrites the content from the view
 		jQuery('#pagetitle').html(headline('Festival Map'));
 		jQuery('title').html(titletag('Festival Map'));
+		jQuery('#back-link').html(back());
 };
 /*-----------------------
 	*-* Messages *-*
@@ -839,11 +842,132 @@ function map() {
 
 function messages() {
 	var html =
-	'<h1>Messages</h1>';
+	'<div class="container-fluid">'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
+						+'<span class="fa fa-inbox">Inbox</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-new" id="button-schedule">'
+						+'<span class="fa fa-envelope">New Message</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
+						+'<span class="fa fa-envelope-o">Sent Messages</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-contacts" id="button-schedule">'
+						+'<span class="fa fa-fax" >Contacts</span>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
 
+	;
+	jQuery('#pagetitle').html(headline('Messages'));
 	jQuery('#main').html(html); //overwrites the content from the view
 	jQuery('title').html(titletag('Messages'));
+	jQuery('#back-link').html(back());
+
 }
+
+function msg_inbox(){
+	var html = 
+	'<div id="messages">'
+	+'<div class="container">'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
+						+'<span class="fa fa-address-book-o">Welcome Message</span>'
+						+'<p >lorem ipsum stuff, content of the message seen here......</p>'
+						+'<h1>From:  Tinderbox (staff)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-new" id="button-schedule">'
+						+'<span class="fa fa-address-book-o">Hi mr, are you in?</span>'
+						+'<p>lorem ipsum stuff, content sdafas and something just like....... </p>'
+						+'<h1>From:  Torben (leader)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+				+'<div class="row">'
+					+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
+						+'<span class="fa fa-address-book-o">Final warning!!</span>'
+						+'<p>Please answer this message or you will be banned from TB!!</p>'
+						+'<h1>From:  Tinderbox (staff)</h1>'
+						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
+					+'</div>'
+				+'</div>'
+	+'</div>'
+	+'</div>'
+
+
+	jQuery('#pagetitle').html(headline('Inbox'));
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('title').html(titletag('Messages'));
+	jQuery('#back-link').html(back());
+
+}
+
+ 	function msg_new(){
+ 	
+ 	var html = 
+ 	'<div class="container-fluid">'
+	+'<div id="messages">'
+	+'<label>Recipient</label>'
+	+'<br>'
+	+'<input type="text"></input>'
+	+'<br>'
+	+'<label>Subject</label>'
+	+'<br>'
+	+'<input type="text"></input>'
+	+'<br>'
+	+'<label>Message</label>'
+	+'<br>'
+	+'<textarea id="msg_field" type="text"></textarea>'
+	+'<br>'
+	+'<button onclick="send_msg_fake();" type="submit" value="Send">Send Message</button>'	
+	+'</div>'
+	+'</div>'
+	
+
+
+	jQuery('#pagetitle').html(headline('Write New Meassage'));
+	jQuery('#main').html(html); //overwrites the content from the view
+	jQuery('title').html(titletag('Messages'));
+	jQuery('#back-link').html(back());
+
+
+ }
+
+ function send_msg_fake(){
+ 	alert('Message Sent!');
+ 	window.location.replace(URL);
+
+
+ }
+
+// function msg_sent(){
+// 	var html = 
+
+
+
+
+// }
+
+// function msg_contacts(){
+// 	var html = 
+
+
+
+// }
+
 /*-------------------------
 	*-* Information *-*
 ---------------------------*/
@@ -893,7 +1017,7 @@ function information() {
 	jQuery('#pagetitle').html(headline('Information'));
 	jQuery('title').html(titletag('Information'));
 	jQuery('#back-link').html(back());
-	 //overwrites the content from the view
+	 //overwrites the content from the view	 
 }
 /*-------------------------
 	*-* Schedule *-*
@@ -1124,7 +1248,7 @@ function back() {
 }
 
 /**================================================== *
- * ==========  Buttons  ========== *
+ * ==========  Onclick event listeners  ========== *
  * ================================================== */
 jQuery('#main').on('click', '.link-login-submit', login);
 jQuery('#main').on('click', '.signup', registrationPage);
@@ -1138,6 +1262,10 @@ jQuery('#main').on('click', '.link-info', information);
 jQuery('#main').on('click', '.editprofile', editUserPage);
 jQuery('#main').on('click', '.update-user', editUser);
 jQuery('#headline').on('click', '.backbutton', frontPage);
+jQuery('#main').on('click', '.link-inbox', msg_inbox);
+jQuery('#main').on('click', '.link-new', msg_new);
+// jQuery('#main').on('click', '.link-sent', msg_sent);
+// jQuery('#main').on('click', '.link-contacts', msg_contacts);
 jQuery('#main').on('click', '.btn-logout', logout);
 
 //'<button id="signup" onclick="javascript:location.href='registration.html'">SIGN UP</button>'
