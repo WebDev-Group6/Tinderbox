@@ -588,4 +588,49 @@ a.button {
   .rounded-img img {
     width: 100%; }
 
+#messages {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px; }
+  #messages .gradient-background {
+    background: #8bc7b9;
+    background: -webkit-linear-gradient(left, rgba(255, 0, 0, 0), #8bc7b9);
+    background: -o-linear-gradient(right, rgba(255, 0, 0, 0), #8bc7b9);
+    background: -moz-linear-gradient(right, rgba(255, 0, 0, 0), #8bc7b9);
+    background: linear-gradient(to right, rgba(255, 0, 0, 0), #8bc7b9);
+    width: 100%;
+    margin-bottom: 0; }
+  #messages p {
+    font-size: 10px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 10px; }
+  #messages h1 {
+    font-size: 12.5px;
+    padding-top: 2px;
+    padding-bottom: 3px;
+    padding-right: 15px;
+    padding-left: 10px; }
+  #messages textarea {
+    height: 600x;
+    width: 80%; }
+  #messages label {
+    background-color: rgba(139, 199, 185, 0.7);
+    padding: 4px;
+    border-radius: 5px;
+    font-weight: bold; }
+  #messages input {
+    width: 80%;
+    margin-bottom: 15px; }
+
+.link-msg_inbox {
+  position: relative; }
+  .link-msg_inbox td {
+    color: #043540;
+    position: absolute;
+    top: 12px;
+    left: 18px;
+    font-size: 22px; }
+
 /*# sourceMappingURL=style.css.map */
