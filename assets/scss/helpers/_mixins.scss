@@ -7,6 +7,15 @@
 	width: 100%;
 	margin-bottom: 0;
 }
+@mixin gradient-background-reverse($background-color: $primary-color-teal) {
+	background: $background-color;
+	background: -webkit-linear-gradient(right, rgba(255, 0, 0, 0), $background-color);
+	background: -o-linear-gradient(left, rgba(255, 0, 0, 0), $background-color);
+	background: -moz-linear-gradient(left, rgba(255, 0, 0, 0), $background-color);
+	background: linear-gradient(to left, rgba(255, 0, 0, 0), $background-color);
+	width: 100%;
+	margin-bottom: 0;
+}
 @mixin box-sizing ($box-sizing) {
 	box-sizing: $box-sizing;
 	webkit-box-sizing: $box-sizing;

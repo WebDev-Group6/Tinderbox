@@ -5,12 +5,10 @@ class Messages extends CI_Controller
 {
     public $base_uri = '/messages/';
     private $ci;
-
     public function initialize($dateformat = "Y.m.d - H:i:s")
     {
         $this->pm_model->initialize($dateformat); // add pm_model
     }
-
     function __construct()
     {
         parent::__construct();
@@ -25,7 +23,6 @@ class Messages extends CI_Controller
         $this->load->model('User_model', 'user_model');
         $this->lang->load('pm', 'english');
     }
-
     public function index()
 	{
         $data['title'] = 'Messages';
@@ -35,7 +32,6 @@ class Messages extends CI_Controller
 		$this->load->helper('url');
 		$this->load->view('main_view', $data);
 	}
-
 	/*show a specific message by message id
     views loaded: menu, details
     data for 'details' view: $message.*/
@@ -68,7 +64,6 @@ class Messages extends CI_Controller
         //$this->load->view('menu');
         $this->load->view('details', $data);
     }
-
     /*show messages.
     views loaded: menu, list
     data for 'list' view: $messages (associative array|array|string).*/

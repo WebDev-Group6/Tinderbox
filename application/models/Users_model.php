@@ -19,7 +19,6 @@ class Users_model extends CI_Model {
         }
         return false;
     }
-
     public function get_user_team($id = null) {
         $query = sprintf('SELECT 
             `users`.`id`
@@ -44,7 +43,6 @@ class Users_model extends CI_Model {
         }
         return false;
     }
-
     public function get_team_leader($id = null) {
         $query = sprintf('SELECT 
             `users`.`id`
@@ -64,7 +62,6 @@ class Users_model extends CI_Model {
         }
         return false;
     }
-
     public function set_user($args = []) {
         $query = sprintf('INSERT INTO users
             (first_name, last_name, email, password, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague, user_team_id)
@@ -108,7 +105,7 @@ class Users_model extends CI_Model {
             country = "%s",
             nationality = "%s",
             speak_danish = "%s",
-            colleague = "%s",
+            colleague = "%s"
             WHERE id = %d '
             , $this->db->escape_like_str($args['first_name'])
             , $this->db->escape_like_str($args['last_name'])
@@ -138,7 +135,6 @@ class Users_model extends CI_Model {
         } else {
             return false;
         }
-       
     }
     public function get_user_by_email_password($email, $password) {
         $query = sprintf('SELECT id, first_name, last_name, email, gender, dateofbirth, phone_number, address, zipcode, city, country, nationality, speak_danish, colleague,  user_team_id, password
@@ -207,7 +203,6 @@ class Users_model extends CI_Model {
         return false;
         die();
     }
-
     public function insert_qr_user($id = null, $user_qr = null) {
         $query = sprintf('UPDATE users
             SET
@@ -219,7 +214,6 @@ class Users_model extends CI_Model {
         $this->db->query($query);
 
     }
-
     public function get_qr_code($id = null, $user_qr = null){
         $query = sprintf('SELECT user_qr
             FROM 
@@ -229,7 +223,6 @@ class Users_model extends CI_Model {
         $result = $this->db->query($query);
         $row = $result->row();
     }
-
     public function get_qr_bool($id = null, $user_qr = null){
         $query = sprintf('SELECT qr_bool
             FROM 
@@ -239,14 +232,11 @@ class Users_model extends CI_Model {
         $result = $this->db->query($query);
         $row = $result->row();
     }
-
-    public function set_qr_bool($args = [])
-        { 
+    public function set_qr_bool($args = []){ 
             $query = sprintf('UPDATE users SET qr_bool = NOT qr_bool WHERE id = "%s" '
                 , $this->db->escape_like_str($args['qr_bool'])
                 , $this->db->escape_like_str($args['id']));
             $this->db->query($query);
             return $query;
-        }
-
+    }
 }

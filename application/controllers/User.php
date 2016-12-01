@@ -111,7 +111,7 @@ class User extends CI_Controller {
 		// Convert the $post object to an array, for testing
 		$post = (array)$post;
 
-		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'date of birth', 'phone_number', 'address', 'zipcode','city', 'country', 'nationality', 'speak_danish', 'colleague');
+		$args_check = array('first_name', 'last_name', 'email', 'password', 'gender', 'dateofbirth', 'phone_number', 'address', 'zipcode','city', 'country', 'nationality', 'speak_danish', 'colleague');
 
 		// first, flips key/value in $args_check, then comapres the two arrays, lastly test the count
 		if(count(array_intersect_key(array_flip($args_check), $post)) === count($args_check)) {
@@ -219,7 +219,6 @@ class User extends CI_Controller {
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->teams_model->get_team($safe_id));
 	}
-
 	public function user_team($id = null) {
 		$this->auth->method('GET');
 		//$this->auth->check_token();
@@ -238,7 +237,6 @@ class User extends CI_Controller {
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->users_model->get_team_leader($safe_id));
 	}
-
 	public function team_members($id = null) {
 		$this->auth->method('GET');
 		//$this->auth->check_token();
@@ -248,7 +246,6 @@ class User extends CI_Controller {
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->teams_model->get_team_members($safe_id));
 	}
-
 	public function add_team() {
 		$this->auth->method('POST'); 
 		//$this->auth->check_token();
@@ -304,7 +301,6 @@ class User extends CI_Controller {
 			'message' => 'Check the JSON data - properties are not correct' 
 		]);
 	}
-
 	public function qr_code_true($id = null, $user_qr = null){
 		$this->auth->method('PATCH');
 		$post = file_get_contents('php://input');

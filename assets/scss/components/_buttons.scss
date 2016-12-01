@@ -9,42 +9,18 @@ button {
 }
 
 .backbutton {
-  height: 59px;
+  @include gradient-background-reverse($secondary-color-yellow);
+  text-align: left;
   float: left;
-  background-color: #ffd962;
   border: none;
-  width: 50%;
   font-family: "eveleth-regular"; 
+  padding: 10px 15px;
 }
-
 .pagebuttons {
   width: 80%;
   margin-left: auto;
   margin-right: auto; 
 }
-
-.next {
-  background-color: #ffd962;
-  float: right;
-  width: 35%;
-  height: 34px;
-  border: none;
-  font-family: "eveleth-regular";
-  color: #043540;
-  margin-bottom: 15px; 
-}
-
-.back {
-  background-color: #ffd962;
-  float: left;
-  width: 35%;
-  height: 34px;
-  border: none;
-  font-family: "eveleth-regular";
-  color: #043540;
-  margin-bottom: 15px; 
-}
-
 #group-button {
   background-color: #ffd962; 
 }
