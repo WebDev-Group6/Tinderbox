@@ -41,7 +41,7 @@
 </footer>
 <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="<?php echo base_url('assets/js/store.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/scripts.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/script.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 </body>
 </html>

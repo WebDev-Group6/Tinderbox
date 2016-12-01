@@ -3,7 +3,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
 	.gradient-background {
-		@include gradient-background($secondary-color-azur);
+		@include gradient-background($secondary-azur-transparent, $secondary-color-azur);
 	}
 	p {
 		font-size: 10px;
@@ -26,7 +26,7 @@
       margin-bottom: 15px;
 	}
    label {
-      @include gradient-background-reverse($secondary-color-azur);
+      @include gradient-background-reverse($secondary-color-azur, $secondary-azur-transparent);
       padding: 4px 0 4px 10px;
       border-radius: 5px;
       font-size: 16px;

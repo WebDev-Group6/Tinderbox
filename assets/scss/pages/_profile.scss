@@ -14,7 +14,7 @@
   }
 }
 #profile {
-  @include gradient-background-reverse($primary-color-beige);
+  @include gradient-background-reverse($primary-color-beige, $primary-beige-transparent);
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: 16px;

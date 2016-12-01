@@ -30,7 +30,7 @@
 }
 .login-headline {
   text-align: center;
-  @include gradient-background($primary-color-beige);
+  @include gradient-background($primary-beige-transparent, $primary-color-beige);
   padding: 5px 15px;
   margin-top: 15px;
   h2 {
