@@ -1,8 +1,5 @@
 .form-div {
   padding: 15px;
-  button {
-
-  }
 }
 .feedback-input {
   color: $secondary-color-azur;
@@ -31,11 +28,17 @@
     font-size: 22px;
   }
 }
-
 .login-headline {
   text-align: center;
+  @include gradient-background($primary-color-beige);
+  padding: 5px 15px;
+  margin-top: 15px;
   h2 {
     line-height: 1.3;
+  }
+  h4 {
+    font-family: "eveleth-regular";
+    color: $primary-color-teal;
   }
   img {
     margin: 10px 20px;

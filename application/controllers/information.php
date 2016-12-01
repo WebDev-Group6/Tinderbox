@@ -7,25 +7,19 @@ class Information extends CI_Controller {
 	{
 		$data['title'] = 'Information';
 		$data['headline'] = 'Tinderbox Volunteer';
-
 		$this->info_auth->method('GET');
-
 		$this->load->model('information_model');
-
 		$this->output
 		->set_header('HTTP/1.1 200 OK')
 		->set_header('Content-Type: application/json')
 		->set_output(json_encode($this->information_model->get_info()))
 		->_display();
-
 		die();
 	}
 	public function add_info()
 	{
 		$this->info_auth->method('POST');
-
 		$this->load->model('information_model');
-
 		$post = file_get_contents('php://input');
 		$post = json_decode($post);
 
@@ -35,7 +29,6 @@ class Information extends CI_Controller {
 				'info_title' => $post->info_title ,
 				'info_content' => $post->info_content
 			]);
-
 			$this->output
 			->set_header('HTTP/1.1. 200 OK')
 			->set_header('Content-Type: application/json')
@@ -60,5 +53,4 @@ class Information extends CI_Controller {
 		}
 		die();
 	}
-
 }
