@@ -142,7 +142,7 @@ class Auth {
                         }
                         break;
                     case 'tinyint':
-                        if(!preg_match('/^[0-1]+$/', $data) || empty($data)) {
+                        if(!preg_match('/^[0-1]+$/', $data) && empty($data)) {
                             $this->http_response(400, 'Bad Request', [
                                 'message' => 'You did not pass an tiny integer'
                             ]);
