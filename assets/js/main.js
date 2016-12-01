@@ -143,12 +143,16 @@ function registrationPage() {
 				+'<option value="German">German</option>'
 				+'<option value="norwegian">Norwegian</option>'
 			+'</select>'
-			+'<label for="upload-image">Upload Image</label>'
-
-			+'<div class="upload-image">'
-				+'<img src="' + RESS+ 'img/picture.svg">'
-				+'<p>Upload image</p>'
-			+'</div>'
+			+'<script type="text/javascript" src="' + RESS + 'js/jquery-1.11.3-jquery.min.js"></script>'
+				+'<script type="text/javascript" src="' + RESS + 'js/script.js"></script>'
+				+'<label for="upload-image">Upload Image</label>'
+				+'<div id="preview"><img src="' + RESS +'img/no-image.jpg" /></div>'
+				+'<form id="form" action="ajaxupload.php" method="post" enctype="multipart/form-data">'
+				+'<input id="uploadImage" type="file" accept="image/*" name="image" />'
+				+'<input id="button" type="submit" value="Upload">'
+				+'</form>'
+    			+'<div id="err"></div>'
+				+'<hr>'
 			+'<label for="phonenumber">Phonenumber</label>'
 			+'<input id="phonenumber" type="text" name="phonenumber" placeholder="Phonenumber">'
 			+'<label for="address">Address</label>'
@@ -181,7 +185,7 @@ function registrationPage() {
 			+'</select>'
 			+'<label for="colleague">Preferred Colleague</label>'
 			+'<input id="colleague" type="text" name="colleague" placeholder="I like to work with (name)">'
-			+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'	
+			+'<button class="link-register-user" type="submit" value="REGISTER">Register</button>'
 		+'</div>';
 	jQuery('#main').html(html);
 	jQuery('title').html(titletag('Register as Tinderbox Volunteer'));
