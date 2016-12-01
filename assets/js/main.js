@@ -11,10 +11,10 @@ const RESS = 'assets/';
 	*-* Index Page *-*
 ----------------------*/
 function loginPage() {
-	storeCheck();
-	store.remove('user');
+    storeCheck();
+    store.remove('user');
     function storeCheck() {
-		// Use something else than alert()
+        // Use something else than alert()
         if (!store.enabled) {
             alert('Local storage is not supported by your browser. Please disable "Private Mode", or upgrade to a modern browser.');
             return false;
@@ -143,8 +143,6 @@ function registrationPage() {
 				+'<option value="German">German</option>'
 				+'<option value="norwegian">Norwegian</option>'
 			+'</select>'
-			+'<script type="text/javascript" src="' + RESS + 'js/jquery-1.11.3-jquery.min.js"></script>'
-				+'<script type="text/javascript" src="' + RESS + 'js/script.js"></script>'
 				+'<label for="upload-image">Upload Image</label>'
 				+'<div id="preview"><img src="' + RESS +'img/no-image.jpg" /></div>'
 				+'<form id="form" action="ajaxupload.php" method="post" enctype="multipart/form-data">'
@@ -237,7 +235,7 @@ function register() {
 			loginPage();
 		},
 			error: function(xhr, status, error) {
-			//var err = JSON.parse(xhr.responseText);
+			var err = JSON.parse(xhr.responseText);
 		}
 	});	
 }
@@ -570,6 +568,8 @@ function editUser() {
 		}
 	});
 }
+
+
 /*-------------------
 	*-* Map *-*
 -------------------*/
@@ -606,7 +606,7 @@ function messages() {
 			+'</div>'
 			+'<div class="row">'
 				+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
-					+'<span class="fa fa-envelope-o">Sent Messages</span>'
+					+'<span class="fa fa fa-share">Sent Messages</span>'
 					+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 				+'</div>'
 			+'</div>'
@@ -697,7 +697,7 @@ function msg_sent(){
 			+'<div class="container">'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
-						+'<span class="fa fa-envelope-o">I was placed the wrong place</span>'
+						+'<span class="fa fa-envelope">I was placed the wrong place</span>'
 						+'<p>Hi Torben, i have apparently been asssigned to a new..........</p>'
 						+'<h1>To:  Torben (leader)</h1>'
 						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
@@ -705,7 +705,7 @@ function msg_sent(){
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-new" id="button-schedule">'
-						+'<span class="fa fa-envelope-o">I need a new leader?!</span>'
+						+'<span class="fa fa-envelope">I need a new leader?!</span>'
 						+'<p>lorem ipsum stuff, new leader is needed because old....... </p>'
 						+'<h1>To:  Torben (leader)</h1>'
 						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
@@ -713,7 +713,7 @@ function msg_sent(){
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
-						+'<span class="fa fa-envelope-o">Thank you!</span>'
+						+'<span class="fa fa-envelope">Thank you!</span>'
 						+'<p>Hi Svend-ole, thank you so much for swapping shifts with......</p>'
 						+'<h1>To:  Svend-ole(Volunteer)</h1>'
 						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
@@ -721,7 +721,7 @@ function msg_sent(){
 				+'</div>'
 				+'<div class="row">'
 					+'<div class="col-xs-12 nopadding menu-button link-inbox" id="button-map">'
-						+'<span class="fa fa-envelope-o">Important Message</span>'
+						+'<span class="fa fa-envelope">Important Message</span>'
 						+'<p>lorem ipsum stuff, content of the message seen here......</p>'
 						+'<h1>To:  Tinderbox (staff)</h1>'
 						+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
@@ -754,7 +754,7 @@ function msg_sent(){
 			+'</div>'
 			+'<div class="row">'
 				+'<div class="col-xs-12 nopadding menu-button link-sent" id="button-map">'
-					+'<span class="fa fa-envelope-o">Sent Messages</span>'
+					+'<span class="fa fa-envelope">Sent Messages</span>'
 					+'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 				+'</div>'
 			+'</div>'
@@ -817,8 +817,8 @@ function information() {
 	jQuery('#back-link').html(back()); 	 
 }
 /*-------------------------
-	*-* Schedule *-*
----------------------------*/
+ *-* Schedule *-*
+ ---------------------------*/
 function schedule() {
 	var user = store.get('user');	 
 	jQuery.ajax({
@@ -961,8 +961,8 @@ function schedule() {
 	})
 }
 /*-------------------------
-	*-* Qr Codes *-*
----------------------------*/
+ *-* Qr Codes *-*
+ ---------------------------*/
 function qrcode() {
 	var user = store.get('user');
 	var user_qr = store.get('user').user_qr;
@@ -1054,6 +1054,25 @@ function single_line() {
 		'<img src="' + RESS + 'img/tinderbox_single_line.svg">'
 	return html;
 }
+/*----------------------------
+	*-* Drop down menu *-*
+-----------------------------*/
+function toggleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+window.onclick = function(event) {
+  if (event.target.matches('.dropdown')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+};
 /*-----------------------------------
 	*-* Onclick event listeners *-*
 ------------------------------------*/

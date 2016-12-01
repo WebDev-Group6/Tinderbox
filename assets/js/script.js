@@ -1,8 +1,8 @@
 $(document).ready(function (e) {
   $("#form").on('submit',(function(e) {
     e.preventDefault();
-    $.ajax({
-          url: 'http://localhost:8888/tinderbox/tinderbox/ajaxupload',
+    jQuery.ajax({
+          url: URL + RESS + 'uploads',
       type: "POST",
       data:  new FormData(this),
       contentType: false,
@@ -11,14 +11,14 @@ $(document).ready(function (e) {
       beforeSend : function()
       {
         //$("#preview").fadeOut();
-        $("#err").fadeOut();
+        jQuery("#err").fadeOut();
       },
       success: function(data)
         {
         if(data=='invalid')
         {
           // invalid file format.
-          $("#err").html("Invalid File !").fadeIn();
+          jQuery("#err").html("Invalid File !").fadeIn();
         }
         else
         {

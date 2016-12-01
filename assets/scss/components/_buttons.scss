@@ -9,7 +9,7 @@ button {
 }
 
 .backbutton {
-  @include gradient-background-reverse($secondary-color-yellow);
+  @include gradient-background-reverse($secondary-color-yellow, $secondary-yellow-transparent);
   text-align: left;
   float: left;
   border: none;

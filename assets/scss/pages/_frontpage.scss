@@ -1,5 +1,5 @@
 .gradient-background {
-	@include gradient-background($secondary-color-rosa);
+	@include gradient-background($secondary-rosa-transparent, $secondary-color-rosa);
 }
 
 a.button {
@@ -35,18 +35,18 @@ a.button {
 
 #button {
   &-schedule {
-    @include gradient-background($secondary-color-yellow);
+    @include gradient-background($secondary-yellow-transparent, $secondary-color-yellow);
   }
   &-qrcode {
-    @include gradient-background($secondary-color-rosa);
+    @include gradient-background($secondary-rosa-transparent, $secondary-color-rosa);
   }
   &-map {
-    @include gradient-background($secondary-color-azur);
+    @include gradient-background($secondary-azur-transparent, $secondary-color-azur);
   }
   &-information {
-    @include gradient-background($secondary-color-yellow);
+    @include gradient-background($secondary-yellow-transparent, $secondary-color-yellow);
   }
   &-messages {
-    @include gradient-background($secondary-color-rosa);
+    @include gradient-background($secondary-rosa-transparent, $secondary-color-rosa);
   }
 }

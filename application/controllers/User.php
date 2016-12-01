@@ -214,7 +214,9 @@ class User extends CI_Controller {
 		$this->auth->method('GET');
 		$this->auth->check_token();
 		// Validate Data
+
 		$this->auth->secure_escape('validate', 'int', $id);
+
 		// Sanitize Data
 		$safe_id = $this->auth->secure_escape('sanitize', 2, $id);
 		$this->auth->http_response(200, 'OK', $this->teams_model->get_team($safe_id));

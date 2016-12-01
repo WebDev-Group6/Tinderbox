@@ -15,7 +15,7 @@
   margin-top: 20px;
   margin-bottom: 20px;
   label {
-    @include gradient-background-reverse($secondary-color-azur);
+    @include gradient-background-reverse($secondary-color-azur, $secondary-azur-transparent);
     padding: 4px 0 4px 10px;
     border-radius: 5px;
     font-size: 16px;
@@ -30,12 +30,21 @@
     font-size: 16px;
     padding-left: 10px;
     border: 1px solid $primary-color-teal;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: $primary-color-beige;
   }
   .update-user {
     background-color: $secondary-color-yellow;
   }
   .link-register-user {
     background-color: $secondary-color-yellow;
+  }
+  #preview {
+    img {
+      width: 80%;
+      margin-bottom: 15px;
+    }
   }
 }
 .dropdown-style{
